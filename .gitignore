@@ -10,7 +10,10 @@
 .pub/
 .dart_tool/
 .flutter-plugins-dependencies
+
+# IDE files
 .idea/
+.vscode/
 
 build
 
