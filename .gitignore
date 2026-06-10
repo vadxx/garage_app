@@ -1,0 +1,27 @@
+# Generated Dart files
+*.g.dart
+*.freezed.dart
+
+# Generated Flutter files
+*.lock
+*.iml
+.metadata
+.pub-cache/
+.pub/
+.dart_tool/
+.flutter-plugins-dependencies
+.idea/
+
+build
+
+# Platform folders (regenerated via flutter create)
+android
+!android/app/src/main/AndroidManifest.xml
+
+windows
+!windows/runner/main.cpp
+
+ios
+macos
+linux
+web
