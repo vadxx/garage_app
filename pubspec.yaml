@@ -9,6 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  slang: ^4.15.0
+  slang_flutter: ^4.8.0
 
   backend: # local
     path: packages/backend
