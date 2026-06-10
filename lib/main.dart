@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:backend/backend.dart';
+import 'app_router.dart';
 import 'i18n/i18n.dart';
 
 void main() {
@@ -18,24 +18,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final awesome = Awesome();
-    if (!awesome.isAwesome) {
-      return Container();
-    }
-    return MaterialApp(
+    return MaterialApp.router(
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      home: Home(),
+      routerConfig: appRouter,
     );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('🚗 ${context.t.appTitle}')));
   }
 }
