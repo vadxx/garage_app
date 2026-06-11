@@ -1,6 +1,8 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
+export 'settings_page.dart';
+
 import 'package:flutter/material.dart';
 
 import '../app_router.dart';
@@ -25,25 +27,6 @@ class HomePage extends StatelessWidget {
             label: Text('⚙️', style: _bigTextSize),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final title = context.t.settings;
-    return Scaffold(
-      appBar: AppBar(
-        leading: TextButton.icon(
-          onPressed: () => goToHome(context),
-          label: Text('🡰', style: _bigTextSize),
-        ),
-        title: Text(title),
-        titleSpacing: 0,
       ),
     );
   }

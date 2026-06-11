@@ -1,3 +1,17 @@
 key,en,ru
 appTitle,Garage,Гараж
 settings,Settings,Настройки
+language,Language,Язык
+distanceUnit,Distance unit,Единица расстояния
+theme,Theme,Тема
+currency,Currency,Валюта
+en,English,Английский
+ru,Russian,Русский
+km,Kilometers,Километры
+mi,Miles,Мили
+system,System,Системная
+light,Light,Светлая
+dark,Dark,Тёмная
+usd,USD,USD
+rub,RUB,RUB
+eur,EUR,EUR
