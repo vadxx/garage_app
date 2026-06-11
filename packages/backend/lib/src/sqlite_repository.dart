@@ -33,14 +33,13 @@ class SqliteSettingsRepository implements SettingsRepository {
 
   @override
   AppSettings load() {
-    // TODO: implement load
-    throw UnimplementedError();
+    final row = _db.select(SqlSettingsQueries.load).first;
+    return AppSettings.fromSqlRow(row.values);
   }
 
   @override
-  void save(AppSettings settings) {
-    // TODO: implement save
-  }
+  void save(AppSettings settings) =>
+      _db.execute(SqlSettingsQueries.update, settings.toSqlRow());
 }
 
 class SqliteCarsRepository implements CarsRepository {
