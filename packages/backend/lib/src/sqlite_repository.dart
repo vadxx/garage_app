@@ -1,3 +1,4 @@
+import 'package:backend/src/models/car.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import 'repository.dart';
@@ -45,6 +46,22 @@ class SqliteSettingsRepository implements SettingsRepository {
 class SqliteCarsRepository implements CarsRepository {
   final Database _db;
   SqliteCarsRepository(this._db) {
-    _db.execute(SqlCarsQueries.createTable); // TODO: implement query
+    _db.execute(SqlCarsQueries.createTable);
   }
+
+  @override
+  void delete(int carId) => _db.execute(SqlCarsQueries.delete, [carId]);
+
+  @override
+  void insert(Car car) => _db.execute(SqlCarsQueries.insert, car.toSqlRow());
+
+  @override
+  List<Car> load() => _db
+      .select(SqlCarsQueries.load)
+      .map((r) => Car.fromSqlRow(r.values))
+      .toList();
+
+  @override
+  void update(Car car) =>
+      _db.execute(SqlCarsQueries.update, [...car.toSqlRow(), car.id]);
 }

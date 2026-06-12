@@ -15,8 +15,8 @@ abstract class SettingsRepository {
 }
 
 abstract class CarsRepository {
-  // List<Car> loadCars()
-  // void insertCar(Car car)
-  // void updateCar(Car car)
-  // void deleteCar(int carId)
+  List<Car> load();
+  void insert(Car car);
+  void update(Car car);
+  void delete(int carId);
 }

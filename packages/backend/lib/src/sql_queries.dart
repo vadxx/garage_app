@@ -4,13 +4,45 @@
 class SqlCarsQueries {
   SqlCarsQueries._();
 
+  static const _columns = 'id, year, color, price, mileage, make, model, plate';
   static const _table = 'cars';
 
   // dart format off
   static const createTable = '''
+CREATE TABLE IF NOT EXISTS $_table (
+  id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  year      INTEGER DEFAULT 0,
+  color     INTEGER DEFAULT 0,
+  price     INTEGER DEFAULT 0,
+  mileage   INTEGER DEFAULT 0,
+  make      TEXT NOT NULL,
+  model     TEXT NOT NULL,
+  plate     TEXT NOT NULL
+)
 ''';
 
-  static const String countCars = 'SELECT COUNT(*) as c FROM $_table';
+  static const String count = 'SELECT COUNT(*) as c FROM $_table';
+
+  static const String load = 'SELECT $_columns FROM $_table ORDER BY id';
+
+  static const insert = '''
+INSERT INTO $_table (year, color, price, mileage, make, model, plate)
+VALUES (?, ?, ?, ?, ?, ?, ?)
+''';
+
+  static const update = '''
+UPDATE $_table SET
+  year    = ?,
+  color   = ?,
+  price   = ?,
+  mileage = ?,
+  make    = ?,
+  model   = ?,
+  plate   = ?
+WHERE id = ?
+''';
+
+  static const String delete = 'DELETE FROM $_table WHERE id = ?';
   // dart format on
 }
 

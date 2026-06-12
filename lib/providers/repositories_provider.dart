@@ -22,3 +22,7 @@ final repositoriesProvider = FutureProvider<Repositories>((ref) async {
 final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => ref.watch(repositoriesProvider).requireValue.settingsRepo,
 );
+
+final carsRepositoryProvider = Provider<CarsRepository>(
+  (ref) => ref.watch(repositoriesProvider).requireValue.carsRepo,
+);
