@@ -15,3 +15,14 @@ dark,Dark,Тёмная
 usd,USD,USD
 rub,RUB,RUB
 eur,EUR,EUR
+addCar,Add car,Добавить авто
+editCar,Edit car,Изменить авто
+make,Make,Марка
+model,Model,Модель
+year,Year,Год
+plate,Plate,Номер
+price,Price,Цена
+mileage,Mileage,Пробег
+save,Save,Сохранить
+cancel,Cancel,Отмена
+color,Color,Цвет

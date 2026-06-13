@@ -5,6 +5,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'car.freezed.dart';
 
+enum CarColor { white, black, silver, blue, red, green }
+
+const minYear = 1970;
+
+int get currentYear => DateTime.now().year;
+
 @freezed
 class Car with _$Car {
   const factory Car({
