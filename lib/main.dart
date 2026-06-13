@@ -25,22 +25,26 @@ class MainApp extends ConsumerWidget {
     return ref
         .watch(repositoriesProvider)
         .when(
-          data: (_) {
-            final settings = ref.watch(appSettingsProvider);
-            // Change language in background (sync slang locale). Suppress warning.
-            unawaited(LocaleSettings.setLocale(AppLocale.values[settings.language.index]));
-            return MaterialApp.router(
-              locale: settings.language.locale,
-              supportedLocales: AppLocaleUtils.supportedLocales,
-              localizationsDelegates: GlobalMaterialLocalizations.delegates,
-              routerConfig: appRouter,
-              themeMode: settings.theme.mode,
-              theme: ThemeData(brightness: Brightness.light),
-              darkTheme: ThemeData(brightness: Brightness.dark),
-            );
-          },
+          data: (_) => onBackendReady(ref),
           loading: () => const MaterialApp(home: SizedBox.shrink()),
           error: (e, _) => MaterialApp(home: Text('Init failed: $e')),
         );
+  }
+
+  MaterialApp onBackendReady(WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    // Change language in background (sync slang locale). Suppress warning.
+    unawaited(
+      LocaleSettings.setLocale(AppLocale.values[settings.language.index]),
+    );
+    return MaterialApp.router(
+      locale: settings.language.locale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      routerConfig: appRouter,
+      themeMode: settings.theme.mode,
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+    );
   }
 }

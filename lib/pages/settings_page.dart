@@ -18,15 +18,17 @@ class SettingsPage extends ConsumerWidget {
     final title = context.t.settings;
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => goToHome(context),
-          // label: Text('🡰', style: _bigTextSize),
-        ),
+        leading: BackButton(onPressed: () => goToHome(context)),
         title: Text(title),
         titleSpacing: 0,
       ),
       body: ListView(
-        children: [_ThemeChanger(), _LanguageChanger(), _CurrencyChanger()],
+        children: [
+          _ThemeChanger(),
+          _LanguageChanger(),
+          _CurrencyChanger(),
+          _MileageChanger(),
+        ],
       ),
     );
   }
@@ -40,7 +42,7 @@ class _ThemeChanger extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(appSettingsProvider);
     return ListTile(
-      title: Text(context.t.theme),
+    title: Text('🎨 ${context.t.theme}'),
       trailing: DropdownButton<backend.Theme>(
         value: settings.theme,
         items: [
@@ -71,7 +73,7 @@ class _LanguageChanger extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(appSettingsProvider);
     return ListTile(
-      title: Text(context.t.language),
+      title: Text('🌐 ${context.t.language}'),
       trailing: DropdownButton<backend.Language>(
         value: settings.language,
         items: [
@@ -99,7 +101,7 @@ class _CurrencyChanger extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(appSettingsProvider);
     return ListTile(
-      title: Text(context.t.currency),
+      title: Text('💵 ${context.t.currency}'),
       trailing: DropdownButton<backend.Currency>(
         value: settings.currency,
         items: [
@@ -118,6 +120,34 @@ class _CurrencyChanger extends ConsumerWidget {
         ],
         onChanged: (v) =>
             ref.read(appSettingsProvider.notifier).setCurrency(v!),
+      ),
+    );
+  }
+}
+
+// TODO: Refactor
+class _MileageChanger extends ConsumerWidget {
+  const _MileageChanger();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    return ListTile(
+      title: Text('📏 ${context.t.mileage}'),
+      trailing: DropdownButton<backend.DistanceUnit>(
+        value: settings.distanceUnit,
+        items: [
+          DropdownMenuItem(
+            value: backend.DistanceUnit.km,
+            child: Text(context.t.km),
+          ),
+          DropdownMenuItem(
+            value: backend.DistanceUnit.mi,
+            child: Text(context.t.mi),
+          ),
+        ],
+        onChanged: (v) =>
+            ref.read(appSettingsProvider.notifier).setDistanceUnit(v!),
       ),
     );
   }
