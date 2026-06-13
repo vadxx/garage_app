@@ -9,7 +9,7 @@ import '../i18n/i18n.dart';
 
 import '../providers/providers.dart';
 
-const _bigTextSize = TextStyle(fontSize: 24);
+const _bigTextSize = TextStyle(fontSize: 20);
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -27,8 +27,8 @@ class HomePage extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () => goToAddCar(context),
-      icon: const Icon(Icons.add),
-      label: Text(context.t.addCar),
+      icon: Text('➕', style: _bigTextSize),
+      label: Text(context.t.addCar, style: _bigTextSize),
     );
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
       body: const _CarsList(),
       bottomNavigationBar: SizedBox(
         width: double.infinity,
-        height: 54,
+        height: 64,
         child: Padding(padding: const EdgeInsets.all(4.0), child: addCarButton),
       ),
     );
@@ -58,6 +58,7 @@ class _CarsList extends ConsumerWidget {
       itemBuilder: (_, i) => ListTile(
         title: Text('${cars[i].make} ${cars[i].model}'),
         subtitle: Text('${cars[i].year} · ${cars[i].plate}'),
+        onTap: () => goToCarDetail(context, cars[i].id),
       ),
     );
   }

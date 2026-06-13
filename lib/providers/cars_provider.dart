@@ -1,3 +1,6 @@
+// Copyright (c) 2026 vadxx
+// SPDX-License-Identifier: MIT
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart';
 import 'repositories_provider.dart';
@@ -19,6 +22,12 @@ class CarsNotifier extends Notifier<List<Car>> {
   void updateCar(Car car) {
     final repo = ref.read(carsRepositoryProvider);
     repo.update(car);
+    state = repo.load();
+  }
+
+  void deleteCar(int carId) {
+    final repo = ref.read(carsRepositoryProvider);
+    repo.delete(carId);
     state = repo.load();
   }
 }

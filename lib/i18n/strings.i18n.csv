@@ -17,6 +17,10 @@ rub,RUB,RUB
 eur,EUR,EUR
 addCar,Add car,Добавить авто
 editCar,Edit car,Изменить авто
+saveChanges,Save changes,Сохранить изменения
+deleteCar,Delete car,Удалить авто
+delete,Delete,Удалить
+areYouSure,Are you sure?,Вы уверены?
 make,Make,Марка
 model,Model,Модель
 year,Year,Год

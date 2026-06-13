@@ -10,7 +10,7 @@ import '../app_router.dart';
 import '../i18n/i18n.dart';
 import '../providers/providers.dart';
 
-const _bigTextSize = TextStyle(fontSize: 24);
+const _bigTextSize = TextStyle(fontSize: 20);
 
 const _colorPalette = [
   (CarColor.white, Colors.white),
@@ -35,34 +35,23 @@ class AddEditCarPage extends ConsumerWidget {
     if (isEdit && form.make.isEmpty) {
       final cars = ref.watch(carsProvider);
       final car = cars.firstWhere((c) => c.id == carId);
-      ref.read(carFormProvider.notifier).loadCar(car);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(carFormProvider.notifier).loadCar(car);
+      });
     }
 
     final String modeTitle = isEdit ? context.t.editCar : context.t.addCar;
     final saveButton = TextButton.icon(
-      onPressed: () => notifier.save(context, carId: carId),
-      label: Text('💾', style: _bigTextSize),
-    );
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => goToHome(context)),
-        title: Text(modeTitle),
-        titleSpacing: 0,
-        actions: [saveButton],
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      body: const _FieldsList(),
+      onPressed: () => notifier.save(context, carId: carId),
+      icon: Text('💾', style: _bigTextSize),
+      label: Text(context.t.saveChanges, style: _bigTextSize),
     );
-  }
-}
 
-class _FieldsList extends ConsumerWidget {
-  const _FieldsList();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final form = ref.watch(carFormProvider);
-    final notifier = ref.read(carFormProvider.notifier);
-    final fields = [
+    final formFields = [
       _Field(
         label: context.t.make,
         controller: notifier.makeController,
@@ -116,14 +105,61 @@ class _FieldsList extends ConsumerWidget {
         }).toList(),
       ),
     ];
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [...fields, ...colorsGroup],
+
+    final deleteCar = SizedBox(
+      child: IconButton(
+        onPressed: () async {
+          final confirmed = await showDeleteCarDialog(context) ?? false;
+          if (confirmed && context.mounted) {
+            ref.read(carsProvider.notifier).deleteCar(carId!);
+            goToHome(context);
+          }
+        },
+        icon: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: const Icon(Icons.delete_outline, color: Colors.red, size: 28),
+        ),
+      ),
+    );
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(onPressed: () => goToHome(context)),
+        title: Text(modeTitle),
+        titleSpacing: 0,
+        actions: [if (isEdit) deleteCar],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [...formFields, ...colorsGroup],
+        ),
+      ),
+      bottomNavigationBar: SizedBox(
+        width: double.infinity,
+        height: 64,
+        child: Padding(padding: const EdgeInsets.all(4.0), child: saveButton),
       ),
     );
   }
+
+  Future<bool?> showDeleteCarDialog(BuildContext context) => showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: Text(context.t.deleteCar),
+      content: Text(context.t.areYouSure),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(ctx, false),
+          child: Text(context.t.cancel),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(ctx, true),
+          child: Text(context.t.delete),
+        ),
+      ],
+    ),
+  );
 }
 
 class _CircleColor extends StatelessWidget {

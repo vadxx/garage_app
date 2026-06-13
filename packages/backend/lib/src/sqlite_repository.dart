@@ -1,3 +1,6 @@
+// Copyright (c) 2026 vadxx
+// SPDX-License-Identifier: MIT
+
 import 'package:backend/src/models/car.dart';
 import 'package:sqlite3/sqlite3.dart';
 

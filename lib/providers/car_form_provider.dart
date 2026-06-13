@@ -57,7 +57,7 @@ class CarFormState {
   );
 }
 
-class CarFormNotifier extends Notifier<CarFormState> {
+class CarFormNotifier extends AutoDisposeNotifier<CarFormState> {
   late final TextEditingController makeController;
   late final TextEditingController modelController;
   late final TextEditingController yearController;
@@ -165,6 +165,7 @@ class CarFormNotifier extends Notifier<CarFormState> {
   }
 }
 
-final carFormProvider = NotifierProvider<CarFormNotifier, CarFormState>(
-  CarFormNotifier.new,
-);
+final carFormProvider =
+    NotifierProvider.autoDispose<CarFormNotifier, CarFormState>(
+      CarFormNotifier.new,
+    );

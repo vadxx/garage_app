@@ -28,6 +28,8 @@ final appRouter = GoRouter(
 
 void goToSettings(BuildContext context) => context.go(Routes.settings);
 
+void goToCarDetail(BuildContext context, int id) => context.go(Routes.car(id.toString()));
+
 void goToAddCar(BuildContext context) => context.go(Routes.addCar);
 void goToEditCar(BuildContext context, int id) =>
     context.go(Routes.editCar(id));
