@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart';
 
 import 'repositories_provider.dart';
-import '../i18n/i18n.dart';
-
 
 final appSettingsProvider = NotifierProvider<AppSettingsNotifier, AppSettings>(
   AppSettingsNotifier.new,
@@ -16,10 +14,9 @@ class AppSettingsNotifier extends Notifier<AppSettings> {
   @override
   AppSettings build() => ref.watch(settingsRepositoryProvider).load();
 
-  Future<void> setLanguage(Language v) async {
+  void setLanguage(Language v) {
     state = state.copyWith(language: v);
     _save();
-    await LocaleSettings.setLocale(AppLocale.values[v.index]);
   }
 
   void setDistanceUnit(DistanceUnit v) {
