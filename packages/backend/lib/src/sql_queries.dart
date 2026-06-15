@@ -4,7 +4,7 @@
 class SqlCarsQueries {
   SqlCarsQueries._();
 
-  static const _columns = 'id, year, color, price, mileage, make, model, plate';
+  static const _columns = 'year, color, price, mileage, make, model, plate';
   static const _table = 'cars';
 
   // dart format off
@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS $_table (
 
   static const String count = 'SELECT COUNT(*) as c FROM $_table';
 
-  static const String load = 'SELECT $_columns FROM $_table ORDER BY id';
+  static const String load = 'SELECT id, $_columns FROM $_table ORDER BY id';
 
   static const insert = '''
-INSERT INTO $_table (year, color, price, mileage, make, model, plate)
+INSERT INTO $_table ($_columns)
 VALUES (?, ?, ?, ?, ?, ?, ?)
 ''';
 

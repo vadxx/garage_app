@@ -8,56 +8,48 @@ import 'cars_provider.dart';
 import '../app_router.dart';
 
 class CarFormState {
-  final String make;
-  final String model;
-  final String year;
-  final String plate;
-  final String price;
-  final String mileage;
   final int colorIndex;
-  final String? makeError;
-  final String? modelError;
-  final String? yearError;
+  final bool isLoaded;
+  final String? makeError,
+      modelError,
+      yearError,
+      plateError,
+      priceError,
+      mileageError;
 
   const CarFormState({
-    this.make = '',
-    this.model = '',
-    this.year = '',
-    this.plate = '',
-    this.price = '',
-    this.mileage = '',
     this.colorIndex = 0,
+    this.isLoaded = false,
     this.makeError,
     this.modelError,
     this.yearError,
+    this.plateError,
+    this.priceError,
+    this.mileageError,
   });
 
   CarFormState copyWith({
-    String? make,
-    String? model,
-    String? year,
-    String? plate,
-    String? price,
-    String? mileage,
     int? colorIndex,
+    bool? isLoaded,
     String? Function()? makeError,
-    String? Function()? modelError,
-    String? Function()? yearError,
+    modelError,
+    yearError,
+    plateError,
+    priceError,
+    mileageError,
   }) => CarFormState(
-    make: make ?? this.make,
-    model: model ?? this.model,
-    year: year ?? this.year,
-    plate: plate ?? this.plate,
-    price: price ?? this.price,
-    mileage: mileage ?? this.mileage,
     colorIndex: colorIndex ?? this.colorIndex,
+    isLoaded: isLoaded ?? this.isLoaded,
     makeError: makeError != null ? makeError() : this.makeError,
     modelError: modelError != null ? modelError() : this.modelError,
     yearError: yearError != null ? yearError() : this.yearError,
+    plateError: plateError != null ? plateError() : this.plateError,
+    priceError: priceError != null ? priceError() : this.priceError,
+    mileageError: mileageError != null ? mileageError() : this.mileageError,
   );
 }
 
-class CarFormNotifier extends AutoDisposeNotifier<CarFormState> {
+class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
   late final TextEditingController makeController;
   late final TextEditingController modelController;
   late final TextEditingController yearController;
@@ -66,7 +58,7 @@ class CarFormNotifier extends AutoDisposeNotifier<CarFormState> {
   late final TextEditingController mileageController;
 
   @override
-  CarFormState build() {
+  CarFormState build(int? carId) {
     makeController = TextEditingController();
     modelController = TextEditingController();
     yearController = TextEditingController();
@@ -81,91 +73,103 @@ class CarFormNotifier extends AutoDisposeNotifier<CarFormState> {
       priceController.dispose();
       mileageController.dispose();
     });
+
+    if (carId != null) {
+      final cars = ref.read(carsProvider);
+      final car = cars.firstWhere((c) => c.id == carId);
+      makeController.text = car.make;
+      modelController.text = car.model;
+      yearController.text = car.year.toString();
+      plateController.text = car.plate;
+      priceController.text = car.price.toString();
+      mileageController.text = car.mileage.toString();
+      return CarFormState(colorIndex: car.color, isLoaded: true);
+    }
     return const CarFormState();
   }
 
-  void loadCar(Car car) {
-    makeController.text = car.make;
-    modelController.text = car.model;
-    yearController.text = car.year.toString();
-    plateController.text = car.plate;
-    priceController.text = car.price.toString();
-    mileageController.text = car.mileage.toString();
-    state = CarFormState(
-      make: car.make,
-      model: car.model,
-      year: car.year.toString(),
-      plate: car.plate,
-      price: car.price.toString(),
-      mileage: car.mileage.toString(),
-      colorIndex: car.color,
-    );
-  }
-
-  void setMake(String v) =>
-      state = state.copyWith(make: v, makeError: () => null);
-  void setModel(String v) =>
-      state = state.copyWith(model: v, modelError: () => null);
-  void setYear(String v) =>
-      state = state.copyWith(year: v, yearError: () => null);
-  void setPlate(String v) => state = state.copyWith(plate: v);
-  void setPrice(String v) => state = state.copyWith(price: v);
-  void setMileage(String v) => state = state.copyWith(mileage: v);
+  void setMake(String v) => state = state.copyWith(makeError: () => null);
+  void setModel(String v) => state = state.copyWith(modelError: () => null);
+  void setYear(String v) => state = state.copyWith(yearError: () => null);
+  void setPlate(String v) => state = state.copyWith(plateError: () => null);
+  void setPrice(String v) => state = state.copyWith(priceError: () => null);
+  void setMileage(String v) => state = state.copyWith(mileageError: () => null);
   void setColor(int v) => state = state.copyWith(colorIndex: v);
 
   bool _hasValue(String v) => v.trim().isNotEmpty;
 
   bool validate() {
     final now = currentYear;
-    String? makeErr, modelErr, yearErr;
+    String? makeErr, modelErr, yearErr, plateErr, priceErr, mileageErr;
 
-    if (!_hasValue(state.make)) makeErr = 'Required';
-    if (!_hasValue(state.model)) modelErr = 'Required';
+    if (!_hasValue(makeController.text)) makeErr = 'Required';
+    if (!_hasValue(modelController.text)) modelErr = 'Required';
+    if (!_hasValue(plateController.text)) plateErr = 'Required';
 
-    if (!_hasValue(state.year)) {
+    if (!_hasValue(yearController.text)) {
       yearErr = 'Required';
     } else {
-      final y = int.tryParse(state.year);
+      final y = int.tryParse(yearController.text);
       if (y == null) {
         yearErr = 'Enter a valid year';
       } else if (y < minYear || y > now) {
-        yearErr = 'Year must be $minYear–$now';
+        yearErr = 'Year must be $minYear – $now';
       }
+    }
+
+    if (!_hasValue(priceController.text)) {
+      priceErr = 'Required';
+    } else {
+      final p = int.tryParse(priceController.text);
+      if (p == null || p <= 0) priceErr = 'Enter a valid price';
+    }
+
+    if (!_hasValue(mileageController.text)) {
+      mileageErr = 'Required';
+    } else {
+      final m = int.tryParse(mileageController.text);
+      if (m == null || m < 0) mileageErr = 'Enter a valid mileage';
     }
 
     state = state.copyWith(
       makeError: () => makeErr,
       modelError: () => modelErr,
       yearError: () => yearErr,
+      plateError: () => plateErr,
+      priceError: () => priceErr,
+      mileageError: () => mileageErr,
     );
-    return makeErr == null && modelErr == null && yearErr == null;
+    return makeErr == null &&
+        modelErr == null &&
+        yearErr == null &&
+        plateErr == null &&
+        priceErr == null &&
+        mileageErr == null;
   }
 
-  void save(BuildContext context, {int? carId}) {
+  void save(BuildContext context) {
     if (!validate()) return;
-
+    final id = arg;
     final car = Car(
-      id: carId ?? 0,
-      make: state.make.trim(),
-      model: state.model.trim(),
-      year: int.parse(state.year),
-      plate: state.plate.trim(),
-      price: int.tryParse(state.price) ?? 0,
-      mileage: int.tryParse(state.mileage) ?? 0,
+      id: id ?? 0,
+      make: makeController.text.trim(),
+      model: modelController.text.trim(),
+      year: int.parse(yearController.text),
+      plate: plateController.text.trim(),
+      price: int.parse(priceController.text),
+      mileage: int.parse(mileageController.text),
       color: state.colorIndex,
     );
-
-    if (carId != null) {
+    if (id != null) {
       ref.read(carsProvider.notifier).updateCar(car);
     } else {
       ref.read(carsProvider.notifier).addCar(car);
     }
-
     goToHome(context);
   }
 }
 
 final carFormProvider =
-    NotifierProvider.autoDispose<CarFormNotifier, CarFormState>(
+    NotifierProvider.autoDispose.family<CarFormNotifier, CarFormState, int?>(
       CarFormNotifier.new,
     );
