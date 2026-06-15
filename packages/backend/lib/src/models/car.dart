@@ -5,7 +5,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'car.freezed.dart';
 
-enum CarColor { white, black, silver, blue, red, green }
+enum CarColor {
+  white,
+  black,
+  silver,
+  blue,
+  red,
+  green,
+  yellow,
+  orange,
+  purple,
+  brown,
+}
 
 const minYear = 1970;
 
