@@ -1,11 +1,10 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
-import 'package:backend/src/models/car.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import 'repository.dart';
-import 'models/settings.dart';
+import 'models/models.dart';
 import 'sql_queries.dart';
 
 const String _dbFileName = 'garage.db';
@@ -50,10 +49,14 @@ class SqliteCarsRepository implements CarsRepository {
   final Database _db;
   SqliteCarsRepository(this._db) {
     _db.execute(SqlCarsQueries.createTable);
+    _db.execute(SqlCarsStatsQueries.createTable);
   }
 
   @override
-  void delete(int carId) => _db.execute(SqlCarsQueries.delete, [carId]);
+  void delete(int carId) {
+    _db.execute(SqlCarsStatsQueries.deleteCarStats, [carId]);
+    _db.execute(SqlCarsQueries.delete, [carId]);
+  }
 
   @override
   void insert(Car car) => _db.execute(SqlCarsQueries.insert, car.toSqlRow());
@@ -67,4 +70,15 @@ class SqliteCarsRepository implements CarsRepository {
   @override
   void update(Car car) =>
       _db.execute(SqlCarsQueries.update, [...car.toSqlRow(), car.id]);
+
+  @override
+  CarStats loadCarStats(int carId) {
+    final rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+    assert(rows.isNotEmpty, 'CarStats row must exist for car $carId');
+    return CarStats.fromSqlRow(rows.first.values);
+  }
+
+  @override
+  void saveCarStats(CarStats stats) =>
+      _db.execute(SqlCarsStatsQueries.saveCarStats, stats.toSqlRow());
 }

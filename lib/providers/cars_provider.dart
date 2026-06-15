@@ -17,6 +17,10 @@ class CarsNotifier extends Notifier<List<Car>> {
     final repo = ref.read(carsRepositoryProvider);
     repo.insert(car);
     state = repo.load();
+    final newCar = state.last;
+    repo.saveCarStats(
+      CarStats(carId: newCar.id, totalSpent: 0, lastOilChangeKm: 0),
+    );
   }
 
   void updateCar(Car car) {

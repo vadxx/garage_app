@@ -87,3 +87,18 @@ class Field extends StatelessWidget {
     );
   }
 }
+
+Column subColumn(String label, String value, {Color? valueColor}) {
+  TextStyle labelSmall = TextStyle(fontSize: 12, letterSpacing: 0.6);
+  TextStyle valueSmall = TextStyle(
+    fontWeight: FontWeight.w600,
+    color: valueColor,
+  );
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: labelSmall),
+      Text(value, style: valueSmall),
+    ],
+  );
+}

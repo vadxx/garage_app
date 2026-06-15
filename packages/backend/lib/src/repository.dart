@@ -19,4 +19,7 @@ abstract class CarsRepository {
   void insert(Car car);
   void update(Car car);
   void delete(int carId);
+
+  CarStats loadCarStats(int carId);
+  void saveCarStats(CarStats stats);
 }
