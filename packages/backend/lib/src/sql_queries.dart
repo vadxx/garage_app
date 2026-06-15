@@ -1,6 +1,35 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
+class SqlCarsStatsQueries {
+  SqlCarsStatsQueries._();
+
+  static const _columns = 'car_id, total_spent, last_oil_change_km';
+  static const _table = 'cars_stats';
+
+  // dart format off
+  static const createTable = '''
+CREATE TABLE IF NOT EXISTS $_table (
+  car_id INTEGER PRIMARY KEY,
+  total_spent INTEGER DEFAULT 0,
+  last_oil_change_km INTEGER DEFAULT 0
+)
+''';
+
+  static const String loadCarStats = '''
+SELECT * FROM $_table WHERE car_id = ?
+''';
+
+  static const String saveCarStats = '''
+INSERT OR REPLACE INTO $_table ($_columns) VALUES (?, ?, ?)
+''';
+
+  static const String deleteCarStats = '''
+DELETE FROM $_table WHERE car_id = ?
+''';
+  // dart format on
+}
+
 class SqlCarsQueries {
   SqlCarsQueries._();
 

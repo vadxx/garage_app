@@ -2,6 +2,7 @@ import 'package:backend/backend.dart' as backend;
 
 class FakeCarsRepository implements backend.CarsRepository {
   final List<backend.Car> _cars = [];
+  final Map<int, backend.CarStats> _carStats = {};
   int _nextId = 1;
 
   @override
@@ -19,5 +20,19 @@ class FakeCarsRepository implements backend.CarsRepository {
   }
 
   @override
-  void delete(int id) => _cars.removeWhere((c) => c.id == id);
+  void delete(int id) {
+    _cars.removeWhere((c) => c.id == id);
+    _carStats.remove(id);
+  }
+
+  @override
+  backend.CarStats loadCarStats(int carId) => _carStats.putIfAbsent(
+    carId,
+    () => backend.CarStats(carId: carId, totalSpent: 0, lastOilChangeKm: 0),
+  );
+
+  @override
+  void saveCarStats(backend.CarStats stats) {
+    _carStats[stats.carId] = stats;
+  }
 }

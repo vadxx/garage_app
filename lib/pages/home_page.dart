@@ -71,11 +71,18 @@ class _CarsList extends ConsumerWidget {
   }
 }
 
-class _CarTile extends StatelessWidget {
+class _CarTile extends ConsumerWidget {
   final Car car;
   const _CarTile({required this.car});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final carStats = ref.watch(carStatsProvider(car.id));
+    final spent = carStats.when(
+      data: (s) => '\$${s.totalSpent}',
+      loading: () => '\$0',
+      error: (_, _) => '\$0',
+    );
+
     void onTap() => goToCarDetail(context, car.id);
     final color = helpers.CircleColor(
       color: helpers.carColorPalette[car.color].$2,
@@ -110,11 +117,11 @@ class _CarTile extends StatelessWidget {
         _carPlate(car.plate),
         Row(
           children: [
-            _subColumn(context.t.year, '${car.year}'),
+            helpers.subColumn(context.t.year, '${car.year}'),
             Spacer(),
-            _subColumn(context.t.mileage, '${car.mileage} km'),
+            helpers.subColumn(context.t.mileage, '${car.mileage} km'),
             Spacer(),
-            _subColumn(context.t.spent, '\$0', valueColor: Colors.red),
+            helpers.subColumn(context.t.spent, spent, valueColor: Colors.red),
           ],
         ),
       ],
@@ -131,21 +138,6 @@ class _CarTile extends StatelessWidget {
       decoration: border,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: Text(car.plate),
-    );
-  }
-
-  Column _subColumn(String label, String value, {Color? valueColor}) {
-    TextStyle labelSmall = TextStyle(fontSize: 12, letterSpacing: 0.6);
-    TextStyle valueSmall = TextStyle(
-      fontWeight: FontWeight.w600,
-      color: valueColor,
-    );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: labelSmall),
-        Text(value, style: valueSmall),
-      ],
     );
   }
 }

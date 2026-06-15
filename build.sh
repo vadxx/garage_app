@@ -20,3 +20,4 @@ dart run build_runner build --delete-conflicting-outputs
 cd -
 
 dart run slang
+dart run flutter_launcher_icons
