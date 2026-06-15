@@ -42,7 +42,7 @@ class _ThemeChanger extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(appSettingsProvider);
     return ListTile(
-    title: Text('🎨 ${context.t.theme}'),
+      title: Text('🎨 ${context.t.theme}'),
       trailing: DropdownButton<backend.Theme>(
         value: settings.theme,
         items: [

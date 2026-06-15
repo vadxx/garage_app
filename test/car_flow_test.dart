@@ -37,8 +37,10 @@ void main() {
       String make,
       String model,
       String year,
-      String plate,
-    ) async {
+      String plate, {
+      String price = '5000',
+      String mileage = '10000',
+    }) async {
       await tester.tap(find.text('Add car'));
       await tester.pumpAndSettle();
 
@@ -46,6 +48,8 @@ void main() {
       await tester.enterText(find.byType(TextField).at(1), model);
       await tester.enterText(find.byType(TextField).at(2), year);
       await tester.enterText(find.byType(TextField).at(3), plate);
+      await tester.enterText(find.byType(TextField).at(4), price);
+      await tester.enterText(find.byType(TextField).at(5), mileage);
 
       await tester.tap(find.text('Save changes'));
       await tester.pumpAndSettle();
@@ -120,7 +124,7 @@ void main() {
       await tester.tap(find.text('Save changes'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Required'), findsNWidgets(3));
+      expect(find.text('Required'), findsNWidgets(6));
     });
   });
 }

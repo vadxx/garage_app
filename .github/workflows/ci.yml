@@ -1,0 +1,160 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: dart format --set-exit-if-changed .
+      - run: sh build.sh --platforms=android
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: workspace
+          path: |
+            .
+            !.git
+            !build/
+          retention-days: 1
+
+  analyze-app:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: flutter pub get
+      - run: flutter analyze
+
+  analyze-backend:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: cd packages/backend && flutter pub get
+      - run: cd packages/backend && dart analyze
+
+  test-backend:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: cd packages/backend && flutter pub get
+      - run: cd packages/backend && dart test
+
+  test-app:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: flutter pub get
+      - run: flutter test
+
+  build-debug:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: flutter build apk --debug
+
+  build-release:
+    needs: [analyze-app, analyze-backend, test-backend, test-app, build-debug]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: workspace
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - uses: actions/cache@v5
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
+
+      - run: flutter build apk --release
+      - name: Check APK size
+        run: ls -lh build/app/outputs/flutter-apk/app-release.apk
+      - uses: actions/upload-artifact@v7
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk

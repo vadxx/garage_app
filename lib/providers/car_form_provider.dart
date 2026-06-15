@@ -169,7 +169,5 @@ class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
   }
 }
 
-final carFormProvider =
-    NotifierProvider.autoDispose.family<CarFormNotifier, CarFormState, int?>(
-      CarFormNotifier.new,
-    );
+final carFormProvider = NotifierProvider.autoDispose
+    .family<CarFormNotifier, CarFormState, int?>(CarFormNotifier.new);

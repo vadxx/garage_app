@@ -88,13 +88,14 @@ class AddEditCarPage extends ConsumerWidget {
       ),
     ];
 
-    void onDeleteCar() => () async {
+    Future<void> onDeleteCar() async {
       final confirmed = await _showDeleteCarDialog(context) ?? false;
       if (confirmed && context.mounted) {
         ref.read(carsProvider.notifier).deleteCar(carId!);
         goToHome(context);
       }
-    };
+    }
+
     final deleteCar = SizedBox(
       child: IconButton(
         onPressed: onDeleteCar,

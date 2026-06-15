@@ -14,9 +14,7 @@ import 'package:garage_app/providers/providers.dart';
 import 'helpers/helpers.dart';
 
 Widget buildApp(backend.SettingsRepository repo) => ProviderScope(
-  overrides: [
-    settingsRepositoryProvider.overrideWith((ref) => repo),
-  ],
+  overrides: [settingsRepositoryProvider.overrideWith((ref) => repo)],
   child: TranslationProvider(
     child: MaterialApp(
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

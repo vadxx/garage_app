@@ -7,7 +7,7 @@ Flutter app. Supports Windows and Android platforms. Other platforms will be sup
 
 | Task | Command |
 |------|---------|
-| Init and build | `sh build.sh` |
+| Init and build | `sh build.sh --platforms=android` |
 | Formatting and Analysis | `dart format .; flutter analyze` |
 | Testing | `sh test.sh` |
 | Debug on Host | `flutter run -d windows` |
