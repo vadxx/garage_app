@@ -20,8 +20,14 @@ void main() {
     tearDown(() => db.close());
 
     Car createCar() => Car(
-      id: 0, make: 'Toyota', model: 'Camry', year: 2020,
-      color: 1, plate: 'ABC123', price: 25000, mileage: 50000,
+      id: 0,
+      make: 'Toyota',
+      model: 'Camry',
+      year: 2020,
+      color: 1,
+      plate: 'ABC123',
+      price: 25000,
+      mileage: 50000,
     );
 
     test('load returns empty list initially', () {
@@ -39,7 +45,9 @@ void main() {
 
     test('insert multiple cars returns in order', () {
       repo.insert(createCar());
-      repo.insert(createCar().copyWith(make: 'Honda', model: 'Civic', plate: 'XYZ789'));
+      repo.insert(
+        createCar().copyWith(make: 'Honda', model: 'Civic', plate: 'XYZ789'),
+      );
       final cars = repo.load();
       expect(cars.length, 2);
       expect(cars[0].make, 'Toyota');
