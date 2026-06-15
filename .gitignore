@@ -20,6 +20,7 @@ build
 # Platform folders (regenerated via flutter create)
 android
 !android/app/src/main/AndroidManifest.xml
+!android/gradle.properties
 
 windows
 !windows/runner/main.cpp

@@ -133,7 +133,12 @@ jobs:
           path: ~/.pub-cache
           key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
 
-      - run: flutter build apk --debug
+      - uses: actions/cache@v5
+        with:
+          path: ~/.gradle
+          key: gradle-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+
+      - run: flutter build apk --debug --target-platform android-arm64
 
   build-release:
     needs: [analyze-app, analyze-backend, test-backend, test-app, build-debug]
@@ -151,7 +156,12 @@ jobs:
           path: ~/.pub-cache
           key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock', 'packages/backend/pubspec.lock') }}
 
-      - run: flutter build apk --release
+      - uses: actions/cache@v5
+        with:
+          path: ~/.gradle
+          key: gradle-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+
+      - run: flutter build apk --release --target-platform android-arm64
       - name: Check APK size
         run: ls -lh build/app/outputs/flutter-apk/app-release.apk
       - uses: actions/upload-artifact@v7

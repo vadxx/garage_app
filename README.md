@@ -12,4 +12,4 @@ Flutter app. Supports Windows and Android platforms. Other platforms will be sup
 | Testing | `sh test.sh` |
 | Debug on Host | `flutter run -d windows` |
 | Debug on Android | `flutter run -d V2352A` |
-| Build apk then supply | `flutter build apk; flutter install -d V2352A` |
+| Build apk then supply | `flutter build apk --target-platform android-arm64; flutter install -d V2352A` |
