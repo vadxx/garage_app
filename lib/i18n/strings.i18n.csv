@@ -33,4 +33,26 @@ color,Color,Цвет
 spent,Spent money,Потрачено
 addWork,Add work,Добавить работу
 editWork,Edit work,Изменить работу
+deleteWork,Delete work,Удалить работу
 lastOilChange,Last oil change,Последняя замена масла
+category,Category,Категория
+catOil,Oil change,Замена масла
+catFuel,Fuel,Топливо
+catCleaning,Cleaning,Мойка
+catDiagnostic,Diagnostic,Диагностика
+catElectronics,Electronics,Электроника
+catRepair,Repair,Ремонт
+catReplacement,Replacement,Замена
+catParking,Parking,Парковка
+catInsurance,Insurance,Страховка
+catTiresWheels,Tires/Wheels,Шины/Диски
+catTaxFees,Tax/Fees,Налоги/Сборы
+description,Description,Описание
+date,Date,Дата
+required,Required,Обязательно
+enterValidMileage,Enter a valid mileage,Введите корректный пробег
+enterValidCost,Enter a valid cost,Введите корректную стоимость
+enterValidYear,Enter a valid year,Введите корректный год
+enterValidPrice,Enter a valid price,Введите корректную цену
+works,Works,Работы
+noWorksYet,No works yet,Пока нет работ
