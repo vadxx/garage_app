@@ -28,6 +28,7 @@ class SettingsPage extends ConsumerWidget {
           _LanguageChanger(),
           _CurrencyChanger(),
           _MileageChanger(),
+          _ImportExport(),
         ],
       ),
     );
@@ -148,6 +149,36 @@ class _MileageChanger extends ConsumerWidget {
         ],
         onChanged: (v) =>
             ref.read(appSettingsProvider.notifier).setDistanceUnit(v!),
+      ),
+    );
+  }
+}
+
+class _ImportExport extends ConsumerWidget {
+  const _ImportExport();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: () => importCsv(context, ref),
+              icon: const Text('📂'),
+              label: Text(context.t.import),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: () => exportCsv(context, ref),
+              icon: const Text('💾'),
+              label: Text(context.t.export),
+            ),
+          ),
+        ],
       ),
     );
   }

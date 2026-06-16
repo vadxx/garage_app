@@ -20,6 +20,11 @@ class FakeCarsRepository implements backend.CarsRepository {
   }
 
   @override
+  void insertWithId(backend.Car car) {
+    _cars.add(car);
+  }
+
+  @override
   void delete(int id) {
     _cars.removeWhere((c) => c.id == id);
     _carStats.remove(id);
@@ -35,4 +40,24 @@ class FakeCarsRepository implements backend.CarsRepository {
   void saveCarStats(backend.CarStats stats) {
     _carStats[stats.carId] = stats;
   }
+
+  static const _colorNames = [
+    'white',
+    'black',
+    'silver',
+    'blue',
+    'red',
+    'green',
+    'yellow',
+    'orange',
+    'purple',
+    'brown',
+  ];
+
+  @override
+  String colorName(int id) =>
+      id >= 0 && id < _colorNames.length ? _colorNames[id] : '';
+
+  @override
+  int colorId(String name) => _colorNames.indexOf(name.toLowerCase());
 }

@@ -19,6 +19,7 @@ dependencies:
   path_provider: ^2.1.5
   go_router: ^14.0.0
   flutter_riverpod: ^2.6.1
+  file_picker: ^11.0.2
 
   backend: # local
     path: packages/backend
