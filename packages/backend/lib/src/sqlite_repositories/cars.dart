@@ -13,6 +13,8 @@ class SqliteCarsRepository implements CarsRepository {
     _db.execute(SqlCarsQueries.createTable);
     _db.execute(SqlCarsStatsQueries.createTable);
     _db.execute(SqlCarWorksQueries.createTable);
+    _db.execute(SqlCarColorsQueries.createTable);
+    _db.execute(SqlCarColorsQueries.seed);
   }
 
   @override
@@ -24,6 +26,10 @@ class SqliteCarsRepository implements CarsRepository {
 
   @override
   void insert(Car car) => _db.execute(SqlCarsQueries.insert, car.toSqlRow());
+
+  @override
+  void insertWithId(Car car) =>
+      _db.execute(SqlCarsQueries.insertWithId, [car.id, ...car.toSqlRow()]);
 
   @override
   List<Car> load() => _db
@@ -45,6 +51,38 @@ class SqliteCarsRepository implements CarsRepository {
   @override
   void saveCarStats(CarStats stats) =>
       _db.execute(SqlCarsStatsQueries.saveCarStats, stats.toSqlRow());
+
+  @override
+  String colorName(int id) {
+    final rows = _db.select(SqlCarColorsQueries.nameById, [id]);
+    return rows.isNotEmpty ? rows.first.values.first as String : '';
+  }
+
+  @override
+  int colorId(String name) {
+    final rows = _db.select(SqlCarColorsQueries.idByName, [name]);
+    return rows.isNotEmpty ? rows.first.values.first as int : 0;
+  }
+}
+
+class SqlCarColorsQueries {
+  SqlCarColorsQueries._();
+
+  static const createTable = '''
+CREATE TABLE IF NOT EXISTS car_colors (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE
+)
+''';
+
+  static const seed = '''
+INSERT OR IGNORE INTO car_colors (id, name) VALUES
+  (0, 'white'), (1, 'black'), (2, 'silver'), (3, 'blue'), (4, 'red'),
+  (5, 'green'), (6, 'yellow'), (7, 'orange'), (8, 'purple'), (9, 'brown')
+''';
+
+  static const String nameById = 'SELECT name FROM car_colors WHERE id = ?';
+  static const String idByName = 'SELECT id FROM car_colors WHERE name = ?';
 }
 
 class SqlCarsStatsQueries {
@@ -80,6 +118,7 @@ class SqlCarsQueries {
   SqlCarsQueries._();
 
   static const _columns = 'year, color, price, mileage, make, model, plate';
+  static const _columnsWithId = 'id, $_columns';
   static const _table = 'cars';
 
   // dart format off
@@ -103,6 +142,11 @@ CREATE TABLE IF NOT EXISTS $_table (
   static const insert = '''
 INSERT INTO $_table ($_columns)
 VALUES (?, ?, ?, ?, ?, ?, ?)
+''';
+
+  static const insertWithId = '''
+INSERT INTO $_table ($_columnsWithId)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ''';
 
   static const update = '''

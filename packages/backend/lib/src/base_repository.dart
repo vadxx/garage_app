@@ -18,16 +18,24 @@ abstract class SettingsRepository {
 abstract class CarWorksRepository {
   List<CarWork> loadByCarId(int carId);
   void insert(CarWork work);
+  void insertWithId(CarWork work);
   void update(CarWork work);
   void delete(int workId);
+
+  String categoryName(int id);
+  int categoryId(String name);
 }
 
 abstract class CarsRepository {
   List<Car> load();
   void insert(Car car);
+  void insertWithId(Car car);
   void update(Car car);
   void delete(int carId);
 
   CarStats loadCarStats(int carId);
   void saveCarStats(CarStats stats);
+
+  String colorName(int id);
+  int colorId(String name);
 }
