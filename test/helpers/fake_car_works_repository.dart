@@ -22,7 +22,33 @@ class FakeCarWorksRepository implements backend.CarWorksRepository {
   }
 
   @override
+  void insertWithId(backend.CarWork work) {
+    _works.add(work);
+  }
+
+  @override
   void delete(int workId) {
     _works.removeWhere((w) => w.id == workId);
   }
+
+  static const _categoryNames = [
+    'oil',
+    'fuel',
+    'cleaning',
+    'diagnostic',
+    'electronics',
+    'repair',
+    'replacement',
+    'parking',
+    'insurance',
+    'tiresWheels',
+    'taxFees',
+  ];
+
+  @override
+  String categoryName(int id) =>
+      id >= 0 && id < _categoryNames.length ? _categoryNames[id] : '';
+
+  @override
+  int categoryId(String name) => _categoryNames.indexOf(name.toLowerCase());
 }

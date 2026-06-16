@@ -54,6 +54,38 @@ class _CarsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cars = ref.watch(carsProvider);
+
+    if (cars.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('🚗', style: TextStyle(fontSize: 64)),
+              const SizedBox(height: 16),
+              Text(
+                context.t.noDataYet,
+                style: const TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: () => importCsv(context, ref),
+                icon: const Text('📂'),
+                label: Text(context.t.importFromFile),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     final border = BoxDecoration(
       border: Border.all(color: Colors.grey.shade300),
       borderRadius: BorderRadius.circular(8),
