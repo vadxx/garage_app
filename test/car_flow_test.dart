@@ -47,8 +47,8 @@ void main() {
       await tester.enterText(find.byType(TextField).at(0), make);
       await tester.enterText(find.byType(TextField).at(1), model);
       await tester.enterText(find.byType(TextField).at(2), year);
-      await tester.enterText(find.byType(TextField).at(3), plate);
-      await tester.enterText(find.byType(TextField).at(4), price);
+      await tester.enterText(find.byType(TextField).at(3), price);
+      await tester.enterText(find.byType(TextField).at(4), plate);
       await tester.enterText(find.byType(TextField).at(5), mileage);
 
       await tester.tap(find.text('Save changes'));

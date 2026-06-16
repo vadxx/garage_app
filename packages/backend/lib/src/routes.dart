@@ -16,6 +16,10 @@ class Routes {
   /// Actual path for navigation (fills in the value)
   static String car(String id) => '/cars/$id';
 
-  static String addCarWorkPattern = '$carPattern/add_work';
+  static const addCarWorkPattern = '$carPattern/add_work';
   static String addCarWork(String carId) => '${car(carId)}/add_work';
+
+  static const editCarWorkPattern = '$carPattern/edit_work/:workId';
+  static String editCarWork(String carId, int workId) =>
+      '${car(carId)}/edit_work/$workId';
 }

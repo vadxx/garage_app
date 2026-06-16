@@ -24,6 +24,7 @@ class AddEditCarPage extends ConsumerWidget {
     final saveButton = TextButton.icon(
       style: TextButton.styleFrom(
         padding: EdgeInsets.all(18),
+        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () => notifier.save(context),
@@ -44,25 +45,34 @@ class AddEditCarPage extends ConsumerWidget {
         error: form.modelError,
         onChanged: notifier.setModel,
       ),
-      helpers.Field(
-        label: context.t.year,
-        controller: notifier.yearController,
-        error: form.yearError,
-        onChanged: notifier.setYear,
-        keyboardType: TextInputType.number,
+      Row(
+        children: [
+          Expanded(
+            child: helpers.Field(
+              label: context.t.year,
+              controller: notifier.yearController,
+              error: form.yearError,
+              onChanged: notifier.setYear,
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          SizedBox(width: 12),
+          Expanded(
+            child: helpers.Field(
+              label: context.t.price,
+              controller: notifier.priceController,
+              error: form.priceError,
+              onChanged: notifier.setPrice,
+              keyboardType: TextInputType.number,
+            ),
+          ),
+        ],
       ),
       helpers.Field(
         label: context.t.plate,
         controller: notifier.plateController,
         error: form.plateError,
         onChanged: notifier.setPlate,
-      ),
-      helpers.Field(
-        label: context.t.price,
-        controller: notifier.priceController,
-        error: form.priceError,
-        onChanged: notifier.setPrice,
-        keyboardType: TextInputType.number,
       ),
       helpers.Field(
         label: context.t.mileage,

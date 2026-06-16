@@ -4,4 +4,5 @@
 library;
 
 // DI: should be imported only once in the app: main()
-export 'src/sqlite_repository.dart';
+export 'src/base_repository.dart';
+export 'src/sqlite_repositories/sqlite_repositories.dart';

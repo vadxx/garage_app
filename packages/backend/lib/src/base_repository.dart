@@ -7,11 +7,19 @@ abstract class Repositories {
   void init(String appStoragePath);
   SettingsRepository get settingsRepo;
   CarsRepository get carsRepo;
+  CarWorksRepository get carWorksRepo;
 }
 
 abstract class SettingsRepository {
   AppSettings load();
   void save(AppSettings settings);
+}
+
+abstract class CarWorksRepository {
+  List<CarWork> loadByCarId(int carId);
+  void insert(CarWork work);
+  void update(CarWork work);
+  void delete(int workId);
 }
 
 abstract class CarsRepository {

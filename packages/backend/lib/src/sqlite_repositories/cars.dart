@@ -1,6 +1,52 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
+import 'package:sqlite3/sqlite3.dart';
+
+import '../base_repository.dart';
+import '../models/models.dart';
+import 'cars_works.dart';
+
+class SqliteCarsRepository implements CarsRepository {
+  final Database _db;
+  SqliteCarsRepository(this._db) {
+    _db.execute(SqlCarsQueries.createTable);
+    _db.execute(SqlCarsStatsQueries.createTable);
+    _db.execute(SqlCarWorksQueries.createTable);
+  }
+
+  @override
+  void delete(int carId) {
+    _db.execute(SqlCarsStatsQueries.deleteCarStats, [carId]);
+    _db.execute(SqlCarWorksQueries.deleteByCarId, [carId]);
+    _db.execute(SqlCarsQueries.delete, [carId]);
+  }
+
+  @override
+  void insert(Car car) => _db.execute(SqlCarsQueries.insert, car.toSqlRow());
+
+  @override
+  List<Car> load() => _db
+      .select(SqlCarsQueries.load)
+      .map((r) => Car.fromSqlRow(r.values))
+      .toList();
+
+  @override
+  void update(Car car) =>
+      _db.execute(SqlCarsQueries.update, [...car.toSqlRow(), car.id]);
+
+  @override
+  CarStats loadCarStats(int carId) {
+    final rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+    assert(rows.isNotEmpty, 'CarStats row must exist for car $carId');
+    return CarStats.fromSqlRow(rows.first.values);
+  }
+
+  @override
+  void saveCarStats(CarStats stats) =>
+      _db.execute(SqlCarsStatsQueries.saveCarStats, stats.toSqlRow());
+}
+
 class SqlCarsStatsQueries {
   SqlCarsStatsQueries._();
 
@@ -72,43 +118,5 @@ WHERE id = ?
 ''';
 
   static const String delete = 'DELETE FROM $_table WHERE id = ?';
-  // dart format on
-}
-
-class SqlSettingsQueries {
-  SqlSettingsQueries._();
-
-  static const int _rowId = 0;
-
-  static const _columns = 'language, distance_unit, theme, currency';
-  static const _table = 'app_settings';
-
-  // dart format off
-  static const createTable = '''
-CREATE TABLE IF NOT EXISTS $_table (
-  id            INTEGER PRIMARY KEY CHECK (id = $_rowId),
-  language      INTEGER DEFAULT 0,
-  distance_unit INTEGER DEFAULT 0,
-  theme         INTEGER DEFAULT 0,
-  currency      INTEGER DEFAULT 0
-)
-''';
-
-  static const insertDefault = '''
-INSERT OR IGNORE INTO $_table (id) VALUES ($_rowId)
-''';
-
-  static const load = '''
-SELECT $_columns FROM $_table WHERE id = $_rowId
-''';
-
-  static const update = '''
-UPDATE $_table SET
-  language      = ?,
-  distance_unit = ?,
-  theme         = ?,
-  currency      = ?
-WHERE id = $_rowId
-''';
   // dart format on
 }

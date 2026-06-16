@@ -4,7 +4,6 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:backend/backend.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:backend/sqlite_backend.dart'; // Should be called only here
 
@@ -25,4 +24,8 @@ final settingsRepositoryProvider = Provider<SettingsRepository>(
 
 final carsRepositoryProvider = Provider<CarsRepository>(
   (ref) => ref.watch(repositoriesProvider).requireValue.carsRepo,
+);
+
+final carWorksRepositoryProvider = Provider<CarWorksRepository>(
+  (ref) => ref.watch(repositoriesProvider).requireValue.carWorksRepo,
 );
