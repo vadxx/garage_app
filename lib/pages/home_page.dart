@@ -1,7 +1,7 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
-import 'package:backend/backend.dart';
+import 'package:backend/backend.dart' hide Theme;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
     final addCarButton = TextButton.icon(
       style: TextButton.styleFrom(
         padding: EdgeInsets.all(18),
+        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () => goToAddCar(context),

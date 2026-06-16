@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:backend/backend.dart' as backend;
+import '../i18n/i18n.dart';
 
 const bigTextSize = TextStyle(fontSize: 18);
 
@@ -72,12 +73,13 @@ class Field extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: TextField(
         decoration: InputDecoration(
           labelText: label,
-          errorText: error,
+          errorText: error != null ? (t[error!] as String? ?? error) : null,
           border: const OutlineInputBorder(),
         ),
         keyboardType: keyboardType,
@@ -86,6 +88,37 @@ class Field extends StatelessWidget {
       ),
     );
   }
+}
+
+String categoryEmoji(backend.Category cat) => switch (cat) {
+  backend.Category.oil => '🛢️',
+  backend.Category.fuel => '⛽',
+  backend.Category.cleaning => '🧼',
+  backend.Category.diagnostic => '🔍',
+  backend.Category.electronics => '⚡',
+  backend.Category.repair => '🔧',
+  backend.Category.replacement => '🔄',
+  backend.Category.parking => '🅿️',
+  backend.Category.insurance => '🛡️',
+  backend.Category.tiresWheels => '🛞',
+  backend.Category.taxFees => '📄',
+};
+
+String categoryLabel(backend.Category cat, BuildContext context) {
+  final t = Translations.of(context);
+  return switch (cat) {
+    backend.Category.oil => t.catOil,
+    backend.Category.fuel => t.catFuel,
+    backend.Category.cleaning => t.catCleaning,
+    backend.Category.diagnostic => t.catDiagnostic,
+    backend.Category.electronics => t.catElectronics,
+    backend.Category.repair => t.catRepair,
+    backend.Category.replacement => t.catReplacement,
+    backend.Category.parking => t.catParking,
+    backend.Category.insurance => t.catInsurance,
+    backend.Category.tiresWheels => t.catTiresWheels,
+    backend.Category.taxFees => t.catTaxFees,
+  };
 }
 
 Column subColumn(String label, String value, {Color? valueColor}) {

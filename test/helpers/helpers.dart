@@ -3,3 +3,4 @@
 
 export 'fake_cars_repository.dart';
 export 'fake_settings_repository.dart';
+export 'fake_car_works_repository.dart';

@@ -23,6 +23,18 @@ final appRouter = GoRouter(
       builder: (_, state) =>
           CarDetailPage(carId: int.parse(state.pathParameters['id']!)),
     ),
+    GoRoute(
+      path: Routes.addCarWorkPattern,
+      builder: (_, state) =>
+          AddEditCarWorkPage(carId: int.parse(state.pathParameters['id']!)),
+    ),
+    GoRoute(
+      path: Routes.editCarWorkPattern,
+      builder: (_, state) => AddEditCarWorkPage(
+        carId: int.parse(state.pathParameters['id']!),
+        workId: int.parse(state.pathParameters['workId']!),
+      ),
+    ),
   ],
 );
 
@@ -39,3 +51,6 @@ void goToHome(BuildContext context) => context.go(Routes.home);
 
 void goToAddCarWork(BuildContext context, int carId) =>
     context.go(Routes.addCarWork(carId.toString()));
+
+void goToEditCarWork(BuildContext context, int carId, int workId) =>
+    context.go(Routes.editCarWork(carId.toString(), workId));

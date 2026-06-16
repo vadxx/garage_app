@@ -102,33 +102,33 @@ class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
     final now = currentYear;
     String? makeErr, modelErr, yearErr, plateErr, priceErr, mileageErr;
 
-    if (!_hasValue(makeController.text)) makeErr = 'Required';
-    if (!_hasValue(modelController.text)) modelErr = 'Required';
-    if (!_hasValue(plateController.text)) plateErr = 'Required';
+    if (!_hasValue(makeController.text)) makeErr = 'required';
+    if (!_hasValue(modelController.text)) modelErr = 'required';
+    if (!_hasValue(plateController.text)) plateErr = 'required';
 
     if (!_hasValue(yearController.text)) {
-      yearErr = 'Required';
+      yearErr = 'required';
     } else {
       final y = int.tryParse(yearController.text);
       if (y == null) {
-        yearErr = 'Enter a valid year';
+        yearErr = 'enterValidYear';
       } else if (y < minYear || y > now) {
         yearErr = 'Year must be $minYear – $now';
       }
     }
 
     if (!_hasValue(priceController.text)) {
-      priceErr = 'Required';
+      priceErr = 'required';
     } else {
       final p = int.tryParse(priceController.text);
-      if (p == null || p <= 0) priceErr = 'Enter a valid price';
+      if (p == null || p <= 0) priceErr = 'enterValidPrice';
     }
 
     if (!_hasValue(mileageController.text)) {
-      mileageErr = 'Required';
+      mileageErr = 'required';
     } else {
       final m = int.tryParse(mileageController.text);
-      if (m == null || m < 0) mileageErr = 'Enter a valid mileage';
+      if (m == null || m < 0) mileageErr = 'enterValidMileage';
     }
 
     state = state.copyWith(
