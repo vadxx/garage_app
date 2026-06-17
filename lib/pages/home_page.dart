@@ -109,6 +109,8 @@ class _CarTile extends ConsumerWidget {
   const _CarTile({required this.car});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    final unit = settings.distanceUnit;
     final carStats = ref.watch(carStatsProvider(car.id));
     final spent = carStats.when(
       data: (s) => '\$${s.totalSpent}',
@@ -152,7 +154,10 @@ class _CarTile extends ConsumerWidget {
           children: [
             helpers.subColumn(context.t.year, '${car.year}'),
             Spacer(),
-            helpers.subColumn(context.t.mileage, '${car.mileage} km'),
+            helpers.subColumn(
+              context.t.mileage,
+              formatDistance(car.mileage, unit),
+            ),
             Spacer(),
             helpers.subColumn(context.t.spent, spent, valueColor: Colors.red),
           ],

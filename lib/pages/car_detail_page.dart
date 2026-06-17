@@ -8,9 +8,10 @@ import 'package:garage_app/i18n/i18n.dart';
 import '../app_router.dart';
 
 import '../providers/providers.dart';
+import 'package:backend/backend.dart' show formatDistance;
+import 'package:backend/backend.dart' as backend;
 
 import 'helpers.dart' as helpers;
-import 'package:backend/backend.dart' as backend;
 
 class CarDetailPage extends ConsumerWidget {
   const CarDetailPage({super.key, required this.carId});
@@ -92,6 +93,8 @@ class _StatsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    final unit = settings.distanceUnit;
     final carStats = ref.watch(carStatsProvider(carId));
     Widget onStatsData(stats) {
       final statsRow = Row(
@@ -99,7 +102,7 @@ class _StatsTile extends ConsumerWidget {
           Spacer(),
           helpers.subColumn(
             context.t.lastOilChange,
-            '${stats.lastOilChangeKm} km',
+            formatDistance(stats.lastOilChangeKm, unit),
           ),
           Spacer(),
           helpers.subColumn(
@@ -154,12 +157,14 @@ class _WorksList extends ConsumerWidget {
   }
 }
 
-class _WorkCard extends StatelessWidget {
+class _WorkCard extends ConsumerWidget {
   const _WorkCard({required this.work});
   final backend.CarWork work;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    final unit = settings.distanceUnit;
     final category = backend.Category.values[work.category];
     final date = DateTime.fromMillisecondsSinceEpoch(work.date * 1000);
     final dateStr =
@@ -188,7 +193,7 @@ class _WorkCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (work.description.isNotEmpty) Text(work.description),
-        Text('$dateStr  •  ${work.mileage} km'),
+        Text('$dateStr  •  ${formatDistance(work.mileage, unit)}'),
       ],
     );
     return Container(
