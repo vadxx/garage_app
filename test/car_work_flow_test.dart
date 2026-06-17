@@ -15,6 +15,7 @@ import 'package:garage_app/providers/providers.dart';
 
 import 'helpers/fake_cars_repository.dart';
 import 'helpers/fake_car_works_repository.dart';
+import 'helpers/fake_settings_repository.dart';
 
 GoRouter _testRouter() => GoRouter(
   initialLocation: Routes.home,
@@ -54,6 +55,7 @@ Widget buildApp(
   overrides: [
     carsRepositoryProvider.overrideWith((ref) => carsRepo),
     carWorksRepositoryProvider.overrideWith((ref) => worksRepo),
+    settingsRepositoryProvider.overrideWith((ref) => FakeSettingsRepository()),
   ],
   child: TranslationProvider(
     child: MaterialApp.router(

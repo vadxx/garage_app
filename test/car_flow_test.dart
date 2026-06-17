@@ -12,9 +12,13 @@ import 'package:garage_app/i18n/i18n.dart';
 import 'package:garage_app/providers/providers.dart';
 
 import 'helpers/fake_cars_repository.dart';
+import 'helpers/fake_settings_repository.dart';
 
 Widget buildApp(backend.CarsRepository carsRepo) => ProviderScope(
-  overrides: [carsRepositoryProvider.overrideWith((ref) => carsRepo)],
+  overrides: [
+    carsRepositoryProvider.overrideWith((ref) => carsRepo),
+    settingsRepositoryProvider.overrideWith((ref) => FakeSettingsRepository()),
+  ],
   child: TranslationProvider(
     child: MaterialApp.router(
       supportedLocales: AppLocaleUtils.supportedLocales,

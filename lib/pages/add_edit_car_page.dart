@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_router.dart';
+import 'package:backend/backend.dart' show distanceUnitLabel;
 import '../i18n/i18n.dart';
 import '../providers/providers.dart';
 
@@ -20,6 +21,7 @@ class AddEditCarPage extends ConsumerWidget {
     final form = ref.watch(carFormProvider(carId));
     final notifier = ref.read(carFormProvider(carId).notifier);
 
+    final distanceUnit = ref.watch(appSettingsProvider).distanceUnit;
     final String modeTitle = isEdit ? context.t.editCar : context.t.addCar;
     final saveButton = TextButton.icon(
       style: TextButton.styleFrom(
@@ -75,7 +77,7 @@ class AddEditCarPage extends ConsumerWidget {
         onChanged: notifier.setPlate,
       ),
       helpers.Field(
-        label: context.t.mileage,
+        label: '${context.t.mileage} (${distanceUnitLabel(distanceUnit)})',
         controller: notifier.mileageController,
         error: form.mileageError,
         onChanged: notifier.setMileage,

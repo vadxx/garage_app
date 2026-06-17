@@ -22,7 +22,12 @@ Future<void> importCsv(BuildContext context, WidgetRef ref) async {
   final file = File(result.files.single.path!);
   final csvContent = await file.readAsString();
 
-  final repos = ref.read(repositoriesProvider).requireValue;
+  final reposAsync = ref.read(repositoriesProvider);
+  assert(
+    reposAsync.hasValue,
+    'repositoriesProvider must resolve before importCsv can access it',
+  );
+  final repos = reposAsync.requireValue;
 
   try {
     backend.CsvService.importCsv(repos, csvContent);
@@ -40,7 +45,12 @@ Future<void> importCsv(BuildContext context, WidgetRef ref) async {
 }
 
 Future<void> exportCsv(BuildContext context, WidgetRef ref) async {
-  final repos = ref.read(repositoriesProvider).requireValue;
+  final reposAsync = ref.read(repositoriesProvider);
+  assert(
+    reposAsync.hasValue,
+    'repositoriesProvider must resolve before exportCsv can access it',
+  );
+  final repos = reposAsync.requireValue;
   final csvContent = backend.CsvService.exportCsv(repos);
 
   final result = await FilePicker.saveFile(

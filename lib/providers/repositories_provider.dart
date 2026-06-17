@@ -18,14 +18,29 @@ final repositoriesProvider = FutureProvider<Repositories>((ref) async {
   return SqliteRepositories()..init(appDir);
 });
 
-final settingsRepositoryProvider = Provider<SettingsRepository>(
-  (ref) => ref.watch(repositoriesProvider).requireValue.settingsRepo,
-);
+final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
+  final repos = ref.watch(repositoriesProvider);
+  assert(
+    repos.hasValue,
+    'repositoriesProvider must resolve before settingsRepositoryProvider can be accessed',
+  );
+  return repos.requireValue.settingsRepo;
+});
 
-final carsRepositoryProvider = Provider<CarsRepository>(
-  (ref) => ref.watch(repositoriesProvider).requireValue.carsRepo,
-);
+final carsRepositoryProvider = Provider<CarsRepository>((ref) {
+  final repos = ref.watch(repositoriesProvider);
+  assert(
+    repos.hasValue,
+    'repositoriesProvider must resolve before carsRepositoryProvider can be accessed',
+  );
+  return repos.requireValue.carsRepo;
+});
 
-final carWorksRepositoryProvider = Provider<CarWorksRepository>(
-  (ref) => ref.watch(repositoriesProvider).requireValue.carWorksRepo,
-);
+final carWorksRepositoryProvider = Provider<CarWorksRepository>((ref) {
+  final repos = ref.watch(repositoriesProvider);
+  assert(
+    repos.hasValue,
+    'repositoriesProvider must resolve before carWorksRepositoryProvider can be accessed',
+  );
+  return repos.requireValue.carWorksRepo;
+});

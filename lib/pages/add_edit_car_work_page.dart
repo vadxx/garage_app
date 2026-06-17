@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_router.dart';
 import '../i18n/i18n.dart';
+import 'package:backend/backend.dart' show distanceUnitLabel;
 import 'package:backend/backend.dart' as backend hide Theme;
 import '../providers/providers.dart';
 
@@ -31,8 +32,9 @@ class AddEditCarWorkPage extends ConsumerWidget {
     );
     final date = _DatePicker(date: form.date, onChanged: notifier.setDate);
 
+    final distanceUnit = ref.watch(appSettingsProvider).distanceUnit;
     final mileage = helpers.Field(
-      label: context.t.mileage,
+      label: '${context.t.mileage} (${distanceUnitLabel(distanceUnit)})',
       controller: notifier.mileageController,
       error: form.mileageError,
       onChanged: notifier.setMileage,
