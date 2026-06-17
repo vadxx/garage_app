@@ -121,6 +121,58 @@ String categoryLabel(backend.Category cat, BuildContext context) {
   };
 }
 
+class EmojiCard extends StatelessWidget {
+  const EmojiCard({
+    super.key,
+    required this.emoji,
+    required this.label,
+    required this.onTap,
+    required this.border,
+    this.borderRadius = 12,
+    this.padding = const EdgeInsets.all(2),
+  });
+
+  final String emoji;
+  final String label;
+  final VoidCallback onTap;
+  final BoxDecoration border;
+  final double borderRadius;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    var content = [
+      Text(
+        emoji,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 26),
+      ),
+      Text(
+        label,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 11),
+      ),
+    ];
+    return Ink(
+      decoration: border,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Center(
+          child: Padding(
+            padding: padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: content,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 extension DateTimeFormatting on BuildContext {
   String formatCompactDate(DateTime date) =>
       MaterialLocalizations.of(this).formatCompactDate(date);

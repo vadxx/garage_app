@@ -146,7 +146,7 @@ class _CategorySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const itemMaxHeight = 80.0;
+    const itemMaxHeight = 64.0;
     const itemGap = 8.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -198,41 +198,25 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = isSelected
-        ? Theme.of(context).colorScheme.primary.withAlpha(65)
-        : Theme.of(context).colorScheme.secondary.withAlpha(10);
-    final borderColor = BorderSide(
+    final border = BoxDecoration(
       color: isSelected
-          ? Theme.of(context).colorScheme.primary
-          : Theme.of(context).colorScheme.outlineVariant,
-      width: isSelected ? 2 : 1,
-    );
-    final style = OutlinedButton.styleFrom(
-      backgroundColor: bgColor,
-      side: borderColor,
-      padding: const EdgeInsets.all(2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-    return OutlinedButton(
-      onPressed: () => onChanged(index),
-      style: style,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            helpers.categoryEmoji(cat),
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 26),
-          ),
-          Text(
-            helpers.categoryLabel(cat, context),
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 11),
-          ),
-        ],
+          ? Theme.of(context).colorScheme.primary.withAlpha(15)
+          : Theme.of(context).colorScheme.secondary.withAlpha(15),
+      border: Border.fromBorderSide(
+        BorderSide(
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.outlineVariant,
+          width: isSelected ? 2 : 1,
+        ),
       ),
+      borderRadius: BorderRadius.circular(12),
+    );
+    return helpers.EmojiCard(
+      emoji: helpers.categoryEmoji(cat),
+      label: helpers.categoryLabel(cat, context),
+      onTap: () => onChanged(index),
+      border: border,
     );
   }
 }

@@ -170,7 +170,7 @@ class _WorkCard extends ConsumerWidget {
     final dateStr = context.formatCompactDate(date);
 
     final border = BoxDecoration(
-      border: Border.all(color: Colors.grey.shade300),
+      border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1.5),
       borderRadius: BorderRadius.circular(8),
     );
     const margin = EdgeInsets.symmetric(horizontal: 16, vertical: 4);

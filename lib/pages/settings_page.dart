@@ -9,6 +9,7 @@ import '../i18n/i18n.dart';
 
 import '../providers/providers.dart';
 import 'package:backend/backend.dart' as backend;
+import 'helpers.dart' as helpers;
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -159,23 +160,33 @@ class _ImportExport extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final border = BoxDecoration(
+      border: Border.fromBorderSide(BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 1.5)),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    );
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
           Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => importCsv(context, ref),
-              icon: const Text('📂'),
-              label: Text(context.t.import),
+            child: helpers.EmojiCard(
+              emoji: '📂',
+              label: context.t.import,
+              onTap: () => importCsv(context, ref),
+              border: border,
+              borderRadius: 8,
+              padding: const EdgeInsets.symmetric(vertical: 8),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => exportCsv(context, ref),
-              icon: const Text('💾'),
-              label: Text(context.t.export),
+            child: helpers.EmojiCard(
+              emoji: '💾',
+              label: context.t.export,
+              onTap: () => exportCsv(context, ref),
+              border: border,
+              borderRadius: 8,
+              padding: const EdgeInsets.symmetric(vertical: 8),
             ),
           ),
         ],
@@ -183,3 +194,5 @@ class _ImportExport extends ConsumerWidget {
     );
   }
 }
+
+
