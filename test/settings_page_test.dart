@@ -53,9 +53,9 @@ void main() {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(DropdownButton<backend.Theme>));
+      await tester.tap(find.text('🎨 Theme'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Dark').last);
+      await tester.tap(find.text('Dark'));
       await tester.pumpAndSettle();
 
       expect(repo.load().theme, backend.Theme.dark);
@@ -65,9 +65,9 @@ void main() {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(DropdownButton<backend.Language>));
+      await tester.tap(find.text('🌐 Language'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Russian').last);
+      await tester.tap(find.text('Russian'));
       await tester.pumpAndSettle();
 
       expect(repo.load().language, backend.Language.ru);
@@ -77,9 +77,9 @@ void main() {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(DropdownButton<backend.Currency>));
+      await tester.tap(find.text('💵 Currency'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('EUR').last);
+      await tester.tap(find.text('EUR'));
       await tester.pumpAndSettle();
 
       expect(repo.load().currency, backend.Currency.eur);
@@ -89,7 +89,7 @@ void main() {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(DropdownButton<backend.DistanceUnit>));
+      await tester.tap(find.text('📏 Mileage'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Miles'));
       await tester.pumpAndSettle();

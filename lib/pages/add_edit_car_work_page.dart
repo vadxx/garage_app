@@ -84,7 +84,7 @@ class AddEditCarWorkPage extends ConsumerWidget {
         onPressed: onDeleteWork,
         icon: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: const Icon(Icons.delete_outline, color: Colors.red, size: 28),
+          child: helpers.deleteIcon,
         ),
       ),
     );
@@ -121,17 +121,29 @@ class AddEditCarWorkPage extends ConsumerWidget {
 
   Future<bool?> _showDeleteWorkDialog(BuildContext context) => showDialog<bool>(
     context: context,
-    builder: (ctx) => AlertDialog(
-      title: Text(context.t.deleteWork),
-      content: Text(context.t.areYouSure),
+    builder: (ctx) => helpers.styledDialog(
+      title: Row(
+        children: [
+          helpers.deleteIcon,
+          SizedBox(width: 8),
+          Text(
+            context.t.deleteWork,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+      content: Text(context.t.areYouSure, style: const TextStyle(fontSize: 16)),
+      actionsAlignment: MainAxisAlignment.center,
       actions: [
-        TextButton(
+        helpers.cancelButton(
           onPressed: () => Navigator.pop(ctx, false),
-          child: Text(context.t.cancel),
+          label: context.t.cancel,
         ),
-        TextButton(
+        const SizedBox(width: 12),
+        helpers.deleteButton(
+          context,
           onPressed: () => Navigator.pop(ctx, true),
-          child: Text(context.t.delete),
+          label: context.t.delete,
         ),
       ],
     ),

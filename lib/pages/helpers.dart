@@ -173,6 +173,50 @@ class EmojiCard extends StatelessWidget {
   }
 }
 
+const deleteIcon = Icon(Icons.delete_outline, color: Colors.red, size: 24);
+
+const _btnPad = EdgeInsets.symmetric(horizontal: 28, vertical: 8);
+const _btnShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(12)),
+);
+
+Widget cancelButton({required VoidCallback onPressed, required String label}) =>
+    TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(padding: _btnPad, shape: _btnShape),
+      child: Text(label),
+    );
+
+Widget deleteButton(
+  BuildContext context, {
+  required VoidCallback onPressed,
+  required String label,
+}) => FilledButton(
+  onPressed: onPressed,
+  style: FilledButton.styleFrom(
+    padding: _btnPad,
+    backgroundColor: Theme.of(context).colorScheme.error,
+    foregroundColor: Theme.of(context).colorScheme.onError,
+    shape: _btnShape,
+  ),
+  child: Text(label),
+);
+
+AlertDialog styledDialog({
+  required Widget title,
+  Widget? content,
+  List<Widget>? actions,
+  MainAxisAlignment? actionsAlignment,
+}) => AlertDialog(
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  title: title,
+  content: content,
+  actions: actions,
+  actionsAlignment: actionsAlignment,
+);
+
 extension DateTimeFormatting on BuildContext {
   String formatCompactDate(DateTime date) =>
       MaterialLocalizations.of(this).formatCompactDate(date);

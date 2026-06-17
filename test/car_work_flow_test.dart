@@ -124,7 +124,7 @@ void main() {
       );
 
       // Select first category chip
-      final firstChip = find.byType(OutlinedButton).first;
+      final firstChip = find.text('Oil change');
       await tester.ensureVisible(firstChip);
       await tester.pumpAndSettle();
       await tester.tap(firstChip);

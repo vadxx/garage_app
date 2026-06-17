@@ -137,21 +137,36 @@ class AddEditCarPage extends ConsumerWidget {
     );
   }
 
-  Future<bool?> _showDeleteCarDialog(BuildContext context) => showDialog<bool>(
-    context: context,
-    builder: (ctx) => AlertDialog(
-      title: Text(context.t.deleteCar),
-      content: Text(context.t.areYouSure),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(ctx, false),
-          child: Text(context.t.cancel),
+  Future<bool?> _showDeleteCarDialog(BuildContext context) {
+    const weightText = TextStyle(fontWeight: FontWeight.w600);
+    return showDialog<bool>(
+      context: context,
+      builder: (ctx) => helpers.styledDialog(
+        title: Row(
+          children: [
+            helpers.deleteIcon,
+            const SizedBox(width: 8),
+            Text(context.t.deleteCar, style: weightText),
+          ],
         ),
-        TextButton(
-          onPressed: () => Navigator.pop(ctx, true),
-          child: Text(context.t.delete),
+        content: Text(
+          context.t.areYouSure,
+          style: const TextStyle(fontSize: 18),
         ),
-      ],
-    ),
-  );
+        actionsAlignment: MainAxisAlignment.center,
+        actions: [
+          helpers.cancelButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            label: context.t.cancel,
+          ),
+          const SizedBox(width: 12),
+          helpers.deleteButton(
+            context,
+            onPressed: () => Navigator.pop(ctx, true),
+            label: context.t.delete,
+          ),
+        ],
+      ),
+    );
+  }
 }

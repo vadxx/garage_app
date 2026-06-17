@@ -87,7 +87,10 @@ class _CarsList extends ConsumerWidget {
     }
 
     final border = BoxDecoration(
-      border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1.5),
+      border: Border.all(
+        color: Theme.of(context).colorScheme.outlineVariant,
+        width: 1.5,
+      ),
       borderRadius: BorderRadius.circular(8),
     );
     const margin = EdgeInsets.symmetric(horizontal: 12, vertical: 4);

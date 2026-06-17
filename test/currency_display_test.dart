@@ -129,9 +129,9 @@ void main() {
       await tester.tap(find.text('⚙️'));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(DropdownButton<backend.Currency>));
+      await tester.tap(find.text('💵 Currency'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('EUR').last);
+      await tester.tap(find.text('EUR'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(BackButton));
