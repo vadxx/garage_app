@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_router.dart';
 import '../i18n/i18n.dart';
-import 'package:backend/backend.dart' show distanceUnitLabel;
+import 'package:backend/backend.dart' show distanceUnitLabel, currencySymbol;
 import 'package:backend/backend.dart' as backend hide Theme;
 import '../providers/providers.dart';
 
@@ -32,7 +32,9 @@ class AddEditCarWorkPage extends ConsumerWidget {
     );
     final date = _DatePicker(date: form.date, onChanged: notifier.setDate);
 
-    final distanceUnit = ref.watch(appSettingsProvider).distanceUnit;
+    final settings = ref.watch(appSettingsProvider);
+    final distanceUnit = settings.distanceUnit;
+    final currencySym = currencySymbol(settings.currency);
     final mileage = helpers.Field(
       label: '${context.t.mileage} (${distanceUnitLabel(distanceUnit)})',
       controller: notifier.mileageController,
@@ -41,7 +43,7 @@ class AddEditCarWorkPage extends ConsumerWidget {
       keyboardType: TextInputType.number,
     );
     final cost = helpers.Field(
-      label: context.t.price,
+      label: '${context.t.price} ($currencySym)',
       controller: notifier.costController,
       error: form.costError,
       onChanged: notifier.setCost,

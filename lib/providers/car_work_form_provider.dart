@@ -7,6 +7,7 @@ import 'package:backend/backend.dart';
 import 'cars_provider.dart';
 import 'car_works_provider.dart';
 import 'repositories_provider.dart';
+import 'app_settings_provider.dart';
 import '../app_router.dart';
 
 class CarWorkFormState {
@@ -79,8 +80,12 @@ class CarWorkFormNotifier
       final repo = ref.read(carWorksRepositoryProvider);
       final works = repo.loadByCarId(arg.carId);
       final work = works.firstWhere((w) => w.id == workId);
+      final settings = ref.read(appSettingsProvider);
       mileageController.text = work.mileage.toString();
-      costController.text = work.cost.toString();
+      costController.text = usdToCurrency(
+        work.cost,
+        settings.currency,
+      ).toString();
       descriptionController.text = work.description;
       return CarWorkFormState(
         category: work.category,
@@ -143,6 +148,7 @@ class CarWorkFormNotifier
 
   void save(BuildContext context) {
     if (!validate()) return;
+    final settings = ref.read(appSettingsProvider);
     final arg = this.arg;
     final mileage = int.parse(mileageController.text);
     final work = CarWork(
@@ -151,7 +157,7 @@ class CarWorkFormNotifier
       date: state.date,
       category: state.category,
       mileage: mileage,
-      cost: int.parse(costController.text),
+      cost: currencyToUsd(int.parse(costController.text), settings.currency),
       description: descriptionController.text.trim(),
     );
     final repo = ref.read(carWorksRepositoryProvider);

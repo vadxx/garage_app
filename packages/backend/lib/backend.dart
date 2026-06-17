@@ -9,3 +9,4 @@ export 'src/base_repository.dart';
 export 'src/utils/date_utils.dart';
 export 'src/csv_import_export.dart';
 export 'src/distance_extensions.dart';
+export 'src/currency_extensions.dart';

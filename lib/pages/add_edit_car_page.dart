@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_router.dart';
-import 'package:backend/backend.dart' show distanceUnitLabel;
+import 'package:backend/backend.dart' show distanceUnitLabel, currencySymbol;
 import '../i18n/i18n.dart';
 import '../providers/providers.dart';
 
@@ -21,7 +21,9 @@ class AddEditCarPage extends ConsumerWidget {
     final form = ref.watch(carFormProvider(carId));
     final notifier = ref.read(carFormProvider(carId).notifier);
 
-    final distanceUnit = ref.watch(appSettingsProvider).distanceUnit;
+    final settings = ref.watch(appSettingsProvider);
+    final distanceUnit = settings.distanceUnit;
+    final currencySym = currencySymbol(settings.currency);
     final String modeTitle = isEdit ? context.t.editCar : context.t.addCar;
     final saveButton = TextButton.icon(
       style: TextButton.styleFrom(
@@ -61,7 +63,7 @@ class AddEditCarPage extends ConsumerWidget {
           SizedBox(width: 12),
           Expanded(
             child: helpers.Field(
-              label: context.t.price,
+              label: '${context.t.price} ($currencySym)',
               controller: notifier.priceController,
               error: form.priceError,
               onChanged: notifier.setPrice,

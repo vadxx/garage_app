@@ -8,7 +8,7 @@ import 'package:garage_app/i18n/i18n.dart';
 import '../app_router.dart';
 
 import '../providers/providers.dart';
-import 'package:backend/backend.dart' show formatDistance;
+import 'package:backend/backend.dart' show formatDistance, formatCurrency;
 import 'package:backend/backend.dart' as backend;
 
 import 'helpers.dart' as helpers;
@@ -107,7 +107,7 @@ class _StatsTile extends ConsumerWidget {
           Spacer(),
           helpers.subColumn(
             context.t.spent,
-            '\$${stats.totalSpent}',
+            formatCurrency(stats.totalSpent, settings.currency),
             valueColor: Colors.red,
           ),
           Spacer(),
@@ -183,7 +183,7 @@ class _WorkCard extends ConsumerWidget {
         ),
         Spacer(),
         Text(
-          '\$${work.cost}',
+          formatCurrency(work.cost, settings.currency),
           style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
         ),
       ],
