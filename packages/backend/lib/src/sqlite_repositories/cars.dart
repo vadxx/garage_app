@@ -53,6 +53,10 @@ class SqliteCarsRepository implements CarsRepository {
       _db.execute(SqlCarsStatsQueries.saveCarStats, stats.toSqlRow());
 
   @override
+  void recalculateCarStats(int carId) =>
+      _db.execute(SqlCarsStatsQueries.recalculateTotalSpent, [carId, carId]);
+
+  @override
   String colorName(int id) {
     final rows = _db.select(SqlCarColorsQueries.nameById, [id]);
     return rows.isNotEmpty ? rows.first.values.first as String : '';
@@ -110,6 +114,12 @@ INSERT OR REPLACE INTO $_table ($_columns) VALUES (?, ?, ?)
 
   static const String deleteCarStats = '''
 DELETE FROM $_table WHERE car_id = ?
+''';
+
+  static const String recalculateTotalSpent = '''
+UPDATE $_table
+SET total_spent = (SELECT COALESCE(SUM(cost), 0) FROM car_works WHERE car_id = ?)
+WHERE car_id = ?
 ''';
   // dart format on
 }

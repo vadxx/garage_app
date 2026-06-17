@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart';
 
 import 'cars_provider.dart';
+import 'car_stats_provider.dart';
 import 'car_works_provider.dart';
 import 'repositories_provider.dart';
 import 'app_settings_provider.dart';
@@ -142,7 +143,10 @@ class CarWorkFormNotifier
     final arg = this.arg;
     final repo = ref.read(carWorksRepositoryProvider);
     repo.delete(arg.workId!);
+    final carsRepo = ref.read(carsRepositoryProvider);
+    carsRepo.recalculateCarStats(arg.carId);
     ref.invalidate(carWorksProvider(arg.carId));
+    ref.invalidate(carStatsProvider(arg.carId));
     goToCarDetail(context, arg.carId);
   }
 
@@ -166,10 +170,13 @@ class CarWorkFormNotifier
     } else {
       repo.insert(work);
     }
+    final carsRepo = ref.read(carsRepositoryProvider);
+    carsRepo.recalculateCarStats(arg.carId);
     final cars = ref.read(carsProvider);
     final car = cars.firstWhere((c) => c.id == arg.carId);
     ref.read(carsProvider.notifier).updateCar(car.copyWith(mileage: mileage));
     ref.invalidate(carWorksProvider(arg.carId));
+    ref.invalidate(carStatsProvider(arg.carId));
     goToCarDetail(context, arg.carId);
   }
 }

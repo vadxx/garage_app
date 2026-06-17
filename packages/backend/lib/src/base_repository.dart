@@ -39,6 +39,7 @@ abstract class CarsRepository {
 
   CarStats loadCarStats(int carId);
   void saveCarStats(CarStats stats);
+  void recalculateCarStats(int carId);
 
   String colorName(int id);
   int colorId(String name);
