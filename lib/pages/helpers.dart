@@ -121,6 +121,102 @@ String categoryLabel(backend.Category cat, BuildContext context) {
   };
 }
 
+class EmojiCard extends StatelessWidget {
+  const EmojiCard({
+    super.key,
+    required this.emoji,
+    required this.label,
+    required this.onTap,
+    required this.border,
+    this.borderRadius = 12,
+    this.padding = const EdgeInsets.all(2),
+  });
+
+  final String emoji;
+  final String label;
+  final VoidCallback onTap;
+  final BoxDecoration border;
+  final double borderRadius;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    var content = [
+      Text(
+        emoji,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 26),
+      ),
+      Text(
+        label,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 11),
+      ),
+    ];
+    return Ink(
+      decoration: border,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Center(
+          child: Padding(
+            padding: padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: content,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const deleteIcon = Icon(Icons.delete_outline, color: Colors.red, size: 24);
+
+const _btnPad = EdgeInsets.symmetric(horizontal: 28, vertical: 8);
+const _btnShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(12)),
+);
+
+Widget cancelButton({required VoidCallback onPressed, required String label}) =>
+    TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(padding: _btnPad, shape: _btnShape),
+      child: Text(label),
+    );
+
+Widget deleteButton(
+  BuildContext context, {
+  required VoidCallback onPressed,
+  required String label,
+}) => FilledButton(
+  onPressed: onPressed,
+  style: FilledButton.styleFrom(
+    padding: _btnPad,
+    backgroundColor: Theme.of(context).colorScheme.error,
+    foregroundColor: Theme.of(context).colorScheme.onError,
+    shape: _btnShape,
+  ),
+  child: Text(label),
+);
+
+AlertDialog styledDialog({
+  required Widget title,
+  Widget? content,
+  List<Widget>? actions,
+  MainAxisAlignment? actionsAlignment,
+}) => AlertDialog(
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  title: title,
+  content: content,
+  actions: actions,
+  actionsAlignment: actionsAlignment,
+);
+
 extension DateTimeFormatting on BuildContext {
   String formatCompactDate(DateTime date) =>
       MaterialLocalizations.of(this).formatCompactDate(date);

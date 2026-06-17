@@ -84,7 +84,7 @@ class AddEditCarWorkPage extends ConsumerWidget {
         onPressed: onDeleteWork,
         icon: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: const Icon(Icons.delete_outline, color: Colors.red, size: 28),
+          child: helpers.deleteIcon,
         ),
       ),
     );
@@ -121,17 +121,29 @@ class AddEditCarWorkPage extends ConsumerWidget {
 
   Future<bool?> _showDeleteWorkDialog(BuildContext context) => showDialog<bool>(
     context: context,
-    builder: (ctx) => AlertDialog(
-      title: Text(context.t.deleteWork),
-      content: Text(context.t.areYouSure),
+    builder: (ctx) => helpers.styledDialog(
+      title: Row(
+        children: [
+          helpers.deleteIcon,
+          SizedBox(width: 8),
+          Text(
+            context.t.deleteWork,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+      content: Text(context.t.areYouSure, style: const TextStyle(fontSize: 16)),
+      actionsAlignment: MainAxisAlignment.center,
       actions: [
-        TextButton(
+        helpers.cancelButton(
           onPressed: () => Navigator.pop(ctx, false),
-          child: Text(context.t.cancel),
+          label: context.t.cancel,
         ),
-        TextButton(
+        const SizedBox(width: 12),
+        helpers.deleteButton(
+          context,
           onPressed: () => Navigator.pop(ctx, true),
-          child: Text(context.t.delete),
+          label: context.t.delete,
         ),
       ],
     ),
@@ -146,7 +158,7 @@ class _CategorySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const itemMaxHeight = 80.0;
+    const itemMaxHeight = 64.0;
     const itemGap = 8.0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -198,41 +210,25 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = isSelected
-        ? Theme.of(context).colorScheme.primary.withAlpha(15)
-        : Theme.of(context).colorScheme.surfaceContainerHighest;
-    final borderColor = BorderSide(
+    final border = BoxDecoration(
       color: isSelected
-          ? Theme.of(context).colorScheme.primary
-          : Theme.of(context).colorScheme.outlineVariant,
-      width: 2,
-    );
-    final style = OutlinedButton.styleFrom(
-      backgroundColor: bgColor,
-      side: borderColor,
-      padding: const EdgeInsets.all(2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-    return OutlinedButton(
-      onPressed: () => onChanged(index),
-      style: style,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            helpers.categoryEmoji(cat),
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 26),
-          ),
-          Text(
-            helpers.categoryLabel(cat, context),
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 11),
-          ),
-        ],
+          ? Theme.of(context).colorScheme.primary.withAlpha(15)
+          : Theme.of(context).colorScheme.secondary.withAlpha(15),
+      border: Border.fromBorderSide(
+        BorderSide(
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.outlineVariant,
+          width: isSelected ? 2 : 1,
+        ),
       ),
+      borderRadius: BorderRadius.circular(12),
+    );
+    return helpers.EmojiCard(
+      emoji: helpers.categoryEmoji(cat),
+      label: helpers.categoryLabel(cat, context),
+      onTap: () => onChanged(index),
+      border: border,
     );
   }
 }
