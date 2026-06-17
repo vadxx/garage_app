@@ -49,7 +49,7 @@ class CarDetailPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _StatsTile(carId: car.id),
+            _StatsTile(carId: car.id, carMileage: car.mileage),
             _WorksList(carId: car.id),
           ],
         ),
@@ -88,8 +88,9 @@ class _AppBarTitle extends StatelessWidget {
 }
 
 class _StatsTile extends ConsumerWidget {
-  const _StatsTile({required this.carId});
+  const _StatsTile({required this.carId, required this.carMileage});
   final int carId;
+  final int carMileage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -97,29 +98,75 @@ class _StatsTile extends ConsumerWidget {
     final unit = settings.distanceUnit;
     final carStats = ref.watch(carStatsProvider(carId));
     Widget onStatsData(stats) {
+      final noOilData = stats.lastOilChangeKm == -1;
+      final oilKm = noOilData ? carMileage : stats.lastOilChangeKm;
+
+      final topCatLabel = stats.topCategory >= 0
+          ? helpers.categoryLabel(
+              backend.Category.values[stats.topCategory],
+              context,
+            )
+          : '—';
       final statsRow = Row(
         children: [
-          Spacer(),
           helpers.subColumn(
             context.t.lastOilChange,
-            formatDistance(stats.lastOilChangeKm, unit),
+            formatDistance(oilKm, unit),
           ),
+          Spacer(),
+          helpers.subColumn(context.t.topCategory, topCatLabel),
           Spacer(),
           helpers.subColumn(
             context.t.spent,
             formatCurrency(stats.totalSpent, settings.currency),
             valueColor: Colors.red,
           ),
-          Spacer(),
         ],
       );
-      return Padding(padding: EdgeInsets.all(16), child: statsRow);
+      return Column(
+        children: [
+          if (noOilData) const _NoOilDataNotification(),
+          Padding(padding: EdgeInsets.all(16), child: statsRow),
+        ],
+      );
     }
 
     return carStats.when(
       data: onStatsData,
       loading: () => SizedBox.shrink(),
       error: (e, _) => Center(child: Text('Error loading stats: $e')),
+    );
+  }
+}
+
+class _NoOilDataNotification extends StatelessWidget {
+  const _NoOilDataNotification();
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWarn = Icon(
+      Icons.warning_amber_rounded,
+      size: 18,
+      color: Theme.of(context).colorScheme.onErrorContainer,
+    );
+    final noOilDataText = Text(
+      'Oil change data not provided. Add an "Oil change" work entry.',
+      style: TextStyle(
+        fontSize: 13,
+        color: Theme.of(context).colorScheme.onErrorContainer,
+      ),
+    );
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: Theme.of(context).colorScheme.errorContainer.withAlpha(120),
+      child: Row(
+        children: [
+          iconWarn,
+          SizedBox(width: 8),
+          Expanded(child: noOilDataText),
+        ],
+      ),
     );
   }
 }
@@ -138,7 +185,7 @@ class _WorksList extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
             child: Text(
-              context.t.works,
+              '${context.t.serviceHistory} (${works.length})',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),

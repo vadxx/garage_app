@@ -10,15 +10,17 @@ class CarStats with _$CarStats {
     required int carId,
     required int totalSpent,
     required int lastOilChangeKm, // mileage
+    @Default(-1) int topCategory,
   }) = _CarStats;
 
   static CarStats fromSqlRow(List<Object?> row) => CarStats(
     carId: row[0] as int,
     totalSpent: row[1] as int,
     lastOilChangeKm: row[2] as int,
+    topCategory: row.length > 3 ? row[3] as int : -1,
   );
 }
 
 extension CarStatsSql on CarStats {
-  List<Object> toSqlRow() => [carId, totalSpent, lastOilChangeKm];
+  List<Object> toSqlRow() => [carId, totalSpent, lastOilChangeKm, topCategory];
 }

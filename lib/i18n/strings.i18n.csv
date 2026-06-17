@@ -31,6 +31,7 @@ save,Save,Сохранить
 cancel,Cancel,Отмена
 color,Color,Цвет
 spent,Spent money,Потрачено
+topCategory,Top category,Основная категория
 addWork,Add work,Добавить работу
 editWork,Edit work,Изменить работу
 deleteWork,Delete work,Удалить работу
@@ -54,7 +55,7 @@ enterValidMileage,Enter a valid mileage,Введите корректный пр
 enterValidCost,Enter a valid cost,Введите корректную стоимость
 enterValidYear,Enter a valid year,Введите корректный год
 enterValidPrice,Enter a valid price,Введите корректную цену
-works,Works,Работы
+serviceHistory,Service history,История обслуживания
 noWorksYet,No works yet,Пока нет работ
 import,Import data,Импорт данных
 export,Export data,Экспорт данных
