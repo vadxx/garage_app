@@ -244,7 +244,7 @@ class _DatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dt = backend.epochSecondsToDateTime(date);
-    final dateStr = backend.formatEpochDate(date);
+    final dateStr = context.formatCompactDate(dt);
 
     return InkWell(
       onTap: () async {

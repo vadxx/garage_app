@@ -3,6 +3,7 @@
 
 import 'package:test/test.dart';
 import 'package:sqlite3/sqlite3.dart';
+import 'package:sqlite3/common.dart';
 import 'package:csv/csv.dart';
 
 import 'package:backend/backend.dart';
@@ -15,11 +16,37 @@ class _TestRepositories implements Repositories {
   final CarWorksRepository carWorksRepo;
   @override
   final SettingsRepository settingsRepo;
+  final CommonDatabase? _db;
 
-  _TestRepositories(this.carsRepo, this.carWorksRepo, this.settingsRepo);
+  _TestRepositories(this.carsRepo, this.carWorksRepo, this.settingsRepo)
+    : _db = null;
+
+  _TestRepositories.withDb(
+    this.carsRepo,
+    this.carWorksRepo,
+    this.settingsRepo,
+    this._db,
+  );
 
   @override
   void init(String _) {}
+
+  @override
+  void transaction(void Function() action) {
+    final db = _db;
+    if (db == null) {
+      action();
+      return;
+    }
+    db.execute('BEGIN');
+    try {
+      action();
+      db.execute('COMMIT');
+    } catch (e) {
+      db.execute('ROLLBACK');
+      rethrow;
+    }
+  }
 }
 
 void main() {
@@ -197,10 +224,11 @@ void main() {
       db = sqlite3.openInMemory();
       carsRepo = SqliteCarsRepository(db);
       carWorksRepo = SqliteCarWorksRepository(db);
-      repos = _TestRepositories(
+      repos = _TestRepositories.withDb(
         carsRepo,
         carWorksRepo,
         SqliteSettingsRepository(db),
+        db,
       );
     });
 
@@ -362,6 +390,39 @@ void main() {
       expect(() => CsvService.importCsv(repos, csv), throwsFormatException);
     });
 
+    test('rolls back all data when import fails mid-way', () {
+      // Two cars, second has an invalid date — entire import must roll back.
+      final csv = toCsv([
+        CsvService.headers,
+        row(
+          carId: 1,
+          workId: 1,
+          workDate: '2024-06-15',
+          workCategory: 'oil',
+          workMileage: 50000,
+          workCost: 200,
+          workDescription: 'Valid work',
+        ),
+        row(
+          carId: 2,
+          make: 'Honda',
+          model: 'Civic',
+          plate: 'XYZ789',
+          color: 'blue',
+          workId: 2,
+          workDate: 'not-a-date',
+          workCategory: 'fuel',
+          workMileage: 100,
+          workCost: 50,
+          workDescription: 'Bad date',
+        ),
+      ]);
+
+      expect(() => CsvService.importCsv(repos, csv), throwsFormatException);
+      // DB should remain empty — car 1 must not be present.
+      expect(carsRepo.load(), isEmpty);
+    });
+
     test('round-trips: export then import into empty DB', () {
       carsRepo.insert(createCar());
       final carId = carsRepo.load().first.id;
@@ -376,10 +437,11 @@ void main() {
       final db2 = sqlite3.openInMemory();
       final carsRepo2 = SqliteCarsRepository(db2);
       final carWorksRepo2 = SqliteCarWorksRepository(db2);
-      final repos2 = _TestRepositories(
+      final repos2 = _TestRepositories.withDb(
         carsRepo2,
         carWorksRepo2,
         SqliteSettingsRepository(db2),
+        db2,
       );
 
       CsvService.importCsv(repos2, csv);

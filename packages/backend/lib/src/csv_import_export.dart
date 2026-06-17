@@ -105,90 +105,92 @@ class CsvService {
       }
     }
 
-    final carGroups = <int, List<List<dynamic>>>{};
-    for (var ri = 0; ri < dataRows.length; ri++) {
-      final row = dataRows[ri];
-      _validateRowLength(row, ri, headerRow.length);
-      final carId = _parseInt(row[colIndex['car_id']!], 'car_id', ri);
-      carGroups.putIfAbsent(carId, () => []).add(row);
-    }
+    repos.transaction(() {
+      final carGroups = <int, List<List<dynamic>>>{};
+      for (var ri = 0; ri < dataRows.length; ri++) {
+        final row = dataRows[ri];
+        _validateRowLength(row, ri, headerRow.length);
+        final carId = _parseInt(row[colIndex['car_id']!], 'car_id', ri);
+        carGroups.putIfAbsent(carId, () => []).add(row);
+      }
 
-    for (final entry in carGroups.entries) {
-      final firstRow = entry.value.first;
+      for (final entry in carGroups.entries) {
+        final firstRow = entry.value.first;
 
-      final carId = _parseInt(firstRow[colIndex['car_id']!], 'car_id');
-      final make = firstRow[colIndex['make']!].toString();
-      final model = firstRow[colIndex['model']!].toString();
-      final year = _parseInt(firstRow[colIndex['year']!], 'year');
-      final colorName = firstRow[colIndex['color']!].toString();
-      final plate = firstRow[colIndex['plate']!].toString();
-      final price = _parseInt(firstRow[colIndex['price']!], 'price');
-      final carMileage = _parseInt(
-        firstRow[colIndex['car_mileage']!],
-        'car_mileage',
-      );
-      final totalSpent = _parseInt(
-        firstRow[colIndex['total_spent']!],
-        'total_spent',
-      );
-      final lastOilChangeKm = _parseInt(
-        firstRow[colIndex['last_oil_change_km']!],
-        'last_oil_change_km',
-      );
-
-      final color = repos.carsRepo.colorId(colorName);
-
-      repos.carsRepo.insertWithId(
-        Car(
-          id: carId,
-          year: year,
-          color: color,
-          price: price,
-          mileage: carMileage,
-          make: make,
-          model: model,
-          plate: plate,
-        ),
-      );
-
-      repos.carsRepo.saveCarStats(
-        CarStats(
-          carId: carId,
-          totalSpent: totalSpent,
-          lastOilChangeKm: lastOilChangeKm,
-        ),
-      );
-
-      for (final row in entry.value) {
-        final workIdStr = row[colIndex['work_id']!].toString();
-        if (workIdStr.isEmpty) continue;
-
-        final workId = _parseInt(row[colIndex['work_id']!], 'work_id');
-        final dateStr = row[colIndex['work_date']!].toString();
-        final categoryName = row[colIndex['work_category']!].toString();
-        final workMileage = _parseInt(
-          row[colIndex['work_mileage']!],
-          'work_mileage',
+        final carId = _parseInt(firstRow[colIndex['car_id']!], 'car_id');
+        final make = firstRow[colIndex['make']!].toString();
+        final model = firstRow[colIndex['model']!].toString();
+        final year = _parseInt(firstRow[colIndex['year']!], 'year');
+        final colorName = firstRow[colIndex['color']!].toString();
+        final plate = firstRow[colIndex['plate']!].toString();
+        final price = _parseInt(firstRow[colIndex['price']!], 'price');
+        final carMileage = _parseInt(
+          firstRow[colIndex['car_mileage']!],
+          'car_mileage',
         );
-        final cost = _parseInt(row[colIndex['work_cost']!], 'work_cost');
-        final description = row[colIndex['work_description']!].toString();
+        final totalSpent = _parseInt(
+          firstRow[colIndex['total_spent']!],
+          'total_spent',
+        );
+        final lastOilChangeKm = _parseInt(
+          firstRow[colIndex['last_oil_change_km']!],
+          'last_oil_change_km',
+        );
 
-        final category = repos.carWorksRepo.categoryId(categoryName);
-        final date = parseDateString(dateStr);
+        final color = repos.carsRepo.colorId(colorName);
 
-        repos.carWorksRepo.insertWithId(
-          CarWork(
-            id: workId,
-            carId: carId,
-            date: date,
-            category: category,
-            mileage: workMileage,
-            cost: cost,
-            description: description,
+        repos.carsRepo.insertWithId(
+          Car(
+            id: carId,
+            year: year,
+            color: color,
+            price: price,
+            mileage: carMileage,
+            make: make,
+            model: model,
+            plate: plate,
           ),
         );
+
+        repos.carsRepo.saveCarStats(
+          CarStats(
+            carId: carId,
+            totalSpent: totalSpent,
+            lastOilChangeKm: lastOilChangeKm,
+          ),
+        );
+
+        for (final row in entry.value) {
+          final workIdStr = row[colIndex['work_id']!].toString();
+          if (workIdStr.isEmpty) continue;
+
+          final workId = _parseInt(row[colIndex['work_id']!], 'work_id');
+          final dateStr = row[colIndex['work_date']!].toString();
+          final categoryName = row[colIndex['work_category']!].toString();
+          final workMileage = _parseInt(
+            row[colIndex['work_mileage']!],
+            'work_mileage',
+          );
+          final cost = _parseInt(row[colIndex['work_cost']!], 'work_cost');
+          final description = row[colIndex['work_description']!].toString();
+
+          final category = repos.carWorksRepo.categoryId(categoryName);
+          final date = parseDateString(dateStr);
+
+          repos.carWorksRepo.insertWithId(
+            CarWork(
+              id: workId,
+              carId: carId,
+              date: date,
+              category: category,
+              mileage: workMileage,
+              cost: cost,
+              description: description,
+            ),
+          );
+        }
       }
-    }
+    });
   }
 
   static int _parseInt(dynamic value, String column, [int? row]) {

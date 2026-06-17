@@ -8,6 +8,10 @@ abstract class Repositories {
   SettingsRepository get settingsRepo;
   CarsRepository get carsRepo;
   CarWorksRepository get carWorksRepo;
+
+  /// Run [action] inside a transaction. If [action] throws, all changes
+  /// made within the transaction are rolled back.
+  void transaction(void Function() action);
 }
 
 abstract class SettingsRepository {

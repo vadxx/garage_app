@@ -121,6 +121,11 @@ String categoryLabel(backend.Category cat, BuildContext context) {
   };
 }
 
+extension DateTimeFormatting on BuildContext {
+  String formatCompactDate(DateTime date) =>
+      MaterialLocalizations.of(this).formatCompactDate(date);
+}
+
 Column subColumn(String label, String value, {Color? valueColor}) {
   TextStyle labelSmall = TextStyle(fontSize: 12, letterSpacing: 0.6);
   TextStyle valueSmall = TextStyle(

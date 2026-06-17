@@ -20,14 +20,34 @@ class SqliteRepositories implements Repositories {
   late final SettingsRepository _settingsRepo;
   late final CarsRepository _carsRepo;
   late final CarWorksRepository _carWorksRepo;
+  Database? _db;
 
   @override
   void init(String appStoragePath) {
     final fullPath = "$appStoragePath/$_dbFileName";
-    final Database db = sqlite3.open(fullPath);
+    _db = sqlite3.open(fullPath);
+    final db = _db!;
     _settingsRepo = SqliteSettingsRepository(db);
     _carsRepo = SqliteCarsRepository(db);
     _carWorksRepo = SqliteCarWorksRepository(db);
+  }
+
+  @override
+  void transaction(void Function() action) {
+    final db = _db;
+    if (db == null) {
+      // Not initialized — cannot open a transaction.
+      action();
+      return;
+    }
+    db.execute('BEGIN');
+    try {
+      action();
+      db.execute('COMMIT');
+    } catch (e) {
+      db.execute('ROLLBACK');
+      rethrow;
+    }
   }
 
   static const String _dbFileName = 'garage.db';

@@ -167,8 +167,7 @@ class _WorkCard extends ConsumerWidget {
     final unit = settings.distanceUnit;
     final category = backend.Category.values[work.category];
     final date = DateTime.fromMillisecondsSinceEpoch(work.date * 1000);
-    final dateStr =
-        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final dateStr = context.formatCompactDate(date);
 
     final border = BoxDecoration(
       border: Border.all(color: Colors.grey.shade300),
