@@ -112,10 +112,11 @@ class _CarTile extends ConsumerWidget {
     final settings = ref.watch(appSettingsProvider);
     final unit = settings.distanceUnit;
     final carStats = ref.watch(carStatsProvider(car.id));
+    final currency = settings.currency;
     final spent = carStats.when(
-      data: (s) => '\$${s.totalSpent}',
-      loading: () => '\$0',
-      error: (_, _) => '\$0',
+      data: (s) => formatCurrency(s.totalSpent, currency),
+      loading: () => formatCurrency(0, currency),
+      error: (_, _) => formatCurrency(0, currency),
     );
 
     void onTap() => goToCarDetail(context, car.id);
@@ -126,7 +127,7 @@ class _CarTile extends ConsumerWidget {
       height: 16,
     );
     final carPriceTitle = Text(
-      '\$${car.price}',
+      formatCurrency(car.price, currency),
       style: TextStyle(
         fontSize: 20,
         color: Colors.green.shade600,

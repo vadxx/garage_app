@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart';
 
 import 'cars_provider.dart';
+import 'app_settings_provider.dart';
 import '../app_router.dart';
 
 class CarFormState {
@@ -77,11 +78,15 @@ class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
     if (carId != null) {
       final cars = ref.read(carsProvider);
       final car = cars.firstWhere((c) => c.id == carId);
+      final settings = ref.read(appSettingsProvider);
       makeController.text = car.make;
       modelController.text = car.model;
       yearController.text = car.year.toString();
       plateController.text = car.plate;
-      priceController.text = car.price.toString();
+      priceController.text = usdToCurrency(
+        car.price,
+        settings.currency,
+      ).toString();
       mileageController.text = car.mileage.toString();
       return CarFormState(colorIndex: car.color, isLoaded: true);
     }
@@ -149,6 +154,7 @@ class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
 
   void save(BuildContext context) {
     if (!validate()) return;
+    final settings = ref.read(appSettingsProvider);
     final id = arg;
     final car = Car(
       id: id ?? 0,
@@ -156,7 +162,7 @@ class CarFormNotifier extends AutoDisposeFamilyNotifier<CarFormState, int?> {
       model: modelController.text.trim(),
       year: int.parse(yearController.text),
       plate: plateController.text.trim(),
-      price: int.parse(priceController.text),
+      price: currencyToUsd(int.parse(priceController.text), settings.currency),
       mileage: int.parse(mileageController.text),
       color: state.colorIndex,
     );
