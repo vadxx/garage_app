@@ -199,13 +199,13 @@ class _CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bgColor = isSelected
-        ? Theme.of(context).colorScheme.primary.withAlpha(15)
-        : Theme.of(context).colorScheme.surfaceContainerHighest;
+        ? Theme.of(context).colorScheme.primary.withAlpha(65)
+        : Theme.of(context).colorScheme.secondary.withAlpha(10);
     final borderColor = BorderSide(
       color: isSelected
           ? Theme.of(context).colorScheme.primary
           : Theme.of(context).colorScheme.outlineVariant,
-      width: 2,
+      width: isSelected ? 2 : 1,
     );
     final style = OutlinedButton.styleFrom(
       backgroundColor: bgColor,
