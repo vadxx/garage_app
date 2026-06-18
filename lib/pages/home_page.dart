@@ -86,21 +86,13 @@ class _CarsList extends ConsumerWidget {
       );
     }
 
-    final border = BoxDecoration(
-      border: Border.all(
-        color: Theme.of(context).colorScheme.outlineVariant,
-        width: 1.5,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    );
     const margin = EdgeInsets.symmetric(horizontal: 12, vertical: 4);
     return ListView.builder(
       itemCount: cars.length,
       itemBuilder: (_, i) {
         return Container(
           margin: margin,
-          decoration: border,
-          child: _CarTile(car: cars[i]),
+          child: helpers.outlinedTile(context, _CarTile(car: cars[i])),
         );
       },
     );

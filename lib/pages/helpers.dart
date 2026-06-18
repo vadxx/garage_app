@@ -248,3 +248,18 @@ Column subColumn(
     ],
   );
 }
+
+Widget outlinedTile(
+  BuildContext context,
+  Widget child, {
+  EdgeInsetsGeometry? padding,
+}) {
+  final border = BoxDecoration(
+    border: Border.all(
+      color: Theme.of(context).colorScheme.outlineVariant,
+      width: 1.5,
+    ),
+    borderRadius: BorderRadius.circular(8),
+  );
+  return Container(decoration: border, padding: padding, child: child);
+}

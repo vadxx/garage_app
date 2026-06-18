@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:garage_app/i18n/i18n.dart';
+import 'package:garage_app/pages/stats_group.dart';
 
 import '../app_router.dart';
 
@@ -49,7 +50,7 @@ class CarDetailPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _StatsTile(carId: car.id, carMileage: car.mileage),
+            StatsGroup(carId: car.id, carMileage: car.mileage),
             _WorksList(carId: car.id),
           ],
         ),
@@ -83,101 +84,6 @@ class _AppBarTitle extends StatelessWidget {
         SizedBox(width: 8),
         Text('${car.year}', style: yearTxtStyle),
       ],
-    );
-  }
-}
-
-class _StatsTile extends ConsumerWidget {
-  const _StatsTile({required this.carId, required this.carMileage});
-  final int carId;
-  final int carMileage;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(appSettingsProvider);
-    final unit = settings.distanceUnit;
-    final carStats = ref.watch(carStatsProvider(carId));
-    Widget onStatsData(stats) {
-      final noOilData = stats.lastOilChangeKm == -1;
-      final oilKm = noOilData ? carMileage : stats.lastOilChangeKm;
-
-      final topCatLabel = stats.topCategory >= 0
-          ? helpers.categoryLabel(
-              backend.Category.values[stats.topCategory],
-              context,
-            )
-          : '—';
-      final topCatValue = stats.topCategory >= 0 ? topCatLabel : '—';
-      final statsRow = Column(
-        children: [
-          Row(
-            children: [
-              helpers.subColumn(context, context.t.topCategory, topCatValue),
-              const Spacer(),
-              helpers.subColumn(
-                context,
-                context.t.spent,
-                formatCurrency(stats.totalSpent, settings.currency),
-                valueColor: Colors.red,
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              helpers.subColumn(
-                context,
-                context.t.lastOilChange,
-                formatDistance(oilKm, unit),
-              ),
-            ],
-          ),
-        ],
-      );
-      return Column(
-        children: [
-          if (noOilData) const _NoOilDataNotification(),
-          Padding(padding: EdgeInsets.all(16), child: statsRow),
-        ],
-      );
-    }
-
-    return carStats.when(
-      data: onStatsData,
-      loading: () => SizedBox.shrink(),
-      error: (e, _) => Center(child: Text('Error loading stats: $e')),
-    );
-  }
-}
-
-class _NoOilDataNotification extends StatelessWidget {
-  const _NoOilDataNotification();
-
-  @override
-  Widget build(BuildContext context) {
-    final iconWarn = Icon(
-      Icons.warning_amber_rounded,
-      size: 18,
-      color: Theme.of(context).colorScheme.onErrorContainer,
-    );
-    final noOilDataText = Text(
-      'Oil change data not provided. Add an "Oil change" work entry.',
-      style: TextStyle(
-        fontSize: 13,
-        color: Theme.of(context).colorScheme.onErrorContainer,
-      ),
-    );
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: Theme.of(context).colorScheme.errorContainer.withAlpha(120),
-      child: Row(
-        children: [
-          iconWarn,
-          SizedBox(width: 8),
-          Expanded(child: noOilDataText),
-        ],
-      ),
     );
   }
 }
@@ -227,13 +133,6 @@ class _WorkCard extends ConsumerWidget {
     final date = DateTime.fromMillisecondsSinceEpoch(work.date * 1000);
     final dateStr = context.formatCompactDate(date);
 
-    final border = BoxDecoration(
-      border: Border.all(
-        color: Theme.of(context).colorScheme.outlineVariant,
-        width: 1.5,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    );
     const margin = EdgeInsets.symmetric(horizontal: 16, vertical: 4);
 
     final title = Row(
@@ -258,11 +157,13 @@ class _WorkCard extends ConsumerWidget {
     );
     return Container(
       margin: margin,
-      decoration: border,
-      child: ListTile(
-        title: title,
-        subtitle: subtitle,
-        onTap: () => goToEditCarWork(context, work.carId, work.id),
+      child: helpers.outlinedTile(
+        context,
+        ListTile(
+          title: title,
+          subtitle: subtitle,
+          onTap: () => goToEditCarWork(context, work.carId, work.id),
+        ),
       ),
     );
   }

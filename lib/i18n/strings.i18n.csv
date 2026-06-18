@@ -65,3 +65,4 @@ databaseNotEmpty,Database is not empty. Clear data first.,База данных 
 importSuccess,Data imported successfully,Данные импортированы
 exportSuccess,Data exported successfully,Данные экспортированы
 oilIntervalKm,Oil change,Замена масла
+oilLife,Oil life,Ресурс масла
