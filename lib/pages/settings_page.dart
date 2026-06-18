@@ -80,7 +80,7 @@ class _SettingsCard extends StatelessWidget {
     final content = [
       Text(value, style: const TextStyle(fontSize: 14)),
       const SizedBox(width: 4),
-      const Icon(Icons.chevron_right, size: 20),
+      helpers.iconClickable(context),
     ];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

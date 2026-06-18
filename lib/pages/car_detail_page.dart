@@ -75,7 +75,10 @@ class _AppBarTitle extends StatelessWidget {
       width: 16,
       height: 16,
     );
-    const yearTxtStyle = TextStyle(fontSize: 20, color: Colors.grey);
+    final yearTxtStyle = TextStyle(
+      fontSize: 20,
+      color: Theme.of(context).colorScheme.outline,
+    );
     return Row(
       children: [
         circleColor,
@@ -144,7 +147,10 @@ class _WorkCard extends ConsumerWidget {
         Spacer(),
         Text(
           formatCurrency(work.cost, settings.currency),
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.error,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );

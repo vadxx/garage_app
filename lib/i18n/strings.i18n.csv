@@ -70,3 +70,22 @@ oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" wo
 errorLoadingStats,Error loading stats,Ошибка загрузки статистики
 error,Error,Ошибка
 initFailed,Init failed,Ошибка инициализации
+current,current,текущий
+works,works,работ
+monthlySpendings,Monthly Spendings,Расходы по месяцам
+categoryRatings,Category Ratings,Рейтинг категорий
+noOilChangeRecords,No oil change records yet,Нет записей о замене масла
+noSpendingRecords,No spending records yet,Нет записей о расходах
+noCategoryRecords,No category records yet,Нет записей по категориям
+january,January,Январь
+february,February,Февраль
+march,March,Март
+april,April,Апрель
+may,May,Май
+june,June,Июнь
+july,July,Июль
+august,August,Август
+september,September,Сентябрь
+october,October,Октябрь
+november,November,Ноябрь
+december,December,Декабрь
