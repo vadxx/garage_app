@@ -1,7 +1,9 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -52,26 +54,18 @@ Future<void> exportCsv(BuildContext context, WidgetRef ref) async {
   );
   final repos = reposAsync.requireValue;
   final csvContent = backend.CsvService.exportCsv(repos);
+  final bytes = Uint8List.fromList(utf8.encode(csvContent));
 
   final result = await FilePicker.saveFile(
     dialogTitle: 'Export CSV',
     fileName: 'garage_export.csv',
-    type: FileType.custom,
-    allowedExtensions: ['csv'],
+    bytes: bytes,
   );
   if (result == null) return;
 
-  try {
-    final file = File(result);
-    await file.writeAsString(csvContent);
-    if (context.mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(context.t.exportSuccess)));
-    }
-  } catch (e) {
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
-    }
+  if (context.mounted) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(context.t.exportSuccess)));
   }
 }
