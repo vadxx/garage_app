@@ -64,3 +64,4 @@ importFromFile,Import from file,Импорт из файла
 databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.
 importSuccess,Data imported successfully,Данные импортированы
 exportSuccess,Data exported successfully,Данные экспортированы
+oilIntervalKm,Oil change,Замена масла

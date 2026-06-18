@@ -18,6 +18,12 @@ String formatDistance(int value, DistanceUnit unit) {
   return '$converted $label';
 }
 
+/// Converts a [value] from [unit] back to km (reverse of [distanceToUnit]).
+int unitToKm(int value, DistanceUnit unit) => switch (unit) {
+  DistanceUnit.km => value,
+  DistanceUnit.mi => (value / _kmToMi).round(),
+};
+
 /// Returns the short label for a [DistanceUnit] ("km" or "mi").
 String distanceUnitLabel(DistanceUnit unit) => switch (unit) {
   DistanceUnit.km => 'km',
