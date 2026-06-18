@@ -163,10 +163,7 @@ class _CategorySelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          context.t.category,
-          style: TextStyle(fontSize: 12, letterSpacing: 0.6),
-        ),
+        Text(context.t.category, style: helpers.outlinedTextStyle(context)),
         SizedBox(height: 8),
         LayoutBuilder(
           builder: (context, constraints) {

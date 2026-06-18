@@ -66,7 +66,10 @@ class _CarsList extends ConsumerWidget {
               const SizedBox(height: 16),
               Text(
                 context.t.noDataYet,
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
               ),
               const SizedBox(height: 24),
               ElevatedButton.icon(
@@ -160,7 +163,7 @@ class _CarTile extends ConsumerWidget {
               context,
               context.t.spent,
               spent,
-              valueColor: Colors.red,
+              valueColor: Theme.of(context).colorScheme.error,
             ),
           ],
         ),

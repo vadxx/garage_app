@@ -40,7 +40,9 @@ class CircleColor extends StatelessWidget {
       color: color,
       shape: BoxShape.circle,
       border: Border.all(
-        color: selected ? Colors.blue : Colors.grey.shade400,
+        color: selected
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.outlineVariant,
         width: selected ? 3 : 1,
       ),
     );
@@ -120,6 +122,22 @@ String categoryLabel(backend.Category cat, BuildContext context) {
     backend.Category.taxFees => t.catTaxFees,
   };
 }
+
+String monthName(BuildContext context, int month) => switch (month) {
+  1 => context.t.january,
+  2 => context.t.february,
+  3 => context.t.march,
+  4 => context.t.april,
+  5 => context.t.may,
+  6 => context.t.june,
+  7 => context.t.july,
+  8 => context.t.august,
+  9 => context.t.september,
+  10 => context.t.october,
+  11 => context.t.november,
+  12 => context.t.december,
+  _ => '',
+};
 
 class EmojiCard extends StatelessWidget {
   const EmojiCard({
@@ -268,3 +286,32 @@ Widget outlinedTile(
   );
   return Container(decoration: border, padding: padding, child: child);
 }
+
+TextStyle costTextStyle(BuildContext context) => TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+  color: Theme.of(context).colorScheme.error,
+);
+
+Text costText(
+  BuildContext context, {
+  required int value,
+  required backend.Currency currency,
+}) {
+  return Text(
+    backend.formatCurrency(value, currency),
+    style: costTextStyle(context),
+  );
+}
+
+TextStyle outlinedTextStyle(BuildContext context) => TextStyle(
+  fontSize: 12,
+  letterSpacing: 0.6,
+  color: Theme.of(context).colorScheme.outline,
+);
+
+Icon iconClickable(BuildContext context) => Icon(
+  Icons.chevron_right,
+  size: 20,
+  color: Theme.of(context).colorScheme.outline,
+);
