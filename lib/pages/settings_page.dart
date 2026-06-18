@@ -220,7 +220,7 @@ class _MileageChanger extends ConsumerWidget {
     };
     final settings = ref.watch(appSettingsProvider);
     return _SettingsCard(
-      title: Text('📏 ${context.t.mileage}'),
+      title: Text('📏 ${context.t.distanceUnit}'),
       value: labelOf[settings.distanceUnit]!,
       onTap: () async {
         final v = await _showSettingDialog(

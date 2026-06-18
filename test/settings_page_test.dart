@@ -42,7 +42,7 @@ void main() {
       expect(find.text('🎨 Theme'), findsOneWidget);
       expect(find.text('🌐 Language'), findsOneWidget);
       expect(find.text('💵 Currency'), findsOneWidget);
-      expect(find.text('📏 Mileage'), findsOneWidget);
+      expect(find.text('📏 Distance unit'), findsOneWidget);
       expect(find.text('System'), findsOneWidget);
       expect(find.text('English'), findsOneWidget);
       expect(find.text('USD'), findsOneWidget);
@@ -89,7 +89,7 @@ void main() {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('📏 Mileage'));
+      await tester.tap(find.text('📏 Distance unit'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Miles'));
       await tester.pumpAndSettle();

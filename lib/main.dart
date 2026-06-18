@@ -27,7 +27,8 @@ class MainApp extends ConsumerWidget {
         .when(
           data: (_) => onBackendReady(ref),
           loading: () => const MaterialApp(home: SizedBox.shrink()),
-          error: (e, _) => MaterialApp(home: Text('Init failed: $e')),
+          error: (e, _) =>
+              MaterialApp(home: Text('${context.t.initFailed}: $e')),
         );
   }
 
