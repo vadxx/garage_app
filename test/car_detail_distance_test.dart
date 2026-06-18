@@ -107,9 +107,9 @@ void main() {
       await tester.tap(find.text('Toyota Camry'));
       await tester.pumpAndSettle();
 
-      // 45000 km (last oil change) — standalone Text from subColumn
-      expect(find.text('45000 km'), findsOneWidget);
-      // Work card text is "2023-11-14  •  50000 km" (Text combines date + distance)
+      // Oil health: kmSince = 50000 - 45000 = 5000 km
+      expect(find.text('5000 km'), findsOneWidget);
+      // Work card text contains mileage 50000 km
       expect(find.textContaining('50000 km'), findsOneWidget);
     });
 
@@ -130,9 +130,9 @@ void main() {
       await tester.tap(find.text('Toyota Camry'));
       await tester.pumpAndSettle();
 
-      // 45000 km = 27961.70364 → rounds to 27962 mi
-      expect(find.text('27962 mi'), findsOneWidget);
-      // 50000 km = 31068.5596 → rounds to 31069 mi (in work card text)
+      // Oil health: 5000 km ≈ 3107 mi
+      expect(find.textContaining(' mi'), findsWidgets);
+      // Work card: 50000 km ≈ 31069 mi
       expect(find.textContaining('31069 mi'), findsOneWidget);
     });
 

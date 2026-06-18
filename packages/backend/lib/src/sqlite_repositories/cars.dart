@@ -109,7 +109,8 @@ INSERT OR IGNORE INTO car_colors (id, name) VALUES
 class SqlCarsStatsQueries {
   SqlCarsStatsQueries._();
 
-  static const _columns = 'car_id, total_spent, last_oil_change_km, top_category';
+  static const _columns =
+      'car_id, total_spent, last_oil_change_km, top_category';
   static const _table = 'cars_stats';
 
   // dart format off

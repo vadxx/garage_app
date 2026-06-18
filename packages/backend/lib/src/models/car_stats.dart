@@ -34,8 +34,10 @@ extension CarStatsSql on CarStats {
   int intervalKm = 10000,
 }) {
   if (stats.lastOilChangeKm < 0) return (kmSince: 0, healthPercent: 100);
-  final kmSince =
-      (currentMileage - stats.lastOilChangeKm).clamp(0, currentMileage) as int;
+  final kmSince = (currentMileage - stats.lastOilChangeKm).clamp(
+    0,
+    currentMileage,
+  );
   final healthPercent = ((1 - kmSince / intervalKm) * 100)
       .clamp(0, 100)
       .toInt();
