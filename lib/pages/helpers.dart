@@ -153,18 +153,23 @@ class EmojiCard extends StatelessWidget {
         style: const TextStyle(fontSize: 11),
       ),
     ];
-    return Ink(
-      decoration: border,
+    // Material clips Ink's decoration during scroll; bare Ink in ListView
+    // paints the border independently from content.
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(borderRadius),
-        child: Center(
-          child: Padding(
-            padding: padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: content,
+        child: Ink(
+          decoration: border,
+          child: Center(
+            child: Padding(
+              padding: padding,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: content,
+              ),
             ),
           ),
         ),
