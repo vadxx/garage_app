@@ -86,21 +86,13 @@ class _CarsList extends ConsumerWidget {
       );
     }
 
-    final border = BoxDecoration(
-      border: Border.all(
-        color: Theme.of(context).colorScheme.outlineVariant,
-        width: 1.5,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    );
     const margin = EdgeInsets.symmetric(horizontal: 12, vertical: 4);
     return ListView.builder(
       itemCount: cars.length,
       itemBuilder: (_, i) {
         return Container(
           margin: margin,
-          decoration: border,
-          child: _CarTile(car: cars[i]),
+          child: helpers.outlinedTile(context, _CarTile(car: cars[i])),
         );
       },
     );
@@ -156,14 +148,20 @@ class _CarTile extends ConsumerWidget {
         _carPlate(car.plate),
         Row(
           children: [
-            helpers.subColumn(context.t.year, '${car.year}'),
+            helpers.subColumn(context, context.t.year, '${car.year}'),
             Spacer(),
             helpers.subColumn(
+              context,
               context.t.mileage,
               formatDistance(car.mileage, unit),
             ),
             Spacer(),
-            helpers.subColumn(context.t.spent, spent, valueColor: Colors.red),
+            helpers.subColumn(
+              context,
+              context.t.spent,
+              spent,
+              valueColor: Colors.red,
+            ),
           ],
         ),
       ],

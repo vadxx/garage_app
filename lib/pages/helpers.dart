@@ -222,17 +222,44 @@ extension DateTimeFormatting on BuildContext {
       MaterialLocalizations.of(this).formatCompactDate(date);
 }
 
-Column subColumn(String label, String value, {Color? valueColor}) {
-  TextStyle labelSmall = TextStyle(fontSize: 12, letterSpacing: 0.6);
-  TextStyle valueSmall = TextStyle(
-    fontWeight: FontWeight.w600,
-    color: valueColor,
+Column subColumn(
+  BuildContext context,
+  String label,
+  String value, {
+  Color? valueColor,
+}) {
+  final labelStyle = TextStyle(
+    fontSize: 12,
+    letterSpacing: 0.6,
+    color: Theme.of(context).colorScheme.outline,
   );
+  final valueStyle = TextStyle(fontWeight: FontWeight.w600, color: valueColor);
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: labelSmall),
-      Text(value, style: valueSmall),
+      Text(
+        label,
+        style: labelStyle,
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
+      Text(value, style: valueStyle, overflow: TextOverflow.ellipsis),
     ],
   );
+}
+
+Widget outlinedTile(
+  BuildContext context,
+  Widget child, {
+  EdgeInsetsGeometry? padding,
+}) {
+  final border = BoxDecoration(
+    border: Border.all(
+      color: Theme.of(context).colorScheme.outlineVariant,
+      width: 1.5,
+    ),
+    borderRadius: BorderRadius.circular(8),
+  );
+  return Container(decoration: border, padding: padding, child: child);
 }

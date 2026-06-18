@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:garage_app/i18n/i18n.dart';
+import 'package:garage_app/pages/stats_group.dart';
 
 import '../app_router.dart';
 
@@ -49,7 +50,7 @@ class CarDetailPage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _StatsTile(carId: car.id),
+            StatsGroup(carId: car.id, carMileage: car.mileage),
             _WorksList(carId: car.id),
           ],
         ),
@@ -87,43 +88,6 @@ class _AppBarTitle extends StatelessWidget {
   }
 }
 
-class _StatsTile extends ConsumerWidget {
-  const _StatsTile({required this.carId});
-  final int carId;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(appSettingsProvider);
-    final unit = settings.distanceUnit;
-    final carStats = ref.watch(carStatsProvider(carId));
-    Widget onStatsData(stats) {
-      final statsRow = Row(
-        children: [
-          Spacer(),
-          helpers.subColumn(
-            context.t.lastOilChange,
-            formatDistance(stats.lastOilChangeKm, unit),
-          ),
-          Spacer(),
-          helpers.subColumn(
-            context.t.spent,
-            formatCurrency(stats.totalSpent, settings.currency),
-            valueColor: Colors.red,
-          ),
-          Spacer(),
-        ],
-      );
-      return Padding(padding: EdgeInsets.all(16), child: statsRow);
-    }
-
-    return carStats.when(
-      data: onStatsData,
-      loading: () => SizedBox.shrink(),
-      error: (e, _) => Center(child: Text('Error loading stats: $e')),
-    );
-  }
-}
-
 class _WorksList extends ConsumerWidget {
   const _WorksList({required this.carId});
   final int carId;
@@ -138,7 +102,7 @@ class _WorksList extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
             child: Text(
-              context.t.works,
+              '${context.t.serviceHistory} (${works.length})',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
@@ -169,13 +133,6 @@ class _WorkCard extends ConsumerWidget {
     final date = DateTime.fromMillisecondsSinceEpoch(work.date * 1000);
     final dateStr = context.formatCompactDate(date);
 
-    final border = BoxDecoration(
-      border: Border.all(
-        color: Theme.of(context).colorScheme.outlineVariant,
-        width: 1.5,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    );
     const margin = EdgeInsets.symmetric(horizontal: 16, vertical: 4);
 
     final title = Row(
@@ -200,11 +157,13 @@ class _WorkCard extends ConsumerWidget {
     );
     return Container(
       margin: margin,
-      decoration: border,
-      child: ListTile(
-        title: title,
-        subtitle: subtitle,
-        onTap: () => goToEditCarWork(context, work.carId, work.id),
+      child: helpers.outlinedTile(
+        context,
+        ListTile(
+          title: title,
+          subtitle: subtitle,
+          onTap: () => goToEditCarWork(context, work.carId, work.id),
+        ),
       ),
     );
   }

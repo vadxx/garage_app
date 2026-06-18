@@ -58,4 +58,30 @@ void main() {
       expect(distanceUnitLabel(DistanceUnit.mi), 'mi');
     });
   });
+
+  group('unitToKm', () {
+    test('km stays unchanged', () {
+      expect(unitToKm(0, DistanceUnit.km), 0);
+      expect(unitToKm(100, DistanceUnit.km), 100);
+      expect(unitToKm(99999, DistanceUnit.km), 99999);
+    });
+
+    test('mi to km conversion', () {
+      // 62 mi ≈ 99.85 km → rounds to 100
+      expect(unitToKm(62, DistanceUnit.km), 62);
+      // 100 mi ≈ 160.93 km → rounds to 161
+      expect(unitToKm(100, DistanceUnit.mi), 161);
+      // 0 mi = 0 km
+      expect(unitToKm(0, DistanceUnit.mi), 0);
+      // 1 mi ≈ 1.609 km → rounds to 2
+      expect(unitToKm(1, DistanceUnit.mi), 2);
+    });
+
+    test('round-trip: distanceToUnit then unitToKm', () {
+      // 100 km → 62 mi → back to km should be close to 100
+      final miles = distanceToUnit(100, DistanceUnit.mi);
+      final backToKm = unitToKm(miles, DistanceUnit.mi);
+      expect(backToKm, closeTo(100, 2));
+    });
+  });
 }

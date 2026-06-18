@@ -15,6 +15,10 @@ class SqliteCarsRepository implements CarsRepository {
     _db.execute(SqlCarWorksQueries.createTable);
     _db.execute(SqlCarColorsQueries.createTable);
     _db.execute(SqlCarColorsQueries.seed);
+    // Migration: add top_category for DBs created before this column existed
+    try {
+      _db.execute(SqlCarsStatsQueries.addTopCategoryColumn);
+    } catch (_) {}
   }
 
   @override
@@ -43,7 +47,18 @@ class SqliteCarsRepository implements CarsRepository {
 
   @override
   CarStats loadCarStats(int carId) {
-    final rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+    var rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+    if (rows.isEmpty) {
+      saveCarStats(CarStats(carId: carId, totalSpent: 0, lastOilChangeKm: 0));
+      recalculateCarStats(carId);
+      rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+    } else {
+      final existing = CarStats.fromSqlRow(rows.first.values);
+      if (existing.topCategory == -1) {
+        recalculateCarStats(carId);
+        rows = _db.select(SqlCarsStatsQueries.loadCarStats, [carId]);
+      }
+    }
     assert(rows.isNotEmpty, 'CarStats row must exist for car $carId');
     return CarStats.fromSqlRow(rows.first.values);
   }
@@ -51,6 +66,12 @@ class SqliteCarsRepository implements CarsRepository {
   @override
   void saveCarStats(CarStats stats) =>
       _db.execute(SqlCarsStatsQueries.saveCarStats, stats.toSqlRow());
+
+  @override
+  void recalculateCarStats(int carId) => _db.execute(
+    SqlCarsStatsQueries.recalculateTotalSpent,
+    [carId, carId, carId, carId],
+  );
 
   @override
   String colorName(int id) {
@@ -88,7 +109,8 @@ INSERT OR IGNORE INTO car_colors (id, name) VALUES
 class SqlCarsStatsQueries {
   SqlCarsStatsQueries._();
 
-  static const _columns = 'car_id, total_spent, last_oil_change_km';
+  static const _columns =
+      'car_id, total_spent, last_oil_change_km, top_category';
   static const _table = 'cars_stats';
 
   // dart format off
@@ -96,8 +118,13 @@ class SqlCarsStatsQueries {
 CREATE TABLE IF NOT EXISTS $_table (
   car_id INTEGER PRIMARY KEY,
   total_spent INTEGER DEFAULT 0,
-  last_oil_change_km INTEGER DEFAULT 0
+  last_oil_change_km INTEGER DEFAULT 0,
+  top_category INTEGER DEFAULT -1
 )
+''';
+
+  static const addTopCategoryColumn = '''
+ALTER TABLE $_table ADD COLUMN top_category INTEGER DEFAULT -1
 ''';
 
   static const String loadCarStats = '''
@@ -105,11 +132,26 @@ SELECT * FROM $_table WHERE car_id = ?
 ''';
 
   static const String saveCarStats = '''
-INSERT OR REPLACE INTO $_table ($_columns) VALUES (?, ?, ?)
+INSERT OR REPLACE INTO $_table ($_columns) VALUES (?, ?, ?, ?)
 ''';
 
   static const String deleteCarStats = '''
 DELETE FROM $_table WHERE car_id = ?
+''';
+
+  static const String recalculateTotalSpent = '''
+UPDATE $_table
+SET
+  total_spent = (SELECT COALESCE(SUM(cost), 0) FROM car_works WHERE car_id = ?),
+  last_oil_change_km = COALESCE(
+    (SELECT mileage FROM car_works WHERE car_id = ? AND category = 0 ORDER BY date DESC, id DESC LIMIT 1),
+    -1
+  ),
+  top_category = COALESCE(
+    (SELECT category FROM car_works WHERE car_id = ? GROUP BY category ORDER BY SUM(cost) DESC LIMIT 1),
+    -1
+  )
+WHERE car_id = ?
 ''';
   // dart format on
 }

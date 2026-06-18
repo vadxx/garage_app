@@ -20,13 +20,15 @@ class AppSettings with _$AppSettings {
     @Default(DistanceUnit.km) DistanceUnit distanceUnit,
     @Default(Theme.system) Theme theme,
     @Default(Currency.usd) Currency currency,
+    @Default(10000) int oilIntervalKm,
   }) = _AppSettings;
 
   static AppSettings fromSqlRow(List<Object?> row) => AppSettings(
-    language: Language.values[row[0] as int], // skip id[0]
+    language: Language.values[row[0] as int],
     distanceUnit: DistanceUnit.values[row[1] as int],
     theme: Theme.values[row[2] as int],
     currency: Currency.values[row[3] as int],
+    oilIntervalKm: row.length > 4 ? row[4] as int : 10000,
   );
 }
 
@@ -36,5 +38,6 @@ extension AppSettingsSql on AppSettings {
     distanceUnit.index,
     theme.index,
     currency.index,
+    oilIntervalKm,
   ];
 }

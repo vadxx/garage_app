@@ -34,5 +34,10 @@ class AppSettingsNotifier extends Notifier<AppSettings> {
     _save();
   }
 
+  void setOilIntervalKm(int v) {
+    state = state.copyWith(oilIntervalKm: v);
+    _save();
+  }
+
   void _save() => ref.read(settingsRepositoryProvider).save(state);
 }

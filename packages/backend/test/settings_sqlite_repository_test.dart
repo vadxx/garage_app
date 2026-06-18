@@ -25,6 +25,7 @@ void main() {
       expect(s.distanceUnit, DistanceUnit.km);
       expect(s.theme, Theme.system);
       expect(s.currency, Currency.usd);
+      expect(s.oilIntervalKm, 10000);
     });
 
     test('save and load round-trip all fields', () {
@@ -33,6 +34,7 @@ void main() {
         distanceUnit: DistanceUnit.mi,
         theme: Theme.dark,
         currency: Currency.eur,
+        oilIntervalKm: 15000,
       );
       repo.save(updated);
 
@@ -41,6 +43,7 @@ void main() {
       expect(loaded.distanceUnit, DistanceUnit.mi);
       expect(loaded.theme, Theme.dark);
       expect(loaded.currency, Currency.eur);
+      expect(loaded.oilIntervalKm, 15000);
     });
 
     test('overwrites previous values', () {
@@ -49,6 +52,14 @@ void main() {
 
       repo.save(AppSettings(language: Language.en));
       expect(repo.load().language, Language.en);
+    });
+
+    test('oilIntervalKm saves and loads correctly', () {
+      repo.save(AppSettings(oilIntervalKm: 5000));
+      expect(repo.load().oilIntervalKm, 5000);
+
+      repo.save(AppSettings(oilIntervalKm: 20000));
+      expect(repo.load().oilIntervalKm, 20000);
     });
   });
 }

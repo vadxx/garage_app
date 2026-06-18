@@ -41,6 +41,11 @@ class FakeCarsRepository implements backend.CarsRepository {
     _carStats[stats.carId] = stats;
   }
 
+  @override
+  void recalculateCarStats(int carId) {
+    // Fake repo does not track works, so stats remain as-is.
+  }
+
   static const _colorNames = [
     'white',
     'black',

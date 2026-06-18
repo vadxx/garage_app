@@ -112,6 +112,7 @@ class SettingsPage extends ConsumerWidget {
           _LanguageChanger(),
           _CurrencyChanger(),
           _MileageChanger(),
+          _OilIntervalChanger(),
           _ImportExport(),
         ],
       ),
@@ -233,6 +234,60 @@ class _MileageChanger extends ConsumerWidget {
         );
         if (v != null && context.mounted) {
           ref.read(appSettingsProvider.notifier).setDistanceUnit(v);
+        }
+      },
+    );
+  }
+}
+
+class _OilIntervalChanger extends ConsumerWidget {
+  const _OilIntervalChanger();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    final unit = settings.distanceUnit;
+    final valueInUnit = backend.distanceToUnit(settings.oilIntervalKm, unit);
+    final unitLabel = backend.distanceUnitLabel(unit);
+    final controller = TextEditingController(text: valueInUnit.toString());
+    final field = TextField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: '$unitLabel (${context.t.mileage})',
+        border: const OutlineInputBorder(),
+      ),
+    );
+    return _SettingsCard(
+      title: Text('🛢️ ${context.t.oilIntervalKm}'),
+      value: '$valueInUnit $unitLabel',
+      onTap: () async {
+        final result = await showDialog<int>(
+          context: context,
+          builder: (ctx) => helpers.styledDialog(
+            title: Text(
+              '🛢️ ${context.t.oilIntervalKm}',
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            content: Column(mainAxisSize: MainAxisSize.min, children: [field]),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: Text(context.t.cancel),
+              ),
+              FilledButton(
+                onPressed: () {
+                  final v = int.tryParse(controller.text);
+                  Navigator.pop(ctx, v);
+                },
+                child: Text(context.t.save),
+              ),
+            ],
+          ),
+        );
+        if (result != null && result > 0 && context.mounted) {
+          final inKm = backend.unitToKm(result, unit);
+          ref.read(appSettingsProvider.notifier).setOilIntervalKm(inKm);
         }
       },
     );
