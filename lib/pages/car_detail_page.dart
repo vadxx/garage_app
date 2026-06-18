@@ -107,19 +107,30 @@ class _StatsTile extends ConsumerWidget {
               context,
             )
           : '—';
-      final statsRow = Row(
+      final topCatValue = stats.topCategory >= 0 ? topCatLabel : '—';
+      final statsRow = Column(
         children: [
-          helpers.subColumn(
-            context.t.lastOilChange,
-            formatDistance(oilKm, unit),
+          Row(
+            children: [
+              helpers.subColumn(context, context.t.topCategory, topCatValue),
+              const Spacer(),
+              helpers.subColumn(
+                context,
+                context.t.spent,
+                formatCurrency(stats.totalSpent, settings.currency),
+                valueColor: Colors.red,
+              ),
+            ],
           ),
-          Spacer(),
-          helpers.subColumn(context.t.topCategory, topCatLabel),
-          Spacer(),
-          helpers.subColumn(
-            context.t.spent,
-            formatCurrency(stats.totalSpent, settings.currency),
-            valueColor: Colors.red,
+          const SizedBox(height: 4),
+          Row(
+            children: [
+              helpers.subColumn(
+                context,
+                context.t.lastOilChange,
+                formatDistance(oilKm, unit),
+              ),
+            ],
           ),
         ],
       );

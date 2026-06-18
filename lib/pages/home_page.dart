@@ -156,14 +156,20 @@ class _CarTile extends ConsumerWidget {
         _carPlate(car.plate),
         Row(
           children: [
-            helpers.subColumn(context.t.year, '${car.year}'),
+            helpers.subColumn(context, context.t.year, '${car.year}'),
             Spacer(),
             helpers.subColumn(
+              context,
               context.t.mileage,
               formatDistance(car.mileage, unit),
             ),
             Spacer(),
-            helpers.subColumn(context.t.spent, spent, valueColor: Colors.red),
+            helpers.subColumn(
+              context,
+              context.t.spent,
+              spent,
+              valueColor: Colors.red,
+            ),
           ],
         ),
       ],
