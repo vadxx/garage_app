@@ -116,7 +116,7 @@ class _WorksList extends ConsumerWidget {
         ],
       ),
       loading: () => SizedBox.shrink(),
-      error: (e, _) => Center(child: Text('Error: $e')),
+      error: (e, _) => Center(child: Text('${context.t.error}: $e')),
     );
   }
 }

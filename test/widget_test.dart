@@ -13,4 +13,20 @@ void main() {
     final ru = await AppLocale.ru.build();
     expect(ru.appTitle, 'Гараж');
   });
+
+  test('new translation keys exist', () async {
+    final en = AppLocale.en.buildSync();
+    expect(en.oilChangeDataNotProvided, contains('Oil change'));
+    expect(en.errorLoadingStats, 'Error loading stats');
+    expect(en.error, 'Error');
+    expect(en.initFailed, 'Init failed');
+    expect(en.distanceUnit, 'Distance unit');
+
+    final ru = await AppLocale.ru.build();
+    expect(ru.oilChangeDataNotProvided, contains('замене масла'));
+    expect(ru.errorLoadingStats, 'Ошибка загрузки статистики');
+    expect(ru.error, 'Ошибка');
+    expect(ru.initFailed, 'Ошибка инициализации');
+    expect(ru.distanceUnit, 'Единица расстояния');
+  });
 }

@@ -66,3 +66,7 @@ importSuccess,Data imported successfully,Данные импортированы
 exportSuccess,Data exported successfully,Данные экспортированы
 oilIntervalKm,Oil change,Замена масла
 oilLife,Oil life,Ресурс масла
+oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла""."
+errorLoadingStats,Error loading stats,Ошибка загрузки статистики
+error,Error,Ошибка
+initFailed,Init failed,Ошибка инициализации

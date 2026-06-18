@@ -121,7 +121,8 @@ class StatsGroup extends ConsumerWidget {
     return carStats.when(
       data: onStatsData,
       loading: () => SizedBox.shrink(),
-      error: (e, _) => Center(child: Text('Error loading stats: $e')),
+      error: (e, _) =>
+          Center(child: Text('${context.t.errorLoadingStats}: $e')),
     );
   }
 
@@ -146,7 +147,7 @@ class _NoOilDataNotification extends StatelessWidget {
       color: Theme.of(context).colorScheme.onErrorContainer,
     );
     final noOilDataText = Text(
-      'Oil change data not provided. Add an "Oil change" work entry.',
+      context.t.oilChangeDataNotProvided,
       style: TextStyle(
         fontSize: 13,
         color: Theme.of(context).colorScheme.onErrorContainer,
