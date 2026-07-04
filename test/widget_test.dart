@@ -24,6 +24,9 @@ void main() {
 
     final pt = await AppLocale.pt.build();
     expect(pt.appTitle, 'Garagem');
+
+    final ko = await AppLocale.ko.build();
+    expect(ko.appTitle, '차고');
   });
 
   test('new translation keys exist', () async {
@@ -68,5 +71,12 @@ void main() {
     expect(pt.error, 'Erro');
     expect(pt.initFailed, 'Falha na inicialização');
     expect(pt.distanceUnit, 'Unidade de distância');
+
+    final ko = await AppLocale.ko.build();
+    expect(ko.oilChangeDataNotProvided, contains('오일 교체'));
+    expect(ko.errorLoadingStats, '통계 불러오기 오류');
+    expect(ko.error, '오류');
+    expect(ko.initFailed, '초기화 실패');
+    expect(ko.distanceUnit, '거리 단위');
   });
 }
