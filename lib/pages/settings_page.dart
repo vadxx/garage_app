@@ -155,6 +155,7 @@ class _LanguageChanger extends ConsumerWidget {
       backend.Language.es: context.t.es,
       backend.Language.fr: context.t.fr,
       backend.Language.pt: context.t.pt,
+      backend.Language.ko: context.t.ko,
     };
     final settings = ref.watch(appSettingsProvider);
     return _SettingsCard(

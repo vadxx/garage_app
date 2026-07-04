@@ -122,6 +122,20 @@ void main() {
       expect(repo.load().language, backend.Language.pt);
     });
 
+    testWidgets('changing language to Korean updates provider state', (
+      tester,
+    ) async {
+      await tester.pumpWidget(buildApp(repo));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('🌐 Language'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Korean'));
+      await tester.pumpAndSettle();
+
+      expect(repo.load().language, backend.Language.ko);
+    });
+
     testWidgets('changing currency updates provider state', (tester) async {
       await tester.pumpWidget(buildApp(repo));
       await tester.pumpAndSettle();
