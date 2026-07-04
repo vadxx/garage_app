@@ -21,6 +21,9 @@ void main() {
 
     final fr = await AppLocale.fr.build();
     expect(fr.appTitle, 'Garage');
+
+    final pt = await AppLocale.pt.build();
+    expect(pt.appTitle, 'Garagem');
   });
 
   test('new translation keys exist', () async {
@@ -58,5 +61,12 @@ void main() {
     expect(fr.error, 'Erreur');
     expect(fr.initFailed, 'Échec de l\'initialisation');
     expect(fr.distanceUnit, 'Unité de distance');
+
+    final pt = await AppLocale.pt.build();
+    expect(pt.oilChangeDataNotProvided, contains('Troca de óleo'));
+    expect(pt.errorLoadingStats, 'Erro ao carregar estatísticas');
+    expect(pt.error, 'Erro');
+    expect(pt.initFailed, 'Falha na inicialização');
+    expect(pt.distanceUnit, 'Unidade de distância');
   });
 }
