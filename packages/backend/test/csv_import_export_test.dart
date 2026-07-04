@@ -32,6 +32,13 @@ class _TestRepositories implements Repositories {
   void init(String _) {}
 
   @override
+  void clearAll() {
+    for (final car in carsRepo.load()) {
+      carsRepo.delete(car.id);
+    }
+  }
+
+  @override
   void transaction(void Function() action) {
     final db = _db;
     if (db == null) {
@@ -354,6 +361,36 @@ void main() {
       final csv = toCsv([CsvService.headers, row()]);
 
       expect(() => CsvService.importCsv(repos, csv), throwsStateError);
+    });
+
+    test('clears existing data and imports when clearExisting is true', () {
+      carsRepo.insert(createCar(make: 'Old'));
+      final carId = carsRepo.load().first.id;
+      carWorksRepo.insert(createWork(carId: carId, description: 'Old work'));
+
+      final csv = toCsv([
+        CsvService.headers,
+        row(
+          make: 'New',
+          workId: 1,
+          workDate: '2024-01-01',
+          workCategory: 'oil',
+          workMileage: 10000,
+          workCost: 100,
+          workDescription: 'New work',
+        ),
+      ]);
+
+      CsvService.importCsv(repos, csv, clearExisting: true);
+
+      final cars = carsRepo.load();
+      expect(cars.length, 1);
+      expect(cars.first.make, 'New');
+      expect(carWorksRepo.loadByCarId(cars.first.id).length, 1);
+      expect(
+        carWorksRepo.loadByCarId(cars.first.id).first.description,
+        'New work',
+      );
     });
 
     test('throws FormatException for missing required column', () {

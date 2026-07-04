@@ -11,8 +11,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart' as backend;
 
 import '../i18n/i18n.dart';
+import '../pages/helpers.dart' as helpers;
 import 'cars_provider.dart';
 import 'repositories_provider.dart';
+
+Future<bool> _showReplaceConfirmation(BuildContext context) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => helpers.styledDialog(
+      title: Text(context.t.importReplaceTitle),
+      content: Text(context.t.importReplaceMessage),
+      actions: [
+        helpers.cancelButton(
+          onPressed: () => Navigator.pop(ctx, false),
+          label: context.t.cancel,
+        ),
+        helpers.deleteButton(
+          context,
+          onPressed: () => Navigator.pop(ctx, true),
+          label: context.t.replace,
+        ),
+      ],
+    ),
+  );
+  return result ?? false;
+}
 
 Future<void> importCsv(BuildContext context, WidgetRef ref) async {
   final result = await FilePicker.pickFiles(
@@ -31,8 +54,18 @@ Future<void> importCsv(BuildContext context, WidgetRef ref) async {
   );
   final repos = reposAsync.requireValue;
 
+  final hasExistingData = repos.carsRepo.load().isNotEmpty;
+  if (hasExistingData && context.mounted) {
+    final confirmed = await _showReplaceConfirmation(context);
+    if (!confirmed) return;
+  }
+
   try {
-    backend.CsvService.importCsv(repos, csvContent);
+    backend.CsvService.importCsv(
+      repos,
+      csvContent,
+      clearExisting: hasExistingData,
+    );
     ref.invalidate(carsProvider);
     if (context.mounted) {
       ScaffoldMessenger.of(

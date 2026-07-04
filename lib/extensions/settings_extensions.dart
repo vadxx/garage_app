@@ -4,8 +4,16 @@
 import 'package:flutter/material.dart';
 import 'package:backend/backend.dart' as backend;
 
+import '../i18n/i18n.dart';
+
 extension LanguageX on backend.Language {
   Locale get locale => Locale(name);
+
+  AppLocale get appLocale => switch (this) {
+    backend.Language.en => AppLocale.en,
+    backend.Language.ru => AppLocale.ru,
+    backend.Language.de => AppLocale.de,
+  };
 }
 
 extension ThemeX on backend.Theme {

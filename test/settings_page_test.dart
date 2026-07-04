@@ -71,6 +71,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(repo.load().language, backend.Language.ru);
+
+      await tester.tap(find.text('🌐 Language'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('German'));
+      await tester.pumpAndSettle();
+
+      expect(repo.load().language, backend.Language.de);
     });
 
     testWidgets('changing currency updates provider state', (tester) async {

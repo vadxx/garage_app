@@ -1,4 +1,4 @@
-# garage_app
+# <img src="./app_icon.png" width="22" /> garage_app
 Your garage of cars in your phone. Track their maintenance and daily spendings.
 
 Flutter app. Supports Windows and Android platforms. Other platforms will be supported later.
@@ -7,9 +7,12 @@ Flutter app. Supports Windows and Android platforms. Other platforms will be sup
 
 | Task | Command |
 |------|---------|
-| Init and build | `sh build.sh --platforms=android` |
+| Init and build | `sh build.sh --platforms=android,windows` |
 | Formatting and Analysis | `dart format .; flutter analyze` |
 | Testing | `sh test.sh` |
 | Debug on Host | `flutter run -d windows` |
 | Debug on Android | `flutter run -d V2352A` |
 | Build apk then supply | `flutter build apk --target-platform android-arm64; flutter install -d V2352A` |
+
+
+[Developer guide](./DEV.md). Also [guide for Agents](./AGENTS.md).
