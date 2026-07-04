@@ -27,6 +27,9 @@ void main() {
 
     final ko = await AppLocale.ko.build();
     expect(ko.appTitle, '차고');
+
+    final ja = await AppLocale.ja.build();
+    expect(ja.appTitle, 'ガレージ');
   });
 
   test('new translation keys exist', () async {
@@ -78,5 +81,12 @@ void main() {
     expect(ko.error, '오류');
     expect(ko.initFailed, '초기화 실패');
     expect(ko.distanceUnit, '거리 단위');
+
+    final ja = await AppLocale.ja.build();
+    expect(ja.oilChangeDataNotProvided, contains('オイル交換'));
+    expect(ja.errorLoadingStats, '統計の読み込みエラー');
+    expect(ja.error, 'エラー');
+    expect(ja.initFailed, '初期化に失敗しました');
+    expect(ja.distanceUnit, '距離単位');
   });
 }

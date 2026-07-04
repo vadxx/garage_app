@@ -1,99 +1,100 @@
-key,en,ru,de,es,fr,pt,ko
-appTitle,Garage,Гараж,Garage,Garaje,Garage,Garagem,차고
-settings,Settings,Настройки,Einstellungen,Ajustes,Paramètres,Configurações,설정
-language,Language,Язык,Sprache,Idioma,Langue,Idioma,언어
-distanceUnit,Distance unit,Единица расстояния,Entfernungseinheit,Unidad de distancia,Unité de distance,Unidade de distância,거리 단위
-theme,Theme,Тема,Design,Tema,Thème,Tema,테마
-currency,Currency,Валюта,Währung,Moneda,Devise,Moeda,통화
-en,English,Английский,Englisch,Inglés,Anglais,Inglês,영어
-ru,Russian,Русский,Russisch,Ruso,Russe,Russo,러시아어
-de,German,Немецкий,Deutsch,Alemán,Allemand,Alemão,독일어
-es,Spanish,Испанский,Spanisch,Español,Espagnol,Espanhol,스페인어
-fr,French,Французский,Französisch,Francés,Français,Francês,프랑스어
-pt,Portuguese,Португальский,Portugiesisch,Portugués,Portugais,Português,포르투갈어
-ko,Korean,Корейский,Koreanisch,Coreano,Coréen,Coreano,한국어
-km,Kilometers,Километры,Kilometer,Kilómetros,Kilomètres,Quilômetros,킬로미터
-mi,Miles,Мили,Meilen,Millas,Miles,Milhas,마일
-system,System,Системная,System,Sistema,Système,Sistema,시스템
-light,Light,Светлая,Hell,Claro,Clair,Claro,밝음
-dark,Dark,Тёмная,Dunkel,Oscuro,Sombre,Escuro,어두움
-usd,USD,USD,USD,USD,USD,USD,USD
-rub,RUB,RUB,RUB,RUB,RUB,RUB,RUB
-eur,EUR,EUR,EUR,EUR,EUR,EUR,EUR
-addCar,Add car,Добавить авто,Auto hinzufügen,Añadir coche,Ajouter une voiture,Adicionar carro,차 추가
-editCar,Edit car,Изменить авто,Auto bearbeiten,Editar coche,Modifier la voiture,Editar carro,차 수정
-saveChanges,Save changes,Сохранить изменения,Änderungen speichern,Guardar cambios,Enregistrer les modifications,Salvar alterações,변경 사항 저장
-deleteCar,Delete car,Удалить авто,Auto löschen,Eliminar coche,Supprimer la voiture,Excluir carro,차 삭제
-delete,Delete,Удалить,Löschen,Eliminar,Supprimer,Excluir,삭제
-areYouSure,Are you sure?,Вы уверены?,Sind Sie sicher?,¿Está seguro?,Êtes-vous sûr ?,Tem certeza?,정말로?
-make,Make,Марка,Marca,Marca,Marque,Marca,제조사
-model,Model,Модель,Modell,Modelo,Modèle,Modelo,모델
-year,Year,Год,Jahr,Año,Année,Ano,연식
-plate,Plate,Номер,Kennzeichen,Matrícula,Plaque,Placa,번호판
-price,Price,Цена,Preis,Precio,Prix,Preço,가격
-mileage,Mileage,Пробег,Kilometerstand,Kilometraje,Kilométrage,Quilometragem,주행 거리
-save,Save,Сохранить,Speichern,Guardar,Enregistrer,Salvar,저장
-cancel,Cancel,Отмена,Abbrechen,Cancelar,Annuler,Cancelar,취소
-color,Color,Цвет,Farbe,Color,Couleur,Cor,색상
-spent,Spent money,Потрачено,Ausgaben,Gastado,Dépensé,Gasto,지출
-topCategory,Top category,Основная категория,Top-Kategorie,Categoría principal,Catégorie principale,Categoria principal,상위 카테고리
-addWork,Add work,Добавить работу,Arbeit hinzufügen,Añadir trabajo,Ajouter une tâche,Adicionar serviço,정비 추가
-editWork,Edit work,Изменить работу,Arbeit bearbeiten,Editar trabajo,Modifier la tâche,Editar serviço,정비 수정
-deleteWork,Delete work,Удалить работу,Arbeit löschen,Eliminar trabajo,Supprimer la tâche,Excluir serviço,정비 삭제
-lastOilChange,Last oil change,Последняя замена масла,Letzter Ölwechsel,Último cambio de aceite,Dernière vidange,Última troca de óleo,최근 오일 교체
-category,Category,Категория,Kategorie,Categoría,Catégorie,Categoria,카테고리
-catOil,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange,Troca de óleo,오일 교체
-catFuel,Fuel,Топливо,Kraftstoff,Combustible,Carburant,Combustível,연료
-catCleaning,Cleaning,Мойка,Reinigung,Limpieza,Nettoyage,Limpeza,세차
-catDiagnostic,Diagnostic,Диагностика,Diagnose,Diagnóstico,Diagnostic,Diagnóstico,진단
-catElectronics,Electronics,Электроника,Elektronik,Electrónica,Électronique,Eletrônica,전자장치
-catRepair,Repair,Ремонт,Reparatur,Reparación,Réparation,Reparo,수리
-catReplacement,Replacement,Замена,Ersatz,Reemplazo,Remplacement,Substituição,교체
-catParking,Parking,Парковка,Parken,Aparcamiento,Stationnement,Estacionamento,주차
-catInsurance,Insurance,Страховка,Versicherung,Seguro,Assurance,Seguro,보험
-catTiresWheels,Tires/Wheels,Шины/Диски,Reifen/Felgen,Neumáticos/Llantas,Pneus/Jantes,Pneus/Rodas,타이어/휠
-catTaxFees,Tax/Fees,Налоги/Сборы,Steuern/Gebühren,Impuestos/Tasas,Taxes/Frais,Impostos/Taxas,세금/수수료
-description,Description,Описание,Beschreibung,Descripción,Description,Descrição,설명
-date,Date,Дата,Datum,Fecha,Date,Data,날짜
-required,Required,Обязательно,Erforderlich,Obligatorio,Obligatoire,Obrigatório,필수
-enterValidMileage,Enter a valid mileage,Введите корректный пробег,Geben Sie einen gültigen Kilometerstand ein,Ingrese un kilometraje válido,Entrez un kilométrage valide,Digite uma quilometragem válida,올바른 주행 거리를 입력하세요
-enterValidCost,Enter a valid cost,Введите корректную стоимость,Geben Sie gültige Kosten ein,Ingrese un costo válido,Entrez un coût valide,Digite um custo válido,올바른 비용을 입력하세요
-enterValidYear,Enter a valid year,Введите корректный год,Geben Sie ein gültiges Jahr ein,Ingrese un año válido,Entrez une année valide,Digite um ano válido,올바른 연식을 입력하세요
-enterValidPrice,Enter a valid price,Введите корректную цену,Geben Sie einen gültigen Preis ein,Ingrese un precio válido,Entrez un prix valide,Digite um preço válido,올바른 가격을 입력하세요
-serviceHistory,Service history,История обслуживания,Wartungshistorie,Historial de servicio,Historique d'entretien,Histórico de serviços,정비 이력
-noWorksYet,No works yet,Пока нет работ,Noch keine Arbeiten,Aún no hay trabajos,Aucune tâche pour l'instant,Nenhum serviço ainda,정비 기록 없음
-import,Import data,Импорт данных,Daten importieren,Importar datos,Importer des données,Importar dados,데이터 가져오기
-export,Export data,Экспорт данных,Daten exportieren,Exportar datos,Exporter des données,Exportar dados,데이터 납품내기
-noDataYet,No data yet,Пока нет данных,Noch keine Daten,Aún no hay datos,Aucune donnée pour l'instant,Nenhum dado ainda,데이터 없음
-importFromFile,Import from file,Импорт из файла,Aus Datei importieren,Importar desde archivo,Importer depuis un fichier,Importar de arquivo,파일에서 가져오기
-databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.,Datenbank ist nicht leer. Löschen Sie zuerst die Daten.,La base de datos no está vacía. Borre los datos primero.,La base de données n'est pas vide. Effacez d'abord les données.,O banco de dados não está vazio. Limpe os dados primeiro.,데이터베이스가 비어 있지 않습니다. 먼저 데이터를 지우세요.
-importReplaceTitle,Replace existing data?,Заменить существующие данные?,Bestehende Daten ersetzen?,¿Reemplazar datos existentes?,Remplacer les données existantes ?,Substituir dados existentes?,기존 데이터를 바꾸시겠습니까?
-importReplaceMessage,Importing will replace all existing cars and works. This cannot be undone.,Импорт заменит все существующие автомобили и работы. Это нельзя отменить.,Der Import ersetzt alle bestehenden Autos und Arbeiten. Dies kann nicht rückgängig gemacht werden.,La importación reemplazará todos los coches y trabajos existentes. Esto no se puede deshacer.,L'importation remplacera toutes les voitures et tâches existantes. Cela ne peut pas être annulé.,A importação substituirá todos os carros e serviços existentes. Isso não pode ser desfeito.,가져오기를 실행하면 기존 차량과 정비 기록이 모두 대첩니다. 이 작업은 되돌릴 수 없습니다.
-replace,Replace,Заменить,Ersetzen,Reemplazar,Remplacer,Substituir,대체
-importSuccess,Data imported successfully,Данные импортированы,Daten erfolgreich importiert,Datos importados correctamente,Données importées avec succès,Dados importados com sucesso,데이터 가져오기 완료
-exportSuccess,Data exported successfully,Данные экспортированы,Daten erfolgreich exportiert,Datos exportados correctamente,Données exportées avec succès,Dados exportados com sucesso,데이터 납품내기 완료
-oilIntervalKm,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange,Troca de óleo,오일 교체
-oilLife,Oil life,Ресурс масла,Ölstand,Vida útil del aceite,Durée de vie de l'huile,Vida útil do óleo,오일 수명
-oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла"".","Ölwechseldaten nicht angegeben. Fügen Sie einen ""Ölwechsel""-Eintrag hinzu.","No se proporcionaron datos de cambio de aceite. Añada una entrada de trabajo ""Cambio de aceite"".","Données de vidange non fournies. Ajoutez une tâche ""Vidange"".","Dados de troca de óleo não fornecidos. Adicione um serviço ""Troca de óleo"".","오일 교체 데이터가 없습니다. ""오일 교체"" 정비 기록을 추가하세요."
-errorLoadingStats,Error loading stats,Ошибка загрузки статистики,Fehler beim Laden der Statistiken,Error al cargar estadísticas,Erreur lors du chargement des statistiques,Erro ao carregar estatísticas,통계 불러오기 오류
-error,Error,Ошибка,Fehler,Error,Erreur,Erro,오류
-initFailed,Init failed,Ошибка инициализации,Initialisierung fehlgeschlagen,Error de inicio,Échec de l'initialisation,Falha na inicialização,초기화 실패
-current,current,текущий,aktuell,actual,actuel,atual,현재
-works,works,работ,arbeiten,trabajos,tâches,serviços,정비
-monthlySpendings,Monthly Spendings,Расходы по месяцам,Monatliche Ausgaben,Gastos mensuels,Dépenses mensuelles,Gastos mensais,월별 지출
-categoryRatings,Category Ratings,Рейтинг категорий,Kategoriebewertungen,Calificaciones por categoría,Répartition par catégorie,Avaliações por categoria,카테고리 비율
-noOilChangeRecords,No oil change records yet,Нет записей о замене масла,Noch keine Ölwechsel-Einträge,Aún no hay registros de cambio de aceite,Aucun enregistrement de vidange,Nenhum registro de troca de óleo ainda,오일 교체 기록 없음
-noSpendingRecords,No spending records yet,Нет записей о расходах,Noch keine Ausgaben-Einträge,Aún no hay registros de gastos,Aucun enregistrement de dépenses,Nenhum registro de gastos ainda,지출 기록 없음
-noCategoryRecords,No category records yet,Нет записей по категориям,Noch keine Kategorie-Einträge,Aún no hay registros por categoría,Aucun enregistrement par catégorie,Nenhum registro por categoria ainda,카테고리 기록 없음
-january,January,Январь,Januar,Enero,Janvier,Janeiro,1월
-february,February,Февраль,Februar,Febrero,Février,Fevereiro,2월
-march,March,Март,März,Marzo,Mars,Março,3월
-april,April,Апрель,April,Abril,Avril,Abril,4월
-may,May,Май,Mai,Mayo,Mai,Maio,5월
-june,June,Июнь,Juni,Junio,Juin,Junho,6월
-july,July,Июль,Juli,Julio,Juillet,Julho,7월
-august,August,Август,August,Agosto,Août,Agosto,8월
-september,September,Сентябрь,September,Septiembre,Septembre,Setembro,9월
-october,October,Октябрь,Oktober,Octubre,Octobre,Outubro,10월
-november,November,Ноябрь,November,Noviembre,Novembro,Novembro,11월
-december,December,Декабрь,Dezember,Diciembre,Décembre,Dezembro,12월
+key,en,ru,de,es,fr,pt,ko,ja
+appTitle,Garage,Гараж,Garage,Garaje,Garage,Garagem,차고,ガレージ
+settings,Settings,Настройки,Einstellungen,Ajustes,Paramètres,Configurações,설정,設定
+language,Language,Язык,Sprache,Idioma,Langue,Idioma,언어,言語
+distanceUnit,Distance unit,Единица расстояния,Entfernungseinheit,Unidad de distancia,Unité de distance,Unidade de distância,거리 단위,距離単位
+theme,Theme,Тема,Design,Tema,Thème,Tema,테마,テーマ
+currency,Currency,Валюта,Währung,Moneda,Devise,Moeda,통화,通貨
+en,English,Английский,Englisch,Inglés,Anglais,Inglês,영어,英語
+ru,Russian,Русский,Russisch,Ruso,Russe,Russo,러시아어,ロシア語
+de,German,Немецкий,Deutsch,Alemán,Allemand,Alemão,독일어,ドイツ어
+es,Spanish,Испанский,Spanisch,Español,Espagnol,Espanhol,스페인어,スペイン語
+fr,French,Французский,Französisch,Francés,Français,Francês,프랑스어,フランス語
+pt,Portuguese,Португальский,Portugiesisch,Portugués,Portugais,Português,포르투갈어,ポルトガル語
+ko,Korean,Корейский,Koreanisch,Coreano,Coréen,Coreano,한국어,韓国語
+ja,Japanese,Японский,Japanisch,Japonés,Japonais,Japonês,일본어,日本語
+km,Kilometers,Километры,Kilometer,Kilómetros,Kilomètres,Quilômetros,킬로미터,キロメートル
+mi,Miles,Мили,Meilen,Millas,Miles,Milhas,마일,マイル
+system,System,Системная,System,Sistema,Système,Sistema,시스템,システム
+light,Light,Светлая,Hell,Claro,Clair,Claro,밝음,ライト
+dark,Dark,Тёмная,Dunkel,Oscuro,Sombre,Escuro,어두움,ダーク
+usd,USD,USD,USD,USD,USD,USD,USD,USD
+rub,RUB,RUB,RUB,RUB,RUB,RUB,RUB,RUB
+eur,EUR,EUR,EUR,EUR,EUR,EUR,EUR,EUR
+addCar,Add car,Добавить авто,Auto hinzufügen,Añadir coche,Ajouter une voiture,Adicionar carro,차 추가,車を追加
+editCar,Edit car,Изменить авто,Auto bearbeiten,Editar coche,Modifier la voiture,Editar carro,차 수정,車を編集
+saveChanges,Save changes,Сохранить изменения,Änderungen speichern,Guardar cambios,Enregistrer les modifications,Salvar alterações,변경 사항 저장,変更を保存
+deleteCar,Delete car,Удалить авто,Auto löschen,Eliminar coche,Supprimer la voiture,Excluir carro,차 삭제,車を削除
+delete,Delete,Удалить,Löschen,Eliminar,Supprimer,Excluir,삭제,削除
+areYouSure,Are you sure?,Вы уверены?,Sind Sie sicher?,¿Está seguro?,Êtes-vous sûr ?,Tem certeza?,정말로?,本当ですか？
+make,Make,Марка,Marca,Marca,Marque,Marca,제조사,メーカー
+model,Model,Модель,Modell,Modelo,Modèle,Modelo,모델,モデル
+year,Year,Год,Jahr,Año,Année,Ano,연식,年式
+plate,Plate,Номер,Kennzeichen,Matrícula,Plaque,Placa,번호판,ナンバープレート
+price,Price,Цена,Preis,Precio,Prix,Preço,가격,価格
+mileage,Mileage,Пробег,Kilometerstand,Kilometraje,Kilométrage,Quilometragem,주행 거리,走行距리
+save,Save,Сохранить,Speichern,Guardar,Enregistrer,Salvar,저장,保存
+cancel,Cancel,Отмена,Abbrechen,Cancelar,Annuler,Cancelar,취소,キャンセル
+color,Color,Цвет,Farbe,Color,Couleur,Cor,색상,色
+spent,Spent money,Потрачено,Ausgaben,Gastado,Dépensé,Gasto,지출,支出
+topCategory,Top category,Основная категория,Top-Kategorie,Categoría principal,Catégorie principale,Categoria principal,상위 카테고리,トップカテゴリ
+addWork,Add work,Добавить работу,Arbeit hinzufügen,Añadir trabajo,Ajouter une tâche,Adicionar serviço,정비 추가,作業を追加
+editWork,Edit work,Изменить работу,Arbeit bearbeiten,Editar trabajo,Modifier la tâche,Editar serviço,정비 수정,作業を編集
+deleteWork,Delete work,Удалить работу,Arbeit löschen,Eliminar trabajo,Supprimer la tâche,Excluir serviço,정비 삭제,作業を削除
+lastOilChange,Last oil change,Последняя замена масла,Letzter Ölwechsel,Último cambio de aceite,Dernière vidange,Última troca de óleo,최근 오일 교체,最後のオイル交換
+category,Category,Категория,Kategorie,Categoría,Catégorie,Categoria,카테고리,カテゴリ
+catOil,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange,Troca de óleo,오일 교체,オイル交換
+catFuel,Fuel,Топливо,Kraftstoff,Combustible,Carburant,Combustível,연료,燃料
+catCleaning,Cleaning,Мойка,Reinigung,Limpieza,Nettoyage,Limpeza,세차,洗車
+catDiagnostic,Diagnostic,Диагностика,Diagnose,Diagnóstico,Diagnostic,Diagnóstico,진단,診断
+catElectronics,Electronics,Электроника,Elektronik,Electrónica,Électronique,Eletrônica,전자장치,電子機器
+catRepair,Repair,Ремонт,Reparatur,Reparación,Réparation,Reparo,수리,修理
+catReplacement,Replacement,Замена,Ersatz,Reemplazo,Remplacement,Substituição,교체,交換
+catParking,Parking,Парковка,Parken,Aparcamiento,Stationnement,Estacionamento,주차,駐車
+catInsurance,Insurance,Страховка,Versicherung,Seguro,Assurance,Seguro,보험,保険
+catTiresWheels,Tires/Wheels,Шины/Диски,Reifen/Felgen,Neumáticos/Llantas,Pneus/Jantes,Pneus/Rodas,타이어/휠,タイヤ/ホイール
+catTaxFees,Tax/Fees,Налоги/Сборы,Steuern/Gebühren,Impuestos/Tasas,Taxes/Frais,Impostos/Taxas,세금/수수료,税金/費用
+description,Description,Описание,Beschreibung,Descripción,Description,Descrição,설명,説明
+date,Date,Дата,Datum,Fecha,Date,Data,날짜,日付
+required,Required,Обязательно,Erforderlich,Obligatorio,Obligatoire,Obrigatório,필수,必須
+enterValidMileage,Enter a valid mileage,Введите корректный пробег,Geben Sie einen gültigen Kilometerstand ein,Ingrese un kilometraje válido,Entrez un kilométrage valide,Digite uma quilometragem válida,올바른 주행 거리를 입력하세요,有効な走行距離を入力してください
+enterValidCost,Enter a valid cost,Введите корректную стоимость,Geben Sie gültige Kosten ein,Ingrese un costo válido,Entrez un coût valide,Digite um custo válido,올바른 비용을 입력하세요,有効な費用を入力してください
+enterValidYear,Enter a valid year,Введите корректный год,Geben Sie ein gültiges Jahr ein,Ingrese un año válido,Entrez une année valide,Digite um ano válido,올바른 연식을 입력하세요,有効な年式を入力してください
+enterValidPrice,Enter a valid price,Введите корректную цену,Geben Sie einen gültigen Preis ein,Ingrese un precio válido,Entrez un prix valide,Digite um preço válido,올바른 가격을 입력하세요,有効な価格を入力してください
+serviceHistory,Service history,История обслуживания,Wartungshistorie,Historial de servicio,Historique d'entretien,Histórico de serviços,정비 이력,整備履歴
+noWorksYet,No works yet,Пока нет работ,Noch keine Arbeiten,Aún no hay trabajos,Aucune tâche pour l'instant,Nenhum serviço ainda,정비 기록 없음,作業履歴なし
+import,Import data,Импорт данных,Daten importieren,Importar datos,Importer des données,Importar dados,데이터 가져오기,データをインポート
+export,Export data,Экспорт данных,Daten exportieren,Exportar datos,Exporter des données,Exportar dados,데이터 납품내기,データをエクスポート
+noDataYet,No data yet,Пока нет данных,Noch keine Daten,Aún no hay datos,Aucune donnée pour l'instant,Nenhum dado ainda,데이터 없음,データなし
+importFromFile,Import from file,Импорт из файла,Aus Datei importieren,Importar desde archivo,Importer depuis un fichier,Importar de arquivo,파일에서 가져오기,ファイルからインポート
+databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.,Datenbank ist nicht leer. Löschen Sie zuerst die Daten.,La base de datos no está vacía. Borre los datos primero.,La base de données n'est pas vide. Effacez d'abord les données.,O banco de dados não está vazio. Limpe os dados primeiro.,데이터베이스가 비어 있지 않습니다. 먼저 데이터를 지우세요.,データベースが空ではありません。先にデータを消去してください。
+importReplaceTitle,Replace existing data?,Заменить существующие данные?,Bestehende Daten ersetzen?,¿Reemplazar datos existentes?,Remplacer les données existantes ?,Substituir dados existentes?,기존 데이터를 바꾸시겠습니까?,既存のデータを置き換えますか？
+importReplaceMessage,Importing will replace all existing cars and works. This cannot be undone.,Импорт заменит все существующие автомобили и работы. Это нельзя отменить.,Der Import ersetzt alle bestehenden Autos und Arbeiten. Dies kann nicht rückgängig gemacht werden.,La importación reemplazará todos los coches y trabajos existentes. Esto no se puede deshacer.,L'importation remplacera toutes les voitures et tâches existantes. Cela ne peut pas être annulé.,A importação substituirá todos os carros e serviços existentes. Isso não pode ser desfeito.,가져오기를 실행하면 기존 차량과 정비 기록이 모두 대첩니다. 이 작업은 되돌릴 수 없습니다.,インポートすると既存の車と作業がすべて置き換えられます。この操作は元に戻せません。
+replace,Replace,Заменить,Ersetzen,Reemplazar,Remplacer,Substituir,대체,置き換え
+importSuccess,Data imported successfully,Данные импортированы,Daten erfolgreich importiert,Datos importados correctamente,Données importées avec succès,Dados importados com sucesso,데이터 가져오기 완료,データのインポートに成功しました
+exportSuccess,Data exported successfully,Данные экспортированы,Daten erfolgreich exportiert,Datos exportados correctamente,Données exportées avec succès,Dados exportados com sucesso,데이터 납품내기 완료,データのエクスポートに成功しました
+oilIntervalKm,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange,Troca de óleo,오일 교체,オイル交換
+oilLife,Oil life,Ресурс масла,Ölstand,Vida útil del aceite,Durée de vie de l'huile,Vida útil do óleo,오일 수명,オイル寿命
+oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла"".","Ölwechseldaten nicht angegeben. Fügen Sie einen ""Ölwechsel""-Eintrag hinzu.","No se proporcionaron datos de cambio de aceite. Añada una entrada de trabajo ""Cambio de aceite"".","Données de vidange non fournies. Ajoutez une tâche ""Vidange"".","Dados de troca de óleo não fornecidos. Adicione um serviço ""Troca de óleo"".","오일 교체 데이터가 없습니다. ""오일 교체"" 정비 기록을 추가하세요.","オイル交換データが提供されていません。""オイル交換""の作業を追加してください。"
+errorLoadingStats,Error loading stats,Ошибка загрузки статистики,Fehler beim Laden der Statistiken,Error al cargar estadísticas,Erreur lors du chargement des statistiques,Erro ao carregar estatísticas,통계 불러오기 오류,統計の読み込みエラー
+error,Error,Ошибка,Fehler,Error,Erreur,Erro,오류,エラー
+initFailed,Init failed,Ошибка инициализации,Initialisierung fehlgeschlagen,Error de inicio,Échec de l'initialisation,Falha na inicialização,초기화 실패,初期化に失敗しました
+current,current,текущий,aktuell,actual,actuel,atual,현재,現在
+works,works,работ,arbeiten,trabajos,tâches,serviços,정비,作業
+monthlySpendings,Monthly Spendings,Расходы по месяцам,Monatliche Ausgaben,Gastos mensuels,Dépenses mensuelles,Gastos mensais,월별 지출,月別支出
+categoryRatings,Category Ratings,Рейтинг категорий,Kategoriebewertungen,Calificaciones por categoría,Répartition par catégorie,Avaliações por categoria,카테고리 비율,カテゴリ別評価
+noOilChangeRecords,No oil change records yet,Нет записей о замене масла,Noch keine Ölwechsel-Einträge,Aún no hay registros de cambio de aceite,Aucun enregistrement de vidange,Nenhum registro de troca de óleo ainda,오일 교체 기록 없음,オイル交換記録なし
+noSpendingRecords,No spending records yet,Нет записей о расходах,Noch keine Ausgaben-Einträge,Aún no hay registros de gastos,Aucun enregistrement de dépenses,Nenhum registro de gastos ainda,지출 기록 없음,支出記録なし
+noCategoryRecords,No category records yet,Нет записей по категориям,Noch keine Kategorie-Einträge,Aún no hay registros por categoría,Aucun enregistrement par catégorie,Nenhum registro por categoria ainda,카테고리 기록 없음,カテゴリ記録なし
+january,January,Январь,Januar,Enero,Janvier,Janeiro,1월,1月
+february,February,Февраль,Februar,Febrero,Février,Fevereiro,2월,2月
+march,March,Март,März,Marzo,Mars,Março,3월,3月
+april,April,Апрель,April,Abril,Avril,Abril,4월,4月
+may,May,Май,Mai,Mayo,Mai,Maio,5월,5月
+june,June,Июнь,Juni,Junio,Juin,Junho,6월,6月
+july,July,Июль,Juli,Julio,Juillet,Julho,7월,7月
+august,August,Август,August,Agosto,Août,Agosto,8월,8月
+september,September,Сентябрь,September,Septiembre,Septembre,Setembro,9월,9月
+october,October,Октябрь,Oktober,Octubre,Octobre,Outubro,10월,10月
+november,November,Ноябрь,November,Noviembre,Novembro,Novembro,11월,11月
+december,December,Декабрь,Dezember,Diciembre,Décembre,Dezembro,12월,12月
