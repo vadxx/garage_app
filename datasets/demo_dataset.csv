@@ -1,0 +1,28 @@
+car_id,make,model,year,color,plate,price,car_mileage,total_spent,last_oil_change_km,work_id,work_date,work_category,work_mileage,work_cost,work_description
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,1,2020-03-15,oil,280000,60,Engine oil change
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,2,2020-05-20,tiresWheels,285000,400,New tires
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,3,2021-02-10,repair,300000,500,Suspension repair
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,4,2021-06-01,fuel,305000,70,Fuel refill
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,5,2021-09-15,oil,310000,65,Oil change
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,6,2022-04-18,replacement,320000,250,Timing belt replacement
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,7,2022-11-30,diagnostic,328000,100,Diagnostics check
+1,VW,Golf mk4,2002,blue,AB 1234,3500,335000,1515,335000,8,2023-07-22,oil,335000,70,Oil change
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,9,2021-01-10,cleaning,180000,40,Interior cleaning
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,10,2021-04-15,oil,185000,80,Synthetic oil change
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,11,2021-10-20,tiresWheels,195000,550,Winter tires
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,12,2022-02-28,fuel,200000,75,Fuel refill
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,13,2022-08-15,repair,210000,300,Brake discs replacement
+2,VW,Golf mk6,2012,red,CD 5678,8000,221000,1130,221000,14,2023-03-10,oil,221000,85,Oil change
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,15,2019-05-10,oil,480000,50,Engine oil
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,16,2019-11-20,repair,490000,600,Gearbox repair
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,17,2020-04-15,fuel,500000,60,Fuel refill
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,18,2020-09-30,replacement,510000,350,Clutch replacement
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,19,2021-02-28,oil,520000,55,Oil change
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,20,2021-08-10,diagnostic,530000,80,Electrical diagnostic
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,21,2022-03-15,repair,540000,450,Exhaust repair
+3,Audi,100 c3,1986,blue,EF 9012,1500,544000,1705,544000,22,2022-10-01,oil,544000,60,Oil top up and change
+4,Skoda,Fabia,2010,black,GH 3456,4500,121000,500,121000,23,2022-01-20,cleaning,100000,35,Car wash
+4,Skoda,Fabia,2010,black,GH 3456,4500,121000,500,121000,24,2022-06-15,oil,105000,55,Oil change
+4,Skoda,Fabia,2010,black,GH 3456,4500,121000,500,121000,25,2022-12-10,tiresWheels,110000,300,Tire change
+4,Skoda,Fabia,2010,black,GH 3456,4500,121000,500,121000,26,2023-04-05,fuel,115000,50,Fuel refill
+4,Skoda,Fabia,2010,black,GH 3456,4500,121000,500,121000,27,2023-09-18,oil,121000,60,Oil change

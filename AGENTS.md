@@ -22,6 +22,7 @@ This file is a guide for AI coding agents working on the `garage_app` project. I
 | `pubspec.yaml` | Root Flutter app dependencies and metadata |
 | `packages/backend/pubspec.yaml` | Local Dart package with business logic, DB, models |
 | `analysis_options.yaml` | Flutter lints config; excludes `packages/**` from app analysis |
+| `packages/backend/analysis_options.yaml` | Backend lints config (`package:lints/recommended.yaml`) |
 | `slang.yaml` | CSV-based i18n generation config |
 | `build.sh` | Project bootstrap/build script (runs code-gen, icon generation) |
 | `test.sh` | Format check + backend tests + app widget tests |
@@ -60,9 +61,33 @@ garage_app/
 │   ├── main.dart                 # App entry point
 │   ├── app_router.dart           # go_router route definitions + navigation helpers
 │   ├── extensions/               # Flutter-facing extensions on backend enums
-│   ├── i18n/                     # Slang generated files + CSV source
-│   ├── pages/                    # UI pages (screens)
+│   │   └── settings_extensions.dart
+│   ├── i18n/                     # Slang generated files + CSV source + barrel export
+│   │   ├── strings.i18n.csv
+│   │   ├── strings.g.dart
+│   │   ├── strings_en.g.dart
+│   │   ├── strings_ru.g.dart
+│   │   ├── strings_de.g.dart
+│   │   └── i18n.dart
+│   ├── pages/                    # UI pages (screens) + shared helpers
+│   │   ├── home_page.dart
+│   │   ├── car_detail_page.dart
+│   │   ├── add_edit_car_page.dart
+│   │   ├── add_edit_car_work_page.dart
+│   │   ├── settings_page.dart
+│   │   ├── stats_group.dart
+│   │   ├── helpers.dart
+│   │   └── pages.dart
 │   └── providers/                # Riverpod providers and notifiers
+│       ├── repositories_provider.dart
+│       ├── app_settings_provider.dart
+│       ├── cars_provider.dart
+│       ├── car_form_provider.dart
+│       ├── car_works_provider.dart
+│       ├── car_work_form_provider.dart
+│       ├── car_stats_provider.dart
+│       ├── csv_io.dart
+│       └── providers.dart
 ├── packages/backend/
 │   └── lib/
 │       ├── backend.dart          # Public API (abstract repos, models, utils)
@@ -72,10 +97,20 @@ garage_app/
 │       │   ├── csv_import_export.dart    # CSV import/export service
 │       │   ├── currency_extensions.dart  # USD ↔ currency formatting/conversion
 │       │   ├── distance_extensions.dart  # km ↔ mi formatting/conversion
-│       │   ├── date_utils.dart           # Epoch/date helpers
-│       │   ├── models/                   # Freezed data models
 │       │   ├── routes.dart               # Route path constants
+│       │   ├── utils/date_utils.dart     # Epoch/date helpers
+│       │   ├── models/                   # Freezed data models
+│       │   │   ├── models.dart
+│       │   │   ├── settings.dart
+│       │   │   ├── car.dart
+│       │   │   ├── car_work.dart
+│       │   │   └── car_stats.dart
 │       │   └── sqlite_repositories/      # SQLite repository implementations
+│       │       ├── sqlite_repositories.dart
+│       │       ├── repository.dart
+│       │       ├── settings.dart
+│       │       ├── cars.dart
+│       │       └── cars_works.dart
 │       └── test/                 # Backend unit tests
 ├── test/                         # Flutter widget and integration-style tests
 └── android/, windows/            # Platform-specific projects
@@ -83,18 +118,19 @@ garage_app/
 
 ### UI layer (`lib/`)
 
-- `main.dart` bootstraps the app, initializes Riverpod, sets device locale, and awaits the `repositoriesProvider` before showing the router.
-- `app_router.dart` defines all `go_router` routes using constants from `backend/src/routes.dart`.
-- `pages/` contains one file per screen and re-exports them via `pages.dart`. Helpers live in `pages/helpers.dart`.
-- `providers/` contains Riverpod providers:
+- `main.dart` bootstraps the app, initializes Riverpod, sets the device locale via `LocaleSettings.useDeviceLocale()`, and awaits the `repositoriesProvider` before showing the router.
+- `app_router.dart` defines all `go_router` routes using constants from `backend/src/routes.dart` and exposes typed navigation helpers (`goToSettings`, `goToCarDetail`, `goToAddCar`, `goToEditCar`, `goToAddCarWork`, `goToEditCarWork`, `goToHome`).
+- `pages/` contains one file per screen and re-exports them via `pages.dart`. Shared widgets and helpers live in `pages/helpers.dart`.
+- `providers/` contains Riverpod providers and re-exports them via `providers.dart`:
   - `repositories_provider.dart` — async init of `SqliteRepositories` via `path_provider`
   - `app_settings_provider.dart` — app settings state
   - `cars_provider.dart` — car list CRUD
-  - `car_works_provider.dart` — works per car
-  - `car_stats_provider.dart` — computed stats per car
+  - `car_works_provider.dart` — works per car (`FutureProvider.family`)
+  - `car_stats_provider.dart` — computed stats per car (`FutureProvider.family`)
   - `car_form_provider.dart` / `car_work_form_provider.dart` — form state + validation
   - `csv_io.dart` — import/export actions
 - `extensions/settings_extensions.dart` maps backend enums (`Language`, `Theme`) to Flutter types (`Locale`, `ThemeMode`).
+- `i18n/i18n.dart` is a barrel file that exports `package:slang_flutter/slang_flutter.dart` and the generated `strings.g.dart`.
 
 ### Backend layer (`packages/backend/`)
 
@@ -105,11 +141,11 @@ This is the single source of truth for business logic and persistence.
   - `SettingsRepository`
   - `CarsRepository`
   - `CarWorksRepository`
-  - `Repositories` aggregate interface with `transaction()` support
-- **SQLite**: each repository creates/migrates its own tables on construction. The database is opened once in `SqliteRepositories.init(appStoragePath)` and stored as `garage.db`.
+  - `Repositories` aggregate interface with `init()`, `clearAll()`, and `transaction()` support
+- **SQLite**: the database is opened once in `SqliteRepositories.init(appStoragePath)` (`src/sqlite_repositories/repository.dart`) and stored as `garage.db`. Each repository creates/migrates its own tables on construction.
 - **Currency**: amounts are stored in USD internally and converted to the user's chosen currency (`usd`, `rub`, `eur`) for display/input.
 - **Distance**: mileage is stored in kilometers and converted to `km`/`mi` for display/input.
-- **CSV**: `CsvService.exportCsv()` / `importCsv()` handle full backup/restore; import requires an empty database.
+- **CSV**: `CsvService.exportCsv()` / `importCsv()` handle full backup/restore. `importCsv()` rejects imports into a non-empty database unless `clearExisting` is `true`; the UI prompts the user for confirmation before replacing data.
 
 ---
 
@@ -179,8 +215,8 @@ flutter test                          # app widget tests
 ## Code style guidelines
 
 - **Formatting**: follow `dart format`. Do not commit unformatted code; CI enforces this.
-- **Lints**: root app uses `package:flutter_lints/flutter.yaml`. `packages/backend` uses `package:lints`. `analysis_options.yaml` excludes `packages/**` from the app's analyzer.
-- **File headers**: every Dart file starts with a copyright and SPDX license header:
+- **Lints**: root app uses `package:flutter_lints/flutter.yaml`. `packages/backend` uses `package:lints/recommended.yaml`. `analysis_options.yaml` excludes `packages/**` from the app's analyzer.
+- **File headers**: Dart source files are expected to start with a copyright and SPDX license header:
 
   ```dart
   // Copyright (c) 2026 vadxx
@@ -190,7 +226,7 @@ flutter test                          # app widget tests
 - **Imports**:
   - Import the public backend API with `package:backend/backend.dart`.
   - Import the SQLite implementation **only** in `lib/providers/repositories_provider.dart` (it is a single-import dependency).
-  - Use `import 'package:backend/backend.dart' as backend;` and alias when there are name collisions (e.g., `Theme`, `Language`).
+  - Use `import 'package:backend/backend.dart' as backend;` and alias when there are name collisions (e.g., `Theme`, `Language`), or use `hide Theme` / `show ...` as appropriate.
 - **Naming**: follow Dart conventions (`PascalCase` classes, `lowerCamelCase` members, `lowercase_with_underscores` files).
 - **Comments**: keep comments factual and close to the code they explain. Complex SQL queries are wrapped with `// dart format off` / `// dart format on`.
 - **SQL migrations**: the app uses best-effort `ALTER TABLE` migrations wrapped in `try/catch` so existing databases are upgraded automatically.
@@ -240,7 +276,7 @@ When writing new widget tests, follow the existing pattern: build the app with `
 
 ## Localization (i18n)
 
-Translations are maintained in `lib/i18n/strings.i18n.csv` (CSV format with `key,en,ru`).
+Translations are maintained in `lib/i18n/strings.i18n.csv` (CSV format with `key,en,ru,de`).
 
 After editing the CSV, regenerate Dart code:
 
@@ -248,7 +284,7 @@ After editing the CSV, regenerate Dart code:
 dart run slang
 ```
 
-Generated files (`strings.g.dart`, `strings_en.g.dart`, `strings_ru.g.dart`) are committed. Do not edit generated files by hand.
+Generated files (`strings.g.dart`, `strings_en.g.dart`, `strings_ru.g.dart`, `strings_de.g.dart`) are committed. Do not edit generated files by hand.
 
 The base locale is English (`en`). In widgets, use `context.t.<key>` to access translations.
 
@@ -286,6 +322,6 @@ No automated deployment to app stores is configured. Release APKs are produced a
 - **Currency storage**: prices, costs, and car values are stored in USD. Convert with `currencyToUsd()` before saving and `formatCurrency()` / `usdToCurrency()` when displaying or seeding form fields.
 - **Distance storage**: mileage is stored in km. Convert with `unitToKm()` on input and `formatDistance()` / `distanceToUnit()` for display.
 - **Stats recalculation**: `CarsRepository.recalculateCarStats()` updates `totalSpent`, `lastOilChangeKm`, and `topCategory` from works. It is invoked after inserting/updating/deleting works.
-- **Oil health**: `oilHealth()` in `car_stats.dart` compares current mileage to the last oil change mileage and a configurable interval (default 10,000 km).
-- **CSV import**: requires an empty database. If importing, the user must clear existing data first.
+- **Oil health**: `oilHealth()` in `car_stats.dart` compares current mileage to the last oil change mileage and a configurable interval (`oilIntervalKm`, default 10,000 km).
+- **CSV import**: by default requires an empty database. When the database is not empty, the UI asks the user to confirm replacement; if confirmed, `CsvService.importCsv()` is called with `clearExisting: true`.
 - **Android build workaround**: `build.sh` and `android/build.gradle.kts` apply the Kotlin Android plugin globally because `file_picker v11.0.2` conditionally skips it when AGP ≥ 9. This can be removed once `file_picker` migrates to built-in Kotlin support.
