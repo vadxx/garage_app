@@ -1,96 +1,97 @@
-key,en,ru,de,es
-appTitle,Garage,Гараж,Garage,Garaje
-settings,Settings,Настройки,Einstellungen,Ajustes
-language,Language,Язык,Sprache,Idioma
-distanceUnit,Distance unit,Единица расстояния,Entfernungseinheit,Unidad de distancia
-theme,Theme,Тема,Design,Tema
-currency,Currency,Валюта,Währung,Moneda
-en,English,Английский,Englisch,Inglés
-ru,Russian,Русский,Russisch,Ruso
-de,German,Немецкий,Deutsch,Alemán
-es,Spanish,Испанский,Spanisch,Español
-km,Kilometers,Километры,Kilometer,Kilómetros
-mi,Miles,Мили,Meilen,Millas
-system,System,Системная,System,Sistema
-light,Light,Светлая,Hell,Claro
-dark,Dark,Тёмная,Dunkel,Oscuro
-usd,USD,USD,USD,USD
-rub,RUB,RUB,RUB,RUB
-eur,EUR,EUR,EUR,EUR
-addCar,Add car,Добавить авто,Auto hinzufügen,Añadir coche
-editCar,Edit car,Изменить авто,Auto bearbeiten,Editar coche
-saveChanges,Save changes,Сохранить изменения,Änderungen speichern,Guardar cambios
-deleteCar,Delete car,Удалить авто,Auto löschen,Eliminar coche
-delete,Delete,Удалить,Löschen,Eliminar
-areYouSure,Are you sure?,Вы уверены?,Sind Sie sicher?,¿Está seguro?
-make,Make,Марка,Marca,Marca
-model,Model,Модель,Modell,Modelo
-year,Year,Год,Jahr,Año
-plate,Plate,Номер,Kennzeichen,Matrícula
-price,Price,Цена,Preis,Precio
-mileage,Mileage,Пробег,Kilometerstand,Kilometraje
-save,Save,Сохранить,Speichern,Guardar
-cancel,Cancel,Отмена,Abbrechen,Cancelar
-color,Color,Цвет,Farbe,Color
-spent,Spent money,Потрачено,Ausgaben,Gastado
-topCategory,Top category,Основная категория,Top-Kategorie,Categoría principal
-addWork,Add work,Добавить работу,Arbeit hinzufügen,Añadir trabajo
-editWork,Edit work,Изменить работу,Arbeit bearbeiten,Editar trabajo
-deleteWork,Delete work,Удалить работу,Arbeit löschen,Eliminar trabajo
-lastOilChange,Last oil change,Последняя замена масла,Letzter Ölwechsel,Último cambio de aceite
-category,Category,Категория,Kategorie,Categoría
-catOil,Oil change,Замена масла,Ölwechsel,Cambio de aceite
-catFuel,Fuel,Топливо,Kraftstoff,Combustible
-catCleaning,Cleaning,Мойка,Reinigung,Limpieza
-catDiagnostic,Diagnostic,Диагностика,Diagnose,Diagnóstico
-catElectronics,Electronics,Электроника,Elektronik,Electrónica
-catRepair,Repair,Ремонт,Reparatur,Reparación
-catReplacement,Replacement,Замена,Ersatz,Reemplazo
-catParking,Parking,Парковка,Parken,Aparcamiento
-catInsurance,Insurance,Страховка,Versicherung,Seguro
-catTiresWheels,Tires/Wheels,Шины/Диски,Reifen/Felgen,Neumáticos/Llantas
-catTaxFees,Tax/Fees,Налоги/Сборы,Steuern/Gebühren,Impuestos/Tasas
-description,Description,Описание,Beschreibung,Descripción
-date,Date,Дата,Datum,Fecha
-required,Required,Обязательно,Erforderlich,Obligatorio
-enterValidMileage,Enter a valid mileage,Введите корректный пробег,Geben Sie einen gültigen Kilometerstand ein,Ingrese un kilometraje válido
-enterValidCost,Enter a valid cost,Введите корректную стоимость,Geben Sie gültige Kosten ein,Ingrese un costo válido
-enterValidYear,Enter a valid year,Введите корректный год,Geben Sie ein gültiges Jahr ein,Ingrese un año válido
-enterValidPrice,Enter a valid price,Введите корректную цену,Geben Sie einen gültigen Preis ein,Ingrese un precio válido
-serviceHistory,Service history,История обслуживания,Wartungshistorie,Historial de servicio
-noWorksYet,No works yet,Пока нет работ,Noch keine Arbeiten,Aún no hay trabajos
-import,Import data,Импорт данных,Daten importieren,Importar datos
-export,Export data,Экспорт данных,Daten exportieren,Exportar datos
-noDataYet,No data yet,Пока нет данных,Noch keine Daten,Aún no hay datos
-importFromFile,Import from file,Импорт из файла,Aus Datei importieren,Importar desde archivo
-databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.,Datenbank ist nicht leer. Löschen Sie zuerst die Daten.,La base de datos no está vacía. Borre los datos primero.
-importReplaceTitle,Replace existing data?,Заменить существующие данные?,Bestehende Daten ersetzen?,¿Reemplazar datos existentes?
-importReplaceMessage,Importing will replace all existing cars and works. This cannot be undone.,Импорт заменит все существующие автомобили и работы. Это нельзя отменить.,Der Import ersetzt alle bestehenden Autos und Arbeiten. Dies kann nicht rückgängig gemacht werden.,La importación reemplazará todos los coches y trabajos existentes. Esto no se puede deshacer.
-replace,Replace,Заменить,Ersetzen,Reemplazar
-importSuccess,Data imported successfully,Данные импортированы,Daten erfolgreich importiert,Datos importados correctamente
-exportSuccess,Data exported successfully,Данные экспортированы,Daten erfolgreich exportiert,Datos exportados correctamente
-oilIntervalKm,Oil change,Замена масла,Ölwechsel,Cambio de aceite
-oilLife,Oil life,Ресурс масла,Ölstand,Vida útil del aceite
-oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла"".","Ölwechseldaten nicht angegeben. Fügen Sie einen ""Ölwechsel""-Eintrag hinzu.","No se proporcionaron datos de cambio de aceite. Añada una entrada de trabajo ""Cambio de aceite""."
-errorLoadingStats,Error loading stats,Ошибка загрузки статистики,Fehler beim Laden der Statistiken,Error al cargar estadísticas
-error,Error,Ошибка,Fehler,Error
-initFailed,Init failed,Ошибка инициализации,Initialisierung fehlgeschlagen,Error de inicio
-current,current,текущий,aktuell,actual
-works,works,работ,arbeiten,trabajos
-monthlySpendings,Monthly Spendings,Расходы по месяцам,Monatliche Ausgaben,Gastos mensuales
-categoryRatings,Category Ratings,Рейтинг категорий,Kategoriebewertungen,Calificaciones por categoría
-noOilChangeRecords,No oil change records yet,Нет записей о замене масла,Noch keine Ölwechsel-Einträge,Aún no hay registros de cambio de aceite
-noSpendingRecords,No spending records yet,Нет записей о расходах,Noch keine Ausgaben-Einträge,Aún no hay registros de gastos
-noCategoryRecords,No category records yet,Нет записей по категориям,Noch keine Kategorie-Einträge,Aún no hay registros por categoría
-january,January,Январь,Januar,Enero
-february,February,Февраль,Februar,Febrero
-march,March,Март,März,Marzo
-april,April,Апрель,April,Abril
-may,May,Май,Mai,Mayo
-june,June,Июнь,Juni,Junio
-july,July,Июль,Juli,Julio
-august,August,Август,August,Agosto
-september,September,Сентябрь,September,Septiembre
-october,October,Октябрь,Oktober,Octubre
-november,November,Ноябрь,November,Noviembre
-december,December,Декабрь,Dezember,Diciembre
+key,en,ru,de,es,fr
+appTitle,Garage,Гараж,Garage,Garaje,Garage
+settings,Settings,Настройки,Einstellungen,Ajustes,Paramètres
+language,Language,Язык,Sprache,Idioma,Langue
+distanceUnit,Distance unit,Единица расстояния,Entfernungseinheit,Unidad de distancia,Unité de distance
+theme,Theme,Тема,Design,Tema,Thème
+currency,Currency,Валюта,Währung,Moneda,Devise
+en,English,Английский,Englisch,Inglés,Anglais
+ru,Russian,Русский,Russisch,Ruso,Russe
+de,German,Немецкий,Deutsch,Alemán,Allemand
+es,Spanish,Испанский,Spanisch,Español,Espagnol
+fr,French,Французский,Französisch,Francés,Français
+km,Kilometers,Километры,Kilometer,Kilómetros,Kilomètres
+mi,Miles,Мили,Meilen,Millas,Miles
+system,System,Системная,System,Sistema,Système
+light,Light,Светлая,Hell,Claro,Clair
+dark,Dark,Тёмная,Dunkel,Oscuro,Sombre
+usd,USD,USD,USD,USD,USD
+rub,RUB,RUB,RUB,RUB,RUB
+eur,EUR,EUR,EUR,EUR,EUR
+addCar,Add car,Добавить авто,Auto hinzufügen,Añadir coche,Ajouter une voiture
+editCar,Edit car,Изменить авто,Auto bearbeiten,Editar coche,Modifier la voiture
+saveChanges,Save changes,Сохранить изменения,Änderungen speichern,Guardar cambios,Enregistrer les modifications
+deleteCar,Delete car,Удалить авто,Auto löschen,Eliminar coche,Supprimer la voiture
+delete,Delete,Удалить,Löschen,Eliminar,Supprimer
+areYouSure,Are you sure?,Вы уверены?,Sind Sie sicher?,¿Está seguro?,Êtes-vous sûr ?
+make,Make,Марка,Marca,Marca,Marque
+model,Model,Модель,Modell,Modelo,Modèle
+year,Year,Год,Jahr,Año,Année
+plate,Plate,Номер,Kennzeichen,Matrícula,Plaque
+price,Price,Цена,Preis,Precio,Prix
+mileage,Mileage,Пробег,Kilometerstand,Kilometraje,Kilométrage
+save,Save,Сохранить,Speichern,Guardar,Enregistrer
+cancel,Cancel,Отмена,Abbrechen,Cancelar,Annuler
+color,Color,Цвет,Farbe,Color,Couleur
+spent,Spent money,Потрачено,Ausgaben,Gastado,Dépensé
+topCategory,Top category,Основная категория,Top-Kategorie,Categoría principal,Catégorie principale
+addWork,Add work,Добавить работу,Arbeit hinzufügen,Añadir trabajo,Ajouter une tâche
+editWork,Edit work,Изменить работу,Arbeit bearbeiten,Editar trabajo,Modifier la tâche
+deleteWork,Delete work,Удалить работу,Arbeit löschen,Eliminar trabajo,Supprimer la tâche
+lastOilChange,Last oil change,Последняя замена масла,Letzter Ölwechsel,Último cambio de aceite,Dernière vidange
+category,Category,Категория,Kategorie,Categoría,Catégorie
+catOil,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange
+catFuel,Fuel,Топливо,Kraftstoff,Combustible,Carburant
+catCleaning,Cleaning,Мойка,Reinigung,Limpieza,Nettoyage
+catDiagnostic,Diagnostic,Диагностика,Diagnose,Diagnóstico,Diagnostic
+catElectronics,Electronics,Электроника,Elektronik,Electrónica,Électronique
+catRepair,Repair,Ремонт,Reparatur,Reparación,Réparation
+catReplacement,Replacement,Замена,Ersatz,Reemplazo,Remplacement
+catParking,Parking,Парковка,Parken,Aparcamiento,Stationnement
+catInsurance,Insurance,Страховка,Versicherung,Seguro,Assurance
+catTiresWheels,Tires/Wheels,Шины/Диски,Reifen/Felgen,Neumáticos/Llantas,Pneus/Jantes
+catTaxFees,Tax/Fees,Налоги/Сборы,Steuern/Gebühren,Impuestos/Tasas,Taxes/Frais
+description,Description,Описание,Beschreibung,Descripción,Description
+date,Date,Дата,Datum,Fecha,Date
+required,Required,Обязательно,Erforderlich,Obligatorio,Obligatoire
+enterValidMileage,Enter a valid mileage,Введите корректный пробег,Geben Sie einen gültigen Kilometerstand ein,Ingrese un kilometraje válido,Entrez un kilométrage valide
+enterValidCost,Enter a valid cost,Введите корректную стоимость,Geben Sie gültige Kosten ein,Ingrese un costo válido,Entrez un coût valide
+enterValidYear,Enter a valid year,Введите корректный год,Geben Sie ein gültiges Jahr ein,Ingrese un año válido,Entrez une année valide
+enterValidPrice,Enter a valid price,Введите корректную цену,Geben Sie einen gültigen Preis ein,Ingrese un precio válido,Entrez un prix valide
+serviceHistory,Service history,История обслуживания,Wartungshistorie,Historial de servicio,Historique d'entretien
+noWorksYet,No works yet,Пока нет работ,Noch keine Arbeiten,Aún no hay trabajos,Aucune tâche pour l'instant
+import,Import data,Импорт данных,Daten importieren,Importar datos,Importer des données
+export,Export data,Экспорт данных,Daten exportieren,Exportar datos,Exporter des données
+noDataYet,No data yet,Пока нет данных,Noch keine Daten,Aún no hay datos,Aucune donnée pour l'instant
+importFromFile,Import from file,Импорт из файла,Aus Datei importieren,Importar desde archivo,Importer depuis un fichier
+databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.,Datenbank ist nicht leer. Löschen Sie zuerst die Daten.,La base de datos no está vacía. Borre los datos primero.,La base de données n'est pas vide. Effacez d'abord les données.
+importReplaceTitle,Replace existing data?,Заменить существующие данные?,Bestehende Daten ersetzen?,¿Reemplazar datos existentes?,Remplacer les données existantes ?
+importReplaceMessage,Importing will replace all existing cars and works. This cannot be undone.,Импорт заменит все существующие автомобили и работы. Это нельзя отменить.,Der Import ersetzt alle bestehenden Autos und Arbeiten. Dies kann nicht rückgängig gemacht werden.,La importación reemplazará todos los coches y trabajos existentes. Esto no se puede deshacer.,L'importation remplacera toutes les voitures et tâches existantes. Cela ne peut pas être annulé.
+replace,Replace,Заменить,Ersetzen,Reemplazar,Remplacer
+importSuccess,Data imported successfully,Данные импортированы,Daten erfolgreich importiert,Datos importados correctamente,Données importées avec succès
+exportSuccess,Data exported successfully,Данные экспортированы,Daten erfolgreich exportiert,Datos exportados correctamente,Données exportées avec succès
+oilIntervalKm,Oil change,Замена масла,Ölwechsel,Cambio de aceite,Vidange
+oilLife,Oil life,Ресурс масла,Ölstand,Vida útil del aceite,Durée de vie de l'huile
+oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла"".","Ölwechseldaten nicht angegeben. Fügen Sie einen ""Ölwechsel""-Eintrag hinzu.","No se proporcionaron datos de cambio de aceite. Añada una entrada de trabajo ""Cambio de aceite"".","Données de vidange non fournies. Ajoutez une tâche ""Vidange""."
+errorLoadingStats,Error loading stats,Ошибка загрузки статистики,Fehler beim Laden der Statistiken,Error al cargar estadísticas,Erreur lors du chargement des statistiques
+error,Error,Ошибка,Fehler,Error,Erreur
+initFailed,Init failed,Ошибка инициализации,Initialisierung fehlgeschlagen,Error de inicio,Échec de l'initialisation
+current,current,текущий,aktuell,actual,actuel
+works,works,работ,arbeiten,trabajos,tâches
+monthlySpendings,Monthly Spendings,Расходы по месяцам,Monatliche Ausgaben,Gastos mensuels,Dépenses mensuelles
+categoryRatings,Category Ratings,Рейтинг категорий,Kategoriebewertungen,Calificaciones por categoría,Répartition par catégorie
+noOilChangeRecords,No oil change records yet,Нет записей о замене масла,Noch keine Ölwechsel-Einträge,Aún no hay registros de cambio de aceite,Aucun enregistrement de vidange
+noSpendingRecords,No spending records yet,Нет записей о расходах,Noch keine Ausgaben-Einträge,Aún no hay registros de gastos,Aucun enregistrement de dépenses
+noCategoryRecords,No category records yet,Нет записей по категориям,Noch keine Kategorie-Einträge,Aún no hay registros por categoría,Aucun enregistrement par catégorie
+january,January,Январь,Januar,Enero,Janvier
+february,February,Февраль,Februar,Febrero,Février
+march,March,Март,März,Marzo,Mars
+april,April,Апрель,April,Abril,Avril
+may,May,Май,Mai,Mayo,Mai
+june,June,Июнь,Juni,Junio,Juin
+july,July,Июль,Juli,Julio,Juillet
+august,August,Август,August,Agosto,Août
+september,September,Сентябрь,September,Septiembre,Septembre
+october,October,Октябрь,Oktober,Octubre,Octobre
+november,November,Ноябрь,November,Noviembre,Novembre
+december,December,Декабрь,Dezember,Diciembre,Décembre
