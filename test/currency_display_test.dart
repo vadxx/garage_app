@@ -108,6 +108,114 @@ void main() {
       expect(find.text('€7746'), findsOneWidget);
     });
 
+    testWidgets('GBP setting shows pound symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.gbp),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('£4000'), findsOneWidget);
+      expect(find.text('£6736'), findsOneWidget);
+    });
+
+    testWidgets('KRW setting shows won symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.krw),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('₩7250000'), findsOneWidget);
+      expect(find.text('₩12209000'), findsOneWidget);
+    });
+
+    testWidgets('JPY setting shows yen symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.jpy),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('¥750000'), findsOneWidget);
+      expect(find.text('¥1263000'), findsOneWidget);
+    });
+
+    testWidgets('IDR setting shows rupiah symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.idr),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Rp81000000'), findsOneWidget);
+      expect(find.text('Rp136404000'), findsOneWidget);
+    });
+
+    testWidgets('BRL setting shows real symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.brl),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(r'R$28000'), findsOneWidget);
+      expect(find.text(r'R$47152'), findsOneWidget);
+    });
+
+    testWidgets('MXN setting shows peso symbol', (tester) async {
+      carsRepo.insertWithId(_car);
+      carsRepo.saveCarStats(
+        backend.CarStats(carId: _car.id, totalSpent: 8420, lastOilChangeKm: 0),
+      );
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.mxn),
+      );
+
+      await tester.pumpWidget(
+        buildApp(settingsRepo: settingsRepo, carsRepo: carsRepo),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(r'MX$92500'), findsOneWidget);
+      expect(find.text(r'MX$155770'), findsOneWidget);
+    });
+
     testWidgets('changing currency on settings page updates home display', (
       tester,
     ) async {
@@ -131,7 +239,7 @@ void main() {
 
       await tester.tap(find.text('💵 Currency'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('EUR'));
+      await tester.tap(find.text('EUR (€)'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byType(BackButton));

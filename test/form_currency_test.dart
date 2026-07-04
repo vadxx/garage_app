@@ -142,6 +142,132 @@ void main() {
       expect(find.text('Price (€)'), findsOneWidget);
     });
 
+    testWidgets('price field shows GBP symbol when currency is GBP', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.gbp),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Price (£)'), findsOneWidget);
+    });
+
+    testWidgets('price field shows KRW symbol when currency is KRW', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.krw),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Price (₩)'), findsOneWidget);
+    });
+
+    testWidgets('price field shows JPY symbol when currency is JPY', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.jpy),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Price (¥)'), findsOneWidget);
+    });
+
+    testWidgets('price field shows IDR symbol when currency is IDR', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.idr),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Price (Rp)'), findsOneWidget);
+    });
+
+    testWidgets('price field shows BRL symbol when currency is BRL', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.brl),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(r'Price (R$)'), findsOneWidget);
+    });
+
+    testWidgets('price field shows MXN symbol when currency is MXN', (
+      tester,
+    ) async {
+      final carsRepo = FakeCarsRepository();
+      final settingsRepo = FakeSettingsRepository();
+      settingsRepo.save(
+        const backend.AppSettings(currency: backend.Currency.mxn),
+      );
+
+      await tester.pumpWidget(
+        buildFormApp(
+          home: const AddEditCarPage(),
+          settingsRepo: settingsRepo,
+          carsRepo: carsRepo,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(r'Price (MX$)'), findsOneWidget);
+    });
+
     testWidgets('edit mode pre-fills price converted to RUB', (tester) async {
       final carsRepo = FakeCarsRepository();
       final settingsRepo = FakeSettingsRepository();
