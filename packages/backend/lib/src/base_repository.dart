@@ -9,6 +9,10 @@ abstract class Repositories {
   CarsRepository get carsRepo;
   CarWorksRepository get carWorksRepo;
 
+  /// Delete all cars, works, and computed stats. Settings and lookup
+  /// tables (colors, categories) are preserved.
+  void clearAll();
+
   /// Run [action] inside a transaction. If [action] throws, all changes
   /// made within the transaction are rolled back.
   void transaction(void Function() action);

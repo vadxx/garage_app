@@ -1,91 +1,95 @@
-key,en,ru
-appTitle,Garage,Гараж
-settings,Settings,Настройки
-language,Language,Язык
-distanceUnit,Distance unit,Единица расстояния
-theme,Theme,Тема
-currency,Currency,Валюта
-en,English,Английский
-ru,Russian,Русский
-km,Kilometers,Километры
-mi,Miles,Мили
-system,System,Системная
-light,Light,Светлая
-dark,Dark,Тёмная
-usd,USD,USD
-rub,RUB,RUB
-eur,EUR,EUR
-addCar,Add car,Добавить авто
-editCar,Edit car,Изменить авто
-saveChanges,Save changes,Сохранить изменения
-deleteCar,Delete car,Удалить авто
-delete,Delete,Удалить
-areYouSure,Are you sure?,Вы уверены?
-make,Make,Марка
-model,Model,Модель
-year,Year,Год
-plate,Plate,Номер
-price,Price,Цена
-mileage,Mileage,Пробег
-save,Save,Сохранить
-cancel,Cancel,Отмена
-color,Color,Цвет
-spent,Spent money,Потрачено
-topCategory,Top category,Основная категория
-addWork,Add work,Добавить работу
-editWork,Edit work,Изменить работу
-deleteWork,Delete work,Удалить работу
-lastOilChange,Last oil change,Последняя замена масла
-category,Category,Категория
-catOil,Oil change,Замена масла
-catFuel,Fuel,Топливо
-catCleaning,Cleaning,Мойка
-catDiagnostic,Diagnostic,Диагностика
-catElectronics,Electronics,Электроника
-catRepair,Repair,Ремонт
-catReplacement,Replacement,Замена
-catParking,Parking,Парковка
-catInsurance,Insurance,Страховка
-catTiresWheels,Tires/Wheels,Шины/Диски
-catTaxFees,Tax/Fees,Налоги/Сборы
-description,Description,Описание
-date,Date,Дата
-required,Required,Обязательно
-enterValidMileage,Enter a valid mileage,Введите корректный пробег
-enterValidCost,Enter a valid cost,Введите корректную стоимость
-enterValidYear,Enter a valid year,Введите корректный год
-enterValidPrice,Enter a valid price,Введите корректную цену
-serviceHistory,Service history,История обслуживания
-noWorksYet,No works yet,Пока нет работ
-import,Import data,Импорт данных
-export,Export data,Экспорт данных
-noDataYet,No data yet,Пока нет данных
-importFromFile,Import from file,Импорт из файла
-databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.
-importSuccess,Data imported successfully,Данные импортированы
-exportSuccess,Data exported successfully,Данные экспортированы
-oilIntervalKm,Oil change,Замена масла
-oilLife,Oil life,Ресурс масла
-oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла""."
-errorLoadingStats,Error loading stats,Ошибка загрузки статистики
-error,Error,Ошибка
-initFailed,Init failed,Ошибка инициализации
-current,current,текущий
-works,works,работ
-monthlySpendings,Monthly Spendings,Расходы по месяцам
-categoryRatings,Category Ratings,Рейтинг категорий
-noOilChangeRecords,No oil change records yet,Нет записей о замене масла
-noSpendingRecords,No spending records yet,Нет записей о расходах
-noCategoryRecords,No category records yet,Нет записей по категориям
-january,January,Январь
-february,February,Февраль
-march,March,Март
-april,April,Апрель
-may,May,Май
-june,June,Июнь
-july,July,Июль
-august,August,Август
-september,September,Сентябрь
-october,October,Октябрь
-november,November,Ноябрь
-december,December,Декабрь
+key,en,ru,de
+appTitle,Garage,Гараж,Garage
+settings,Settings,Настройки,Einstellungen
+language,Language,Язык,Sprache
+distanceUnit,Distance unit,Единица расстояния,Entfernungseinheit
+theme,Theme,Тема,Design
+currency,Currency,Валюта,Währung
+en,English,Английский,Englisch
+ru,Russian,Русский,Russisch
+de,German,Немецкий,Deutsch
+km,Kilometers,Километры,Kilometer
+mi,Miles,Мили,Meilen
+system,System,Системная,System
+light,Light,Светлая,Hell
+dark,Dark,Тёмная,Dunkel
+usd,USD,USD,USD
+rub,RUB,RUB,RUB
+eur,EUR,EUR,EUR
+addCar,Add car,Добавить авто,Auto hinzufügen
+editCar,Edit car,Изменить авто,Auto bearbeiten
+saveChanges,Save changes,Сохранить изменения,Änderungen speichern
+deleteCar,Delete car,Удалить авто,Auto löschen
+delete,Delete,Удалить,Löschen
+areYouSure,Are you sure?,Вы уверены?,Sind Sie sicher?
+make,Make,Марка,Marke
+model,Model,Модель,Modell
+year,Year,Год,Jahr
+plate,Plate,Номер,Kennzeichen
+price,Price,Цена,Preis
+mileage,Mileage,Пробег,Kilometerstand
+save,Save,Сохранить,Speichern
+cancel,Cancel,Отмена,Abbrechen
+color,Color,Цвет,Farbe
+spent,Spent money,Потрачено,Ausgaben
+topCategory,Top category,Основная категория,Top-Kategorie
+addWork,Add work,Добавить работу,Arbeit hinzufügen
+editWork,Edit work,Изменить работу,Arbeit bearbeiten
+deleteWork,Delete work,Удалить работу,Arbeit löschen
+lastOilChange,Last oil change,Последняя замена масла,Letzter Ölwechsel
+category,Category,Категория,Kategorie
+catOil,Oil change,Замена масла,Ölwechsel
+catFuel,Fuel,Топливо,Kraftstoff
+catCleaning,Cleaning,Мойка,Reinigung
+catDiagnostic,Diagnostic,Диагностика,Diagnose
+catElectronics,Electronics,Электроника,Elektronik
+catRepair,Repair,Ремонт,Reparatur
+catReplacement,Replacement,Замена,Ersatz
+catParking,Parking,Парковка,Parken
+catInsurance,Insurance,Страховка,Versicherung
+catTiresWheels,Tires/Wheels,Шины/Диски,Reifen/Felgen
+catTaxFees,Tax/Fees,Налоги/Сборы,Steuern/Gebühren
+description,Description,Описание,Beschreibung
+date,Date,Дата,Datum
+required,Required,Обязательно,Erforderlich
+enterValidMileage,Enter a valid mileage,Введите корректный пробег,Geben Sie einen gültigen Kilometerstand ein
+enterValidCost,Enter a valid cost,Введите корректную стоимость,Geben Sie gültige Kosten ein
+enterValidYear,Enter a valid year,Введите корректный год,Geben Sie ein gültiges Jahr ein
+enterValidPrice,Enter a valid price,Введите корректную цену,Geben Sie einen gültigen Preis ein
+serviceHistory,Service history,История обслуживания,Wartungshistorie
+noWorksYet,No works yet,Пока нет работ,Noch keine Arbeiten
+import,Import data,Импорт данных,Daten importieren
+export,Export data,Экспорт данных,Daten exportieren
+noDataYet,No data yet,Пока нет данных,Noch keine Daten
+importFromFile,Import from file,Импорт из файла,Aus Datei importieren
+databaseNotEmpty,Database is not empty. Clear data first.,База данных не пуста. Сначала очистите данные.,Datenbank ist nicht leer. Löschen Sie zuerst die Daten.
+importReplaceTitle,Replace existing data?,Заменить существующие данные?,Bestehende Daten ersetzen?
+importReplaceMessage,Importing will replace all existing cars and works. This cannot be undone.,Импорт заменит все существующие автомобили и работы. Это нельзя отменить.,Der Import ersetzt alle bestehenden Autos und Arbeiten. Dies kann nicht rückgängig gemacht werden.
+replace,Replace,Заменить,Ersetzen
+importSuccess,Data imported successfully,Данные импортированы,Daten erfolgreich importiert
+exportSuccess,Data exported successfully,Данные экспортированы,Daten erfolgreich exportiert
+oilIntervalKm,Oil change,Замена масла,Ölwechsel
+oilLife,Oil life,Ресурс масла,Ölstand
+oilChangeDataNotProvided,"Oil change data not provided. Add an ""Oil change"" work entry.","Данные о замене масла не указаны. Добавьте запись ""Замена масла"".","Ölwechseldaten nicht angegeben. Fügen Sie einen ""Ölwechsel""-Eintrag hinzu."
+errorLoadingStats,Error loading stats,Ошибка загрузки статистики,Fehler beim Laden der Statistiken
+error,Error,Ошибка,Fehler
+initFailed,Init failed,Ошибка инициализации,Initialisierung fehlgeschlagen
+current,current,текущий,aktuell
+works,works,работ,arbeiten
+monthlySpendings,Monthly Spendings,Расходы по месяцам,Monatliche Ausgaben
+categoryRatings,Category Ratings,Рейтинг категорий,Kategoriebewertungen
+noOilChangeRecords,No oil change records yet,Нет записей о замене масла,Noch keine Ölwechsel-Einträge
+noSpendingRecords,No spending records yet,Нет записей о расходах,Noch keine Ausgaben-Einträge
+noCategoryRecords,No category records yet,Нет записей по категориям,Noch keine Kategorie-Einträge
+january,January,Январь,Januar
+february,February,Февраль,Februar
+march,March,Март,März
+april,April,Апрель,April
+may,May,Май,Mai
+june,June,Июнь,Juni
+july,July,Июль,Juli
+august,August,Август,August
+september,September,Сентябрь,September
+october,October,Октябрь,Oktober
+november,November,Ноябрь,November
+december,December,Декабрь,Dezember

@@ -52,6 +52,9 @@ void main() {
 
       repo.save(AppSettings(language: Language.en));
       expect(repo.load().language, Language.en);
+
+      repo.save(AppSettings(language: Language.de));
+      expect(repo.load().language, Language.de);
     });
 
     test('oilIntervalKm saves and loads correctly', () {

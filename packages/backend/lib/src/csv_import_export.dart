@@ -81,7 +81,11 @@ class CsvService {
     return const CsvEncoder().convert(rows);
   }
 
-  static void importCsv(Repositories repos, String csvContent) {
+  static void importCsv(
+    Repositories repos,
+    String csvContent, {
+    bool clearExisting = false,
+  }) {
     final rows = const CsvDecoder().convert(csvContent);
     if (rows.length < 2) {
       throw FormatException('CSV file has no data rows.');
@@ -91,7 +95,10 @@ class CsvService {
     final dataRows = rows.skip(1).toList();
 
     if (repos.carsRepo.load().isNotEmpty) {
-      throw StateError('Database is not empty. Clear data first.');
+      if (!clearExisting) {
+        throw StateError('Database is not empty. Clear data first.');
+      }
+      repos.clearAll();
     }
 
     final colIndex = <String, int>{};

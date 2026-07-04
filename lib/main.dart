@@ -35,9 +35,7 @@ class MainApp extends ConsumerWidget {
   MaterialApp onBackendReady(WidgetRef ref) {
     final settings = ref.watch(appSettingsProvider);
     // Change language in background (sync slang locale). Suppress warning.
-    unawaited(
-      LocaleSettings.setLocale(AppLocale.values[settings.language.index]),
-    );
+    unawaited(LocaleSettings.setLocale(settings.language.appLocale));
     return MaterialApp.router(
       locale: settings.language.locale,
       supportedLocales: AppLocaleUtils.supportedLocales,

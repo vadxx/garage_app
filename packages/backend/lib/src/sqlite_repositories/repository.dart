@@ -33,6 +33,15 @@ class SqliteRepositories implements Repositories {
   }
 
   @override
+  void clearAll() {
+    final db = _db;
+    if (db == null) return;
+    db.execute(
+      'DELETE FROM car_works; DELETE FROM cars_stats; DELETE FROM cars;',
+    );
+  }
+
+  @override
   void transaction(void Function() action) {
     final db = _db;
     if (db == null) {
