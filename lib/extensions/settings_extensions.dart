@@ -18,6 +18,7 @@ extension LanguageX on backend.Language {
     backend.Language.pt => AppLocale.pt,
     backend.Language.ko => AppLocale.ko,
     backend.Language.ja => AppLocale.ja,
+    backend.Language.id => AppLocale.id,
   };
 }
 

@@ -26,37 +26,39 @@ Future<T?> _showSettingDialog<T>(
         '$emoji $title',
         style: const TextStyle(fontWeight: FontWeight.w600),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: items.map((item) {
-          final selected = item.$1 == current;
-          final icon = Icon(
-            selected ? Icons.circle : Icons.circle_outlined,
-            size: 20,
-            color: selected ? primaryColor : null,
-          );
-          final border = BoxDecoration(
-            color: selected ? primaryColor.withAlpha(15) : null,
-            borderRadius: BorderRadius.circular(8),
-          );
-          final textStyle = TextStyle(
-            fontSize: 16,
-            fontWeight: selected ? FontWeight.w600 : null,
-          );
-          return Container(
-            margin: const EdgeInsets.only(bottom: 4),
-            child: Ink(
-              decoration: border,
-              child: ListTile(
-                leading: icon,
-                title: Text(item.$2, style: textStyle),
-                onTap: () => Navigator.pop(ctx, item.$1),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                dense: true,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: items.map((item) {
+            final selected = item.$1 == current;
+            final icon = Icon(
+              selected ? Icons.circle : Icons.circle_outlined,
+              size: 20,
+              color: selected ? primaryColor : null,
+            );
+            final border = BoxDecoration(
+              color: selected ? primaryColor.withAlpha(15) : null,
+              borderRadius: BorderRadius.circular(8),
+            );
+            final textStyle = TextStyle(
+              fontSize: 16,
+              fontWeight: selected ? FontWeight.w600 : null,
+            );
+            return Container(
+              margin: const EdgeInsets.only(bottom: 4),
+              child: Ink(
+                decoration: border,
+                child: ListTile(
+                  leading: icon,
+                  title: Text(item.$2, style: textStyle),
+                  onTap: () => Navigator.pop(ctx, item.$1),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  dense: true,
+                ),
               ),
-            ),
-          );
-        }).toList(),
+            );
+          }).toList(),
+        ),
       ),
     ),
   );
@@ -157,6 +159,7 @@ class _LanguageChanger extends ConsumerWidget {
       backend.Language.pt: context.t.pt,
       backend.Language.ko: context.t.ko,
       backend.Language.ja: context.t.ja,
+      backend.Language.id: context.t.id,
     };
     final settings = ref.watch(appSettingsProvider);
     return _SettingsCard(
