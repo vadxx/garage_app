@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'settings.freezed.dart';
 
-enum Language { en, ru, de, es, fr }
+enum Language { en, ru, de, es, fr, pt }
 
 enum DistanceUnit { km, mi }
 
