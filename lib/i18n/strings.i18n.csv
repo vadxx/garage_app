@@ -22,6 +22,12 @@ dark,Dark,Тёмная,Dunkel,Oscuro,Sombre,Escuro,어두움,ダーク,Gelap
 usd,USD,USD,USD,USD,USD,USD,USD,USD,USD
 rub,RUB,RUB,RUB,RUB,RUB,RUB,RUB,RUB,RUB
 eur,EUR,EUR,EUR,EUR,EUR,EUR,EUR,EUR,EUR
+gbp,GBP,GBP,GBP,GBP,GBP,GBP,GBP,GBP,GBP
+krw,KRW,KRW,KRW,KRW,KRW,KRW,KRW,KRW,KRW
+jpy,JPY,JPY,JPY,JPY,JPY,JPY,JPY,JPY,JPY
+idr,IDR,IDR,IDR,IDR,IDR,IDR,IDR,IDR,IDR
+brl,BRL,BRL,BRL,BRL,BRL,BRL,BRL,BRL,BRL
+mxn,MXN,MXN,MXN,MXN,MXN,MXN,MXN,MXN,MXN
 addCar,Add car,Добавить авто,Auto hinzufügen,Añadir coche,Ajouter une voiture,Adicionar carro,차 추가,車を追加,Tambah mobil
 editCar,Edit car,Изменить авто,Auto bearbeiten,Editar coche,Modifier la voiture,Editar carro,차 수정,車を編集,Edit mobil
 saveChanges,Save changes,Сохранить изменения,Änderungen speichern,Guardar cambios,Enregistrer les modifications,Salvar alterações,변경 사항 저장,変更を保存,Simpan perubahan

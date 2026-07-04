@@ -45,7 +45,7 @@ void main() {
       expect(find.text('📏 Distance unit'), findsOneWidget);
       expect(find.text('System'), findsOneWidget);
       expect(find.text('English'), findsOneWidget);
-      expect(find.text('USD'), findsOneWidget);
+      expect(find.text(r'USD ($)'), findsOneWidget);
       expect(find.text('Kilometers'), findsOneWidget);
     });
 
@@ -170,7 +170,7 @@ void main() {
 
       await tester.tap(find.text('💵 Currency'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('EUR'));
+      await tester.tap(find.text('EUR (€)'));
       await tester.pumpAndSettle();
 
       expect(repo.load().currency, backend.Currency.eur);

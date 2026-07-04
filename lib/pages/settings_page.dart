@@ -186,10 +186,23 @@ class _CurrencyChanger extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String label(backend.Currency currency) {
+      final code = switch (currency) {
+        backend.Currency.usd => context.t.usd,
+        backend.Currency.rub => context.t.rub,
+        backend.Currency.eur => context.t.eur,
+        backend.Currency.gbp => context.t.gbp,
+        backend.Currency.krw => context.t.krw,
+        backend.Currency.jpy => context.t.jpy,
+        backend.Currency.idr => context.t.idr,
+        backend.Currency.brl => context.t.brl,
+        backend.Currency.mxn => context.t.mxn,
+      };
+      return '$code (${backend.currencySymbol(currency)})';
+    }
+
     final labelOf = {
-      backend.Currency.usd: context.t.usd,
-      backend.Currency.rub: context.t.rub,
-      backend.Currency.eur: context.t.eur,
+      for (final currency in backend.Currency.values) currency: label(currency),
     };
     final settings = ref.watch(appSettingsProvider);
     return _SettingsCard(

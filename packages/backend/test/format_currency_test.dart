@@ -60,6 +60,60 @@ void main() {
       expect(formatCurrency(0, Currency.eur), '€0');
     });
 
+    // GBP
+    test('GBP: converts and formats', () {
+      expect(formatCurrency(100, Currency.gbp), '£80');
+    });
+
+    test('GBP: formats zero', () {
+      expect(formatCurrency(0, Currency.gbp), '£0');
+    });
+
+    // KRW
+    test('KRW: converts and formats', () {
+      expect(formatCurrency(100, Currency.krw), '₩145000');
+    });
+
+    test('KRW: formats zero', () {
+      expect(formatCurrency(0, Currency.krw), '₩0');
+    });
+
+    // JPY
+    test('JPY: converts and formats', () {
+      expect(formatCurrency(100, Currency.jpy), '¥15000');
+    });
+
+    test('JPY: formats zero', () {
+      expect(formatCurrency(0, Currency.jpy), '¥0');
+    });
+
+    // IDR
+    test('IDR: converts and formats', () {
+      expect(formatCurrency(100, Currency.idr), 'Rp1620000');
+    });
+
+    test('IDR: formats zero', () {
+      expect(formatCurrency(0, Currency.idr), 'Rp0');
+    });
+
+    // BRL
+    test('BRL: converts and formats', () {
+      expect(formatCurrency(100, Currency.brl), r'R$560');
+    });
+
+    test('BRL: formats zero', () {
+      expect(formatCurrency(0, Currency.brl), r'R$0');
+    });
+
+    // MXN
+    test('MXN: converts and formats', () {
+      expect(formatCurrency(100, Currency.mxn), r'MX$1850');
+    });
+
+    test('MXN: formats zero', () {
+      expect(formatCurrency(0, Currency.mxn), r'MX$0');
+    });
+
     // Edge cases
     test('handles single unit', () {
       expect(formatCurrency(1, Currency.usd), r'$1');
@@ -116,6 +170,54 @@ void main() {
         expect(backToUsd, amount, reason: 'Failed for $amount USD');
       }
     });
+
+    test('round-trip USD ↔ GBP preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inGbp = usdToCurrency(amount, Currency.gbp);
+        final backToUsd = currencyToUsd(inGbp, Currency.gbp);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
+
+    test('round-trip USD ↔ KRW preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inKrw = usdToCurrency(amount, Currency.krw);
+        final backToUsd = currencyToUsd(inKrw, Currency.krw);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
+
+    test('round-trip USD ↔ JPY preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inJpy = usdToCurrency(amount, Currency.jpy);
+        final backToUsd = currencyToUsd(inJpy, Currency.jpy);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
+
+    test('round-trip USD ↔ IDR preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inIdr = usdToCurrency(amount, Currency.idr);
+        final backToUsd = currencyToUsd(inIdr, Currency.idr);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
+
+    test('round-trip USD ↔ BRL preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inBrl = usdToCurrency(amount, Currency.brl);
+        final backToUsd = currencyToUsd(inBrl, Currency.brl);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
+
+    test('round-trip USD ↔ MXN preserves value', () {
+      for (final amount in [0, 1, 10, 100, 500, 8420, 99999]) {
+        final inMxn = usdToCurrency(amount, Currency.mxn);
+        final backToUsd = currencyToUsd(inMxn, Currency.mxn);
+        expect(backToUsd, amount, reason: 'Failed for $amount USD');
+      }
+    });
   });
 
   group('currencySymbol', () {
@@ -129,6 +231,30 @@ void main() {
 
     test('EUR returns euro sign', () {
       expect(currencySymbol(Currency.eur), '€');
+    });
+
+    test('GBP returns pound sign', () {
+      expect(currencySymbol(Currency.gbp), '£');
+    });
+
+    test('KRW returns won sign', () {
+      expect(currencySymbol(Currency.krw), '₩');
+    });
+
+    test('JPY returns yen sign', () {
+      expect(currencySymbol(Currency.jpy), '¥');
+    });
+
+    test('IDR returns rupiah sign', () {
+      expect(currencySymbol(Currency.idr), 'Rp');
+    });
+
+    test('BRL returns real sign', () {
+      expect(currencySymbol(Currency.brl), r'R$');
+    });
+
+    test('MXN returns peso sign', () {
+      expect(currencySymbol(Currency.mxn), r'MX$');
     });
   });
 }

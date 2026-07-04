@@ -11,7 +11,7 @@ enum DistanceUnit { km, mi }
 
 enum Theme { system, light, dark }
 
-enum Currency { usd, rub, eur }
+enum Currency { usd, rub, eur, gbp, krw, jpy, idr, brl, mxn }
 
 @freezed
 class AppSettings with _$AppSettings {
