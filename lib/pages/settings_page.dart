@@ -62,13 +62,6 @@ Future<T?> _showSettingDialog<T>(
   );
 }
 
-BoxDecoration _outlinedBorder(BuildContext context) => BoxDecoration(
-  border: Border.fromBorderSide(
-    BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 1.5),
-  ),
-  borderRadius: BorderRadius.all(Radius.circular(8)),
-);
-
 class _SettingsCard extends StatelessWidget {
   const _SettingsCard({required this.title, required this.value, this.onTap});
   final Widget title;
@@ -84,7 +77,7 @@ class _SettingsCard extends StatelessWidget {
     ];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      decoration: _outlinedBorder(context),
+      decoration: helpers.outlinedBorder(context),
       child: ListTile(
         title: title,
         trailing: Row(mainAxisSize: MainAxisSize.min, children: content),
@@ -300,7 +293,7 @@ class _ImportExport extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final border = _outlinedBorder(context);
+    final border = helpers.outlinedBorder(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(

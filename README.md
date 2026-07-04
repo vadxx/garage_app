@@ -1,4 +1,4 @@
-# <img src="./app_icon.png" width="22" /> garage_app
+# <img src="./app_icon.png" width="24" /> garage_app
 Your garage of cars in your phone. Track their maintenance and daily spendings.
 
 Flutter app. Supports Windows and Android platforms. Other platforms will be supported later.

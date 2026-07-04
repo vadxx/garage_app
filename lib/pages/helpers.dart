@@ -272,19 +272,25 @@ Column subColumn(
   );
 }
 
+BoxDecoration outlinedBorder(BuildContext context, {double radius = 8}) =>
+    BoxDecoration(
+      border: Border.all(
+        color: Theme.of(context).colorScheme.outlineVariant,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(radius),
+    );
+
 Widget outlinedTile(
   BuildContext context,
   Widget child, {
   EdgeInsetsGeometry? padding,
 }) {
-  final border = BoxDecoration(
-    border: Border.all(
-      color: Theme.of(context).colorScheme.outlineVariant,
-      width: 1.5,
-    ),
-    borderRadius: BorderRadius.circular(8),
+  return Container(
+    decoration: outlinedBorder(context),
+    padding: padding,
+    child: child,
   );
-  return Container(decoration: border, padding: padding, child: child);
 }
 
 TextStyle costTextStyle(BuildContext context) => TextStyle(

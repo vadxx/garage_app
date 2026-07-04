@@ -1,6 +1,8 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
+import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3/common.dart';
@@ -489,6 +491,22 @@ void main() {
       expect(carWorksRepo2.loadByCarId(1).first.description, 'Oil change');
 
       db2.close();
+    });
+
+    test('imports the demo dataset from datasets/demo_dataset.csv', () {
+      final csvFile = File('../../datasets/demo_dataset.csv');
+      final csv = csvFile.readAsStringSync();
+
+      CsvService.importCsv(repos, csv);
+
+      final cars = carsRepo.load();
+      expect(cars.length, 4);
+      expect(cars.map((c) => c.make).toSet(), {'VW', 'Audi', 'Skoda'});
+
+      expect(carWorksRepo.loadByCarId(1).length, 8);
+      expect(carWorksRepo.loadByCarId(2).length, 6);
+      expect(carWorksRepo.loadByCarId(3).length, 8);
+      expect(carWorksRepo.loadByCarId(4).length, 5);
     });
   });
 }
