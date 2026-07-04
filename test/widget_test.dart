@@ -30,6 +30,9 @@ void main() {
 
     final ja = await AppLocale.ja.build();
     expect(ja.appTitle, 'ガレージ');
+
+    final id = await AppLocale.id.build();
+    expect(id.appTitle, 'Garasi');
   });
 
   test('new translation keys exist', () async {
@@ -88,5 +91,12 @@ void main() {
     expect(ja.error, 'エラー');
     expect(ja.initFailed, '初期化に失敗しました');
     expect(ja.distanceUnit, '距離単位');
+
+    final id = await AppLocale.id.build();
+    expect(id.oilChangeDataNotProvided, contains('Penggantian oli'));
+    expect(id.errorLoadingStats, 'Kesalahan memuat statistik');
+    expect(id.error, 'Kesalahan');
+    expect(id.initFailed, 'Inisialisasi gagal');
+    expect(id.distanceUnit, 'Satuan jarak');
   });
 }
