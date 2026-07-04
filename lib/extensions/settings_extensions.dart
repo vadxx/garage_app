@@ -14,6 +14,7 @@ extension LanguageX on backend.Language {
     backend.Language.ru => AppLocale.ru,
     backend.Language.de => AppLocale.de,
     backend.Language.es => AppLocale.es,
+    backend.Language.fr => AppLocale.fr,
   };
 }
 
