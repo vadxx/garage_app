@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'extensions/settings_extensions.dart';
 import 'app_router.dart';
 import 'i18n/i18n.dart';
+import 'pages/helpers.dart' show CenteredMaxWidth;
 import 'providers/providers.dart';
 
 void main() {
@@ -44,6 +45,10 @@ class MainApp extends ConsumerWidget {
       themeMode: settings.theme.mode,
       theme: ThemeData(brightness: Brightness.light),
       darkTheme: ThemeData(brightness: Brightness.dark),
+      builder: (context, child) => Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: CenteredMaxWidth(child: child!),
+      ),
     );
   }
 }
