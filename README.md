@@ -22,13 +22,11 @@ Flutter app. Supports **Windows** and **Android**. Other platforms may be added 
 
 | Home | Car detail | Add car | Add car work |
 |------|------------|---------|--------------|
-| <img src="screenshots/home.png" width="180"> | <img src="screenshots/car_detail.png" width="180"> | <img src="screenshots/add_car.png" width="180"> | <img src="screenshots/add_car_work.png" width="180"> |
-| Your garage at a glance. | Service history and stats. | Add a new car. | Record maintenance or fuel. |
+| <img src="screenshots/framed/home.png" width="180"> | <img src="screenshots/framed/car_detail.png" width="180"> | <img src="screenshots/framed/add_car.png" width="180"> | <img src="screenshots/framed/add_car_work.png" width="180"> |
 
 | Oil health | Category stats | Settings |
 |------------|----------------|----------|
-| <img src="screenshots/oil_health.png" width="180"> | <img src="screenshots/category_stats.png" width="180"> | <img src="screenshots/settings.png" width="180"> |
-| Oil change history and engine oil life. | Spending breakdown by category. | Language, currency and units. |
+| <img src="screenshots/framed/oil_health.png" width="180"> | <img src="screenshots/framed/category_stats.png" width="180"> | <img src="screenshots/framed/settings.png" width="180"> |
 
 ## Developer resources
 

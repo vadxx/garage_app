@@ -9,7 +9,7 @@ This file is a guide for AI coding agents working on the `garage_app` project. I
 `garage_app` is a Flutter application for tracking a personal garage of cars, their maintenance history, and daily spendings. It supports Android and Windows and is designed to be offline-first, free, ad-free, and without tracking.
 
 - **App name**: `garage_app`
-- **Package ID / namespace**: `vadxx.garage_app`
+- **Package ID / namespace**: `com.vadxx.garage_app`
 - **Supported platforms**: Android, Windows
 - **License**: MIT (`SPDX-License-Identifier: MIT`)
 - **Author**: vadxx
@@ -161,7 +161,7 @@ sh build.sh --platforms=android,windows
 
 This script:
 
-1. Runs `flutter create . --platforms=... --empty --org vadxx`
+1. Runs `flutter create . --platforms=... --empty --org com.vadxx`
 2. Applies a workaround for `file_picker` / Kotlin Gradle Plugin compatibility
 3. Restores certain `gradle.properties` settings Flutter resets
 4. In `packages/backend`: runs `flutter pub get` and `dart run build_runner build --delete-conflicting-outputs`
