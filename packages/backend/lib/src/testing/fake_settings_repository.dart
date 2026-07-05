@@ -1,3 +1,6 @@
+// Copyright (c) 2026 vadxx
+// SPDX-License-Identifier: MIT
+
 import 'package:backend/backend.dart' as backend;
 
 class FakeSettingsRepository implements backend.SettingsRepository {

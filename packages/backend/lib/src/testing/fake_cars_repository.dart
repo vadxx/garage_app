@@ -1,3 +1,6 @@
+// Copyright (c) 2026 vadxx
+// SPDX-License-Identifier: MIT
+
 import 'package:backend/backend.dart' as backend;
 
 class FakeCarsRepository implements backend.CarsRepository {
@@ -64,5 +67,6 @@ class FakeCarsRepository implements backend.CarsRepository {
       id >= 0 && id < _colorNames.length ? _colorNames[id] : '';
 
   @override
-  int colorId(String name) => _colorNames.indexOf(name.toLowerCase());
+  int colorId(String name) =>
+      _colorNames.indexWhere((n) => n.toLowerCase() == name.toLowerCase());
 }
