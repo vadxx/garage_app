@@ -321,3 +321,29 @@ Icon iconClickable(BuildContext context) => Icon(
   size: 20,
   color: Theme.of(context).colorScheme.outline,
 );
+
+/// Maximum width used to keep pages readable on wide desktop/tablet windows.
+const double maxContentWidth = 760;
+
+/// Centers [child] and constrains its width to [maxContentWidth].
+/// On narrow screens the child fills the available width.
+class CenteredMaxWidth extends StatelessWidget {
+  final Widget child;
+  final double maxWidth;
+
+  const CenteredMaxWidth({
+    super.key,
+    required this.child,
+    this.maxWidth = maxContentWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: child,
+      ),
+    );
+  }
+}

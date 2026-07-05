@@ -12,11 +12,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart' as backend;
 import 'package:garage_app/app_router.dart';
 import 'package:garage_app/i18n/i18n.dart';
+import 'package:garage_app/pages/helpers.dart' show CenteredMaxWidth;
 import 'package:garage_app/providers/providers.dart';
 
 import 'package:backend/testing.dart';
 
 final GlobalKey _boundaryKey = GlobalKey();
+
+/// Phone viewport used for screenshots (FHD portrait, 1080x1920).
+const double phoneWidth = 360;
+const double phoneHeight = 640;
+const double phonePixelRatio = 3.0;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -132,7 +138,7 @@ class _ScreenshotAppState extends State<ScreenshotApp> {
     final boundary =
         _boundaryKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
-    final image = await boundary.toImage(pixelRatio: 2.0);
+    final image = await boundary.toImage(pixelRatio: phonePixelRatio);
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     final bytes = byteData!.buffer.asUint8List();
 
@@ -143,15 +149,23 @@ class _ScreenshotAppState extends State<ScreenshotApp> {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      key: _boundaryKey,
-      child: MaterialApp.router(
-        locale: AppLocale.en.flutterLocale,
-        supportedLocales: AppLocaleUtils.supportedLocales,
-        localizationsDelegates: GlobalMaterialLocalizations.delegates,
-        routerConfig: appRouter,
-        theme: ThemeData(brightness: Brightness.light),
-        debugShowCheckedModeBanner: false,
+    final MaterialApp app = MaterialApp.router(
+      locale: AppLocale.en.flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      routerConfig: appRouter,
+      theme: ThemeData(brightness: Brightness.light),
+      debugShowCheckedModeBanner: false,
+      builder: (context, child) => Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: CenteredMaxWidth(child: child!),
+      ),
+    );
+    return Center(
+      child: SizedBox(
+        width: phoneWidth,
+        height: phoneHeight,
+        child: RepaintBoundary(key: _boundaryKey, child: app),
       ),
     );
   }
