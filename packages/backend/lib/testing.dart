@@ -1,4 +1,4 @@
 // Copyright (c) 2026 vadxx
 // SPDX-License-Identifier: MIT
 
-export 'package:backend/testing.dart';
+export 'src/testing/testing.dart';
