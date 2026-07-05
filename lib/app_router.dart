@@ -7,7 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:backend/backend.dart';
 import 'pages/pages.dart';
 
+final appNavigatorKey = GlobalKey<NavigatorState>();
+
 final appRouter = GoRouter(
+  navigatorKey: appNavigatorKey,
   initialLocation: Routes.home,
   routes: [
     GoRoute(path: Routes.home, builder: (_, _) => const HomePage()),

@@ -13,6 +13,7 @@ import 'package:backend/backend.dart' as backend;
 import 'package:garage_app/app_router.dart';
 import 'package:garage_app/i18n/i18n.dart';
 import 'package:garage_app/pages/helpers.dart' show CenteredMaxWidth;
+import 'package:garage_app/pages/stats_bottom_sheets.dart';
 import 'package:garage_app/providers/providers.dart';
 
 import 'package:backend/testing.dart';
@@ -93,18 +94,28 @@ class _FakeRepositories implements backend.Repositories {
   void transaction(void Function() action) => action();
 }
 
-class ScreenshotApp extends StatefulWidget {
+class ScreenshotApp extends ConsumerStatefulWidget {
   const ScreenshotApp({super.key});
 
   @override
-  State<ScreenshotApp> createState() => _ScreenshotAppState();
+  ConsumerState<ScreenshotApp> createState() => _ScreenshotAppState();
 }
 
-class _ScreenshotAppState extends State<ScreenshotApp> {
+class _ScreenshotAppState extends ConsumerState<ScreenshotApp> {
   @override
   void initState() {
     super.initState();
     _run();
+  }
+
+  void _showOilHistoryBottomSheet() {
+    final context = appNavigatorKey.currentContext!;
+    showOilHistoryBottomSheet(context, ref, 1);
+  }
+
+  void _showCategoryRatingsBottomSheet() {
+    final context = appNavigatorKey.currentContext!;
+    showCategoryRatingsBottomSheet(context, ref, 1);
   }
 
   Future<void> _run() async {
@@ -119,6 +130,12 @@ class _ScreenshotAppState extends State<ScreenshotApp> {
     await WidgetsBinding.instance.endOfFrame;
     appRouter.go(backend.Routes.car('1'));
     await _capture('car_detail');
+
+    _showOilHistoryBottomSheet();
+    await _capture('oil_health');
+
+    _showCategoryRatingsBottomSheet();
+    await _capture('category_stats');
 
     appRouter.go(backend.Routes.addCarWork('1'));
     await _capture('add_car_work');
