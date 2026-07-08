@@ -12,7 +12,7 @@ if [ "$1" != "" ]; then
   esac
 fi
 
-flutter create . --platforms="$PLATFORMS" --empty --org vadxx
+flutter create . --platforms="$PLATFORMS" --empty --org com.vadxx
 
 # HACK: file_picker v11.0.2 conditionally skips Kotlin Gradle Plugin when
 # AGP >= 9, but Flutter 3.44 defaults to builtInKotlin=false.  Apply KGP
