@@ -15,6 +15,9 @@
 .idea/
 .vscode/
 
+# Tooling environments
+.venv/
+
 build
 
 # Platform folders (regenerated via flutter create)
