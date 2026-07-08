@@ -1,7 +1,7 @@
 name: garage_app
-description: "A new Flutter project."
+description: "Offline car garage and maintenance tracker."
 publish_to: 'none'
-version: 0.1.0+1
+version: 1.0.0-rc.1+1
 
 environment:
   sdk: ^3.12.0
