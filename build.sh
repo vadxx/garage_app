@@ -53,3 +53,7 @@ cd -
 
 dart run slang
 dart run flutter_launcher_icons
+
+# Generate tablet screenshots for Google Play (run manually when UI changes).
+# flutter run -d windows -t tools/screenshots/main.dart -a --device=tablet_7
+# flutter run -d windows -t tools/screenshots/main.dart -a --device=tablet_10

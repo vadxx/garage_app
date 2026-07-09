@@ -40,24 +40,26 @@ class CarDetailPage extends ConsumerWidget {
       label: Text(context.t.addWork, style: helpers.bigTextSize),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => goToHome(context)),
-        title: _AppBarTitle(car: car),
-        titleSpacing: 0,
-        actions: [editButton],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            StatsGroup(carId: car.id, carMileage: car.mileage),
-            _WorksList(carId: car.id),
-          ],
+    return helpers.CenteredMaxWidth(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () => goToHome(context)),
+          title: _AppBarTitle(car: car),
+          titleSpacing: 0,
+          actions: [editButton],
         ),
-      ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        child: addWorkButton,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              StatsGroup(carId: car.id, carMileage: car.mileage),
+              _WorksList(carId: car.id),
+            ],
+          ),
+        ),
+        bottomNavigationBar: SizedBox(
+          width: double.infinity,
+          child: addWorkButton,
+        ),
       ),
     );
   }

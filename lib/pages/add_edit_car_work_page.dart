@@ -88,32 +88,34 @@ class AddEditCarWorkPage extends ConsumerWidget {
         ),
       ),
     );
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => goToCarDetail(context, carId)),
-        title: Text(modeTitle),
-        titleSpacing: 0,
-        actions: [if (isEdit) deleteWork],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-        child: formBody,
-      ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        child: TextButton.icon(
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.all(18),
-            backgroundColor: Theme.of(
-              context,
-            ).colorScheme.primary.withAlpha(15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+    return helpers.CenteredMaxWidth(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () => goToCarDetail(context, carId)),
+          title: Text(modeTitle),
+          titleSpacing: 0,
+          actions: [if (isEdit) deleteWork],
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+          child: formBody,
+        ),
+        bottomNavigationBar: SizedBox(
+          width: double.infinity,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.all(18),
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.primary.withAlpha(15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
+            onPressed: () => notifier.save(context),
+            icon: Text('💾', style: helpers.bigTextSize),
+            label: Text(context.t.saveChanges, style: helpers.bigTextSize),
           ),
-          onPressed: () => notifier.save(context),
-          icon: Text('💾', style: helpers.bigTextSize),
-          label: Text(context.t.saveChanges, style: helpers.bigTextSize),
         ),
       ),
     );

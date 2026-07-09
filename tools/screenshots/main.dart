@@ -12,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:backend/backend.dart' as backend;
 import 'package:garage_app/app_router.dart';
 import 'package:garage_app/i18n/i18n.dart';
-import 'package:garage_app/pages/helpers.dart' show CenteredMaxWidth;
+
 import 'package:garage_app/pages/stats_bottom_sheets.dart';
 import 'package:garage_app/providers/providers.dart';
 
@@ -20,10 +20,61 @@ import 'package:backend/testing.dart';
 
 final GlobalKey _boundaryKey = GlobalKey();
 
-/// Phone viewport used for screenshots (FHD portrait, 1080x1920).
-const double phoneWidth = 360;
-const double phoneHeight = 640;
-const double phonePixelRatio = 3.0;
+/// Screenshot device profile.
+class DeviceProfile {
+  final String name;
+  final double width;
+  final double height;
+  final double pixelRatio;
+  final String outputDir;
+  final bool supportsFraming;
+
+  const DeviceProfile({
+    required this.name,
+    required this.width,
+    required this.height,
+    required this.pixelRatio,
+    required this.outputDir,
+    this.supportsFraming = false,
+  });
+
+  double get physicalWidth => width * pixelRatio;
+  double get physicalHeight => height * pixelRatio;
+}
+
+/// Phone profile: FHD portrait, 1080x1920.
+const phoneProfile = DeviceProfile(
+  name: 'phone',
+  width: 360,
+  height: 640,
+  pixelRatio: 3.0,
+  outputDir: 'screenshots',
+  supportsFraming: true,
+);
+
+/// 7-inch tablet profile: 1200x1920.
+const tablet7Profile = DeviceProfile(
+  name: 'tablet_7',
+  width: 600,
+  height: 960,
+  pixelRatio: 2.0,
+  outputDir: 'screenshots/tablet_7inch',
+);
+
+/// 10-inch tablet profile: 1600x2560.
+const tablet10Profile = DeviceProfile(
+  name: 'tablet_10',
+  width: 800,
+  height: 1280,
+  pixelRatio: 2.0,
+  outputDir: 'screenshots/tablet_10inch',
+);
+
+const _deviceProfiles = <String, DeviceProfile>{
+  'phone': phoneProfile,
+  'tablet_7': tablet7Profile,
+  'tablet_10': tablet10Profile,
+};
 
 /// Promo-frame canvas size.
 const double framedCanvasWidth = 1200;
@@ -67,11 +118,24 @@ final _promoTexts = <String, ({String title, String subtitle})>{
   ),
 };
 
+DeviceProfile _parseDeviceProfile(List<String> args) {
+  for (final arg in args) {
+    if (arg.startsWith('--device=')) {
+      final name = arg.substring('--device='.length);
+      final profile = _deviceProfiles[name];
+      if (profile != null) return profile;
+      throw ArgumentError('Unknown device profile: $name');
+    }
+  }
+  return phoneProfile;
+}
+
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.setLocaleSync(AppLocale.en);
 
-  final framed = args.contains('--framed');
+  final profile = _parseDeviceProfile(args);
+  final framed = args.contains('--framed') && profile.supportsFraming;
 
   final carsRepo = FakeCarsRepository();
   final worksRepo = FakeCarWorksRepository();
@@ -103,7 +167,9 @@ Future<void> main(List<String> args) async {
         carWorksRepositoryProvider.overrideWith((ref) => worksRepo),
         settingsRepositoryProvider.overrideWith((ref) => settingsRepo),
       ],
-      child: TranslationProvider(child: ScreenshotApp(framed: framed)),
+      child: TranslationProvider(
+        child: ScreenshotApp(profile: profile, framed: framed),
+      ),
     ),
   );
 }
@@ -139,8 +205,9 @@ class _FakeRepositories implements backend.Repositories {
 }
 
 class ScreenshotApp extends ConsumerStatefulWidget {
-  const ScreenshotApp({required this.framed, super.key});
+  const ScreenshotApp({required this.profile, required this.framed, super.key});
 
+  final DeviceProfile profile;
   final bool framed;
 
   @override
@@ -204,21 +271,24 @@ class _ScreenshotAppState extends ConsumerState<ScreenshotApp> {
     final rawBoundary =
         _boundaryKey.currentContext!.findRenderObject()
             as RenderRepaintBoundary;
-    final rawImage = await rawBoundary.toImage(pixelRatio: phonePixelRatio);
+    final rawImage = await rawBoundary.toImage(
+      pixelRatio: widget.profile.pixelRatio,
+    );
     final rawByteData = await rawImage.toByteData(
       format: ui.ImageByteFormat.png,
     );
     final rawBytes = rawByteData!.buffer.asUint8List();
 
-    final dir = Directory('screenshots');
+    final dir = Directory(widget.profile.outputDir);
     if (!dir.existsSync()) dir.createSync(recursive: true);
-    await File('screenshots/$name.png').writeAsBytes(rawBytes);
+    await File('${widget.profile.outputDir}/$name.png').writeAsBytes(rawBytes);
 
     if (widget.framed) {
       final framedImage = await _composeFramedImage(
         rawImage,
         _themeColor,
         name,
+        widget.profile,
       );
       final framedByteData = await framedImage.toByteData(
         format: ui.ImageByteFormat.png,
@@ -242,14 +312,14 @@ class _ScreenshotAppState extends ConsumerState<ScreenshotApp> {
       debugShowCheckedModeBanner: false,
       builder: (context, child) => Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        child: CenteredMaxWidth(child: child!),
+        child: child!,
       ),
     );
 
     return Center(
       child: SizedBox(
-        width: phoneWidth,
-        height: phoneHeight,
+        width: widget.profile.width,
+        height: widget.profile.height,
         child: RepaintBoundary(key: _boundaryKey, child: app),
       ),
     );
@@ -300,6 +370,7 @@ Future<ui.Image> _composeFramedImage(
   ui.Image rawImage,
   Color themeColor,
   String name,
+  DeviceProfile profile,
 ) async {
   final recorder = ui.PictureRecorder();
   final canvas = ui.Canvas(
@@ -355,8 +426,8 @@ Future<ui.Image> _composeFramedImage(
     canvas.drawParagraph(subtitle, ui.Offset(subtitleX, subtitleY));
   }
 
-  final screenWidth = phoneWidth * phonePixelRatio;
-  final screenHeight = phoneHeight * phonePixelRatio;
+  final screenWidth = profile.physicalWidth;
+  final screenHeight = profile.physicalHeight;
   final bodyWidth = screenWidth + frameBezel * 2;
   final bodyHeight = screenHeight + frameBezel * 2;
   final bodyLeft = (framedCanvasWidth - bodyWidth) / 2;
