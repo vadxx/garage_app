@@ -119,21 +119,26 @@ class AddEditCarPage extends ConsumerWidget {
         ),
       ),
     );
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => goToHome(context)),
-        title: Text(modeTitle),
-        titleSpacing: 0,
-        actions: [if (isEdit) deleteCar],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [...formFields, ...colorsGroup],
+    return helpers.CenteredMaxWidth(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () => goToHome(context)),
+          title: Text(modeTitle),
+          titleSpacing: 0,
+          actions: [if (isEdit) deleteCar],
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [...formFields, ...colorsGroup],
+          ),
+        ),
+        bottomNavigationBar: SizedBox(
+          width: double.infinity,
+          child: saveButton,
         ),
       ),
-      bottomNavigationBar: SizedBox(width: double.infinity, child: saveButton),
     );
   }
 

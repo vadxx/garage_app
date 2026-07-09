@@ -32,17 +32,19 @@ class HomePage extends StatelessWidget {
       icon: Text('➕', style: helpers.bigTextSize),
       label: Text(context.t.addCar, style: helpers.bigTextSize),
     );
-    return Scaffold(
-      appBar: AppBar(
-        leading: Center(child: Text('🚗', style: helpers.bigTextSize)),
-        title: Text(title),
-        titleSpacing: 0, // Drop the gap btw the leading and title
-        actions: [settingsButton],
-      ),
-      body: const _CarsList(),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        child: addCarButton,
+    return helpers.CenteredMaxWidth(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Center(child: Text('🚗', style: helpers.bigTextSize)),
+          title: Text(title),
+          titleSpacing: 0, // Drop the gap btw the leading and title
+          actions: [settingsButton],
+        ),
+        body: const _CarsList(),
+        bottomNavigationBar: SizedBox(
+          width: double.infinity,
+          child: addCarButton,
+        ),
       ),
     );
   }

@@ -95,21 +95,23 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final title = context.t.settings;
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () => goToHome(context)),
-        title: Text(title),
-        titleSpacing: 0,
-      ),
-      body: ListView(
-        children: [
-          _ThemeChanger(),
-          _LanguageChanger(),
-          _CurrencyChanger(),
-          _MileageChanger(),
-          _OilIntervalChanger(),
-          _ImportExport(),
-        ],
+    return helpers.CenteredMaxWidth(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () => goToHome(context)),
+          title: Text(title),
+          titleSpacing: 0,
+        ),
+        body: ListView(
+          children: [
+            _ThemeChanger(),
+            _LanguageChanger(),
+            _CurrencyChanger(),
+            _MileageChanger(),
+            _OilIntervalChanger(),
+            _ImportExport(),
+          ],
+        ),
       ),
     );
   }
