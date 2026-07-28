@@ -39,6 +39,7 @@ This file is a guide for AI coding agents working on the `garage_app` project. I
 - **Data models**: `freezed` + `freezed_annotation` (code-generated immutable classes)
 - **Internationalization**: `slang` / `slang_flutter`, source is `lib/i18n/strings.i18n.csv`
 - **File picker**: `file_picker` for CSV import/export
+- **Donations**: `in_app_purchase` for donation products/subscription (Android; product IDs in `lib/urls.dart`)
 - **Path utilities**: `path` / `path_provider`
 - **Icons**: `flutter_launcher_icons` generated from `app_icon.png`
 
@@ -128,6 +129,7 @@ garage_app/
   - `car_works_provider.dart` — works per car (`FutureProvider.family`)
   - `car_stats_provider.dart` — computed stats per car (`FutureProvider.family`)
   - `car_form_provider.dart` / `car_work_form_provider.dart` — form state + validation
+  - `donations_provider.dart` — in-app donation purchases (`in_app_purchase`), behind a `DonationsStore` abstraction
   - `csv_io.dart` — import/export actions
 - `extensions/settings_extensions.dart` maps backend enums (`Language`, `Theme`) to Flutter types (`Locale`, `ThemeMode`).
 - `i18n/i18n.dart` is a barrel file that exports `package:slang_flutter/slang_flutter.dart` and the generated `strings.g.dart`.
@@ -162,7 +164,7 @@ sh build.sh --platforms=android,windows
 This script:
 
 1. Runs `flutter create . --platforms=... --empty --org com.vadxx`
-2. Applies a workaround for `file_picker` / Kotlin Gradle Plugin compatibility
+2. Pins AGP / Kotlin Gradle Plugin / Gradle wrapper versions (newer than the Flutter template defaults)
 3. Restores certain `gradle.properties` settings Flutter resets
 4. In `packages/backend`: runs `flutter pub get` and `dart run build_runner build --delete-conflicting-outputs`
 5. Generates i18n: `dart run slang`
@@ -324,4 +326,4 @@ No automated deployment to app stores is configured. Release APKs are produced a
 - **Stats recalculation**: `CarsRepository.recalculateCarStats()` updates `totalSpent`, `lastOilChangeKm`, and `topCategory` from works. It is invoked after inserting/updating/deleting works.
 - **Oil health**: `oilHealth()` in `car_stats.dart` compares current mileage to the last oil change mileage and a configurable interval (`oilIntervalKm`, default 10,000 km).
 - **CSV import**: by default requires an empty database. When the database is not empty, the UI asks the user to confirm replacement; if confirmed, `CsvService.importCsv()` is called with `clearExisting: true`.
-- **Android build workaround**: `build.sh` and `android/build.gradle.kts` apply the Kotlin Android plugin globally because `file_picker v11.0.2` conditionally skips it when AGP ≥ 9. This can be removed once `file_picker` migrates to built-in Kotlin support.
+- **Android built-in Kotlin**: `android.builtInKotlin=false` is required because `flutter_plugin_android_lifecycle` (transitive via `file_picker`/`in_app_purchase`) still applies the Kotlin Gradle Plugin itself, which fails under AGP 9 built-in Kotlin. In this legacy mode Flutter applies KGP to plugins automatically (KGP version is pinned in `settings.gradle.kts` by `build.sh`). Once `flutter_plugin_android_lifecycle` migrates, set `android.builtInKotlin=true`.

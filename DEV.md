@@ -1,5 +1,8 @@
 ## Developer commands
 
+**Setup**: Check my guide here - https://github.com/vadxx/flutter-tutorial
+
+
 | Task | Command |
 |------|---------|
 | Init and build | `sh build.sh --platforms=android,windows` |
@@ -7,7 +10,7 @@
 | Testing | `sh test.sh` |
 | Debug on Host | `flutter run -d windows` |
 | Debug on Android | `flutter run -d V2352A` |
-| Build apk then supply | `flutter build apk --target-platform android-arm64; flutter install -d V2352A` |
+| Build apk then supply | `flutter build apk --target-platform android-arm64 --release; flutter install -d V2352A` |
 
 ## Testing
 
@@ -66,14 +69,14 @@
 
    ```bash
    flutter build appbundle --release
-   flutter build apk --release --target-platform android-arm64
+   flutter build apk --target-platform android-arm64 --release
    ```
 
 5. **Verify signing**
 
    ```bash
    jarsigner -verify -verbose -certs build/app/outputs/bundle/release/app-release.aab
-   java -jar "$ANDROID_SDK_ROOT/build-tools/<version>/lib/apksigner.jar" verify --verbose build/app/outputs/flutter-apk/app-release.apk
+   java -jar "$ANDROID_SDK_ROOT/build-tools/36.0.0/lib/apksigner.jar" verify --verbose build/app/outputs/flutter-apk/app-release.apk
    ```
 
 6. **Tag and push**

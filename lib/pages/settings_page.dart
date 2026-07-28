@@ -3,91 +3,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../app_router.dart';
 import '../i18n/i18n.dart';
 
 import '../providers/providers.dart';
+import '../urls.dart';
 import 'package:backend/backend.dart' as backend;
+import 'donate_section.dart';
 import 'helpers.dart' as helpers;
-
-Future<T?> _showSettingDialog<T>(
-  BuildContext context, {
-  required String emoji,
-  required String title,
-  required T current,
-  required List<(T, String)> items,
-}) {
-  final primaryColor = Theme.of(context).colorScheme.primary;
-  return showDialog<T>(
-    context: context,
-    builder: (ctx) => helpers.styledDialog(
-      title: Text(
-        '$emoji $title',
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: items.map((item) {
-            final selected = item.$1 == current;
-            final icon = Icon(
-              selected ? Icons.circle : Icons.circle_outlined,
-              size: 20,
-              color: selected ? primaryColor : null,
-            );
-            final border = BoxDecoration(
-              color: selected ? primaryColor.withAlpha(15) : null,
-              borderRadius: BorderRadius.circular(8),
-            );
-            final textStyle = TextStyle(
-              fontSize: 16,
-              fontWeight: selected ? FontWeight.w600 : null,
-            );
-            return Container(
-              margin: const EdgeInsets.only(bottom: 4),
-              child: Ink(
-                decoration: border,
-                child: ListTile(
-                  leading: icon,
-                  title: Text(item.$2, style: textStyle),
-                  onTap: () => Navigator.pop(ctx, item.$1),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                  dense: true,
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    ),
-  );
-}
-
-class _SettingsCard extends StatelessWidget {
-  const _SettingsCard({required this.title, required this.value, this.onTap});
-  final Widget title;
-  final String value;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final content = [
-      Text(value, style: const TextStyle(fontSize: 14)),
-      const SizedBox(width: 4),
-      helpers.iconClickable(context),
-    ];
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      decoration: helpers.outlinedBorder(context),
-      child: ListTile(
-        title: title,
-        trailing: Row(mainAxisSize: MainAxisSize.min, children: content),
-        onTap: onTap,
-      ),
-    );
-  }
-}
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -95,6 +20,16 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final title = context.t.settings;
+    final supportButton = TextButton.icon(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(18),
+        backgroundColor: Theme.of(context).colorScheme.primary.withAlpha(15),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      onPressed: () => showSupportUsBottomSheet(context, ref),
+      icon: Text('🥰', style: helpers.bigTextSize),
+      label: Text(context.t.supportUs, style: helpers.bigTextSize),
+    );
     return helpers.CenteredMaxWidth(
       child: Scaffold(
         appBar: AppBar(
@@ -112,9 +47,93 @@ class SettingsPage extends ConsumerWidget {
             _ImportExport(),
           ],
         ),
+        bottomNavigationBar: SizedBox(
+          width: double.infinity,
+          child: supportButton,
+        ),
       ),
     );
   }
+}
+
+/// Shows a bottom sheet with support us content.
+void showSupportUsBottomSheet(BuildContext context, WidgetRef ref) {
+  final label = Text(
+    context.t.supportUs,
+    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  );
+  final rateApp = Container(
+    decoration: helpers.outlinedBorder(context),
+    child: ListTile(
+      leading: const SizedBox(
+        width: 24,
+        height: 24,
+        child: Center(child: Text('💖', style: TextStyle(fontSize: 20))),
+      ),
+      title: Text(context.t.rateTheApp),
+      trailing: helpers.iconClickable(context),
+      onTap: () => launchUrl(
+        Uri.parse(googlePlayUrl),
+        mode: LaunchMode.externalApplication,
+      ),
+    ),
+  );
+  final github = Container(
+    decoration: helpers.outlinedBorder(context),
+    child: ListTile(
+      leading: helpers.githubIcon(
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+      title: const Text('GitHub'),
+      trailing: helpers.iconClickable(context),
+      onTap: () =>
+          launchUrl(Uri.parse(githubUrl), mode: LaunchMode.externalApplication),
+    ),
+  );
+  final email = Container(
+    decoration: helpers.outlinedBorder(context),
+    child: ListTile(
+      leading: const Icon(Icons.mail_outline, size: 24),
+      title: Text(context.t.contactUs),
+      trailing: helpers.iconClickable(context),
+      onTap: () => launchUrl(
+        Uri.parse(contactUsUri),
+        mode: LaunchMode.externalApplication,
+      ),
+    ),
+  );
+  helpers.showAppBottomSheet(context, (context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              const Text('🥰', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: 8),
+              label,
+            ],
+          ),
+        ),
+        const Divider(height: 1),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const DonateSection(),
+              rateApp,
+              const SizedBox(height: 12),
+              github,
+              const SizedBox(height: 8),
+              email,
+            ],
+          ),
+        ),
+      ],
+    );
+  });
 }
 
 class _ThemeChanger extends ConsumerWidget {
@@ -346,4 +365,82 @@ class _ImportExport extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _SettingsCard extends StatelessWidget {
+  const _SettingsCard({required this.title, required this.value, this.onTap});
+  final Widget title;
+  final String value;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final content = [
+      Text(value, style: const TextStyle(fontSize: 14)),
+      const SizedBox(width: 4),
+      helpers.iconClickable(context),
+    ];
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: helpers.outlinedBorder(context),
+      child: ListTile(
+        title: title,
+        trailing: Row(mainAxisSize: MainAxisSize.min, children: content),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+Future<T?> _showSettingDialog<T>(
+  BuildContext context, {
+  required String emoji,
+  required String title,
+  required T current,
+  required List<(T, String)> items,
+}) {
+  final primaryColor = Theme.of(context).colorScheme.primary;
+  return showDialog<T>(
+    context: context,
+    builder: (ctx) => helpers.styledDialog(
+      title: Text(
+        '$emoji $title',
+        style: const TextStyle(fontWeight: FontWeight.w600),
+      ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: items.map((item) {
+            final selected = item.$1 == current;
+            final icon = Icon(
+              selected ? Icons.circle : Icons.circle_outlined,
+              size: 20,
+              color: selected ? primaryColor : null,
+            );
+            final border = BoxDecoration(
+              color: selected ? primaryColor.withAlpha(15) : null,
+              borderRadius: BorderRadius.circular(8),
+            );
+            final textStyle = TextStyle(
+              fontSize: 16,
+              fontWeight: selected ? FontWeight.w600 : null,
+            );
+            return Container(
+              margin: const EdgeInsets.only(bottom: 4),
+              child: Ink(
+                decoration: border,
+                child: ListTile(
+                  leading: icon,
+                  title: Text(item.$2, style: textStyle),
+                  onTap: () => Navigator.pop(ctx, item.$1),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  dense: true,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    ),
+  );
 }

@@ -13,14 +13,9 @@ import '../app_router.dart';
 /// Shows a bottom sheet with the history of oil changes for [carId].
 void showOilHistoryBottomSheet(BuildContext context, WidgetRef ref, int carId) {
   final worksAsync = ref.read(carWorksProvider(carId));
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    constraints: const BoxConstraints(maxWidth: helpers.maxContentWidth),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    builder: (context) => worksAsync.when(
+  helpers.showAppBottomSheet(
+    context,
+    (context) => worksAsync.when(
       data: (works) {
         final oilWorks =
             works
@@ -55,14 +50,9 @@ void showCategoryRatingsBottomSheet(
 ) {
   final worksAsync = ref.read(carWorksProvider(carId));
   final settings = ref.read(appSettingsProvider);
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    constraints: const BoxConstraints(maxWidth: helpers.maxContentWidth),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    builder: (context) => worksAsync.when(
+  helpers.showAppBottomSheet(
+    context,
+    (context) => worksAsync.when(
       data: (works) {
         final categorySpending = <int, int>{};
         for (final work in works) {
@@ -106,14 +96,9 @@ void showMonthlySpendingBottomSheet(
 ) {
   final worksAsync = ref.read(carWorksProvider(carId));
   final settings = ref.read(appSettingsProvider);
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    constraints: const BoxConstraints(maxWidth: helpers.maxContentWidth),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    builder: (context) => worksAsync.when(
+  helpers.showAppBottomSheet(
+    context,
+    (context) => worksAsync.when(
       data: (works) {
         final monthlySpending = <String, int>{};
         final monthlyWorksCount = <String, int>{};
