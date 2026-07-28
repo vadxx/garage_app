@@ -38,13 +38,13 @@ Future<bool> _showReplaceConfirmation(BuildContext context) async {
 }
 
 Future<void> importCsv(BuildContext context, WidgetRef ref) async {
-  final result = await FilePicker.pickFiles(
+  final picked = await FilePicker.pickFile(
     type: FileType.custom,
     allowedExtensions: ['csv'],
   );
-  if (result == null || result.files.single.path == null) return;
+  if (picked?.path == null) return;
 
-  final file = File(result.files.single.path!);
+  final file = File(picked!.path!);
   final csvContent = await file.readAsString();
 
   final reposAsync = ref.read(repositoriesProvider);

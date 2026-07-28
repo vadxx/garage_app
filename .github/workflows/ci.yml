@@ -124,6 +124,10 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: workspace
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -147,6 +151,10 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: workspace
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
       - uses: subosito/flutter-action@v2
         with:
           channel: stable

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:backend/backend.dart' as backend;
 import '../i18n/i18n.dart';
 
@@ -148,6 +149,8 @@ class EmojiCard extends StatelessWidget {
     required this.border,
     this.borderRadius = 12,
     this.padding = const EdgeInsets.all(2),
+    this.labelStyle,
+    this.emojiStyle,
   });
 
   final String emoji;
@@ -156,6 +159,8 @@ class EmojiCard extends StatelessWidget {
   final BoxDecoration border;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
+  final TextStyle? labelStyle;
+  final TextStyle? emojiStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -163,12 +168,12 @@ class EmojiCard extends StatelessWidget {
       Text(
         emoji,
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 26),
+        style: emojiStyle ?? const TextStyle(fontSize: 26),
       ),
       Text(
         label,
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 11),
+        style: labelStyle ?? const TextStyle(fontSize: 11),
       ),
     ];
     // Material clips Ink's decoration during scroll; bare Ink in ListView
@@ -321,6 +326,38 @@ Icon iconClickable(BuildContext context) => Icon(
   size: 20,
   color: Theme.of(context).colorScheme.outline,
 );
+
+const _githubSvg = '''
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+    0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+    -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+    .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+    -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0
+    1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+    1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+    1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+</svg>''';
+
+Widget githubIcon({double size = 24, Color? color}) => SvgPicture.string(
+  _githubSvg,
+  width: size,
+  height: size,
+  colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+);
+
+/// Wraps [showModalBottomSheet] with the app's common styling.
+void showAppBottomSheet(BuildContext context, WidgetBuilder builder) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    constraints: const BoxConstraints(maxWidth: maxContentWidth),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: builder,
+  );
+}
 
 /// Maximum width used to keep pages readable on wide desktop/tablet windows.
 const double maxContentWidth = 760;
