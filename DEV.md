@@ -24,6 +24,20 @@
   ```
   Output PNGs are written to `./screenshots/`.
 
+- Device profiles are selected with `--device=phone|tablet_7|tablet_10` (default: `phone`).
+  Add `--framed` to also compose promo-framed screenshots for Google Play.
+  `flutter run` does not forward app arguments on Windows, so build once and
+  run the exe directly:
+  ```bash
+  flutter build windows --debug -t tools/screenshots/main.dart
+  ./build/windows/x64/runner/Debug/garage_app.exe --device=phone --framed
+  ./build/windows/x64/runner/Debug/garage_app.exe --device=tablet_7 --framed
+  ./build/windows/x64/runner/Debug/garage_app.exe --device=tablet_10 --framed
+  ```
+  Framed output goes to `./screenshots/framed/` (phone),
+  `./screenshots/tablet_7inch/framed/` (7-inch tablet) and
+  `./screenshots/tablet_10inch/framed/` (10-inch tablet).
+
 ## Release checklist
 
 1. **Update release metadata**
