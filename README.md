@@ -2,7 +2,12 @@
 
 Track maintenance, fuel, repairs and daily spending for your cars — all offline, in one place.
 
-**Free · No ads · No tracking**
+<a href="https://play.google.com/store/apps/details?id=com.vadxx.garage_app">
+  <img align="left" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="80" />
+</a>
+<br />
+<b>Free · No ads · No tracking</b>
+<br clear="left" />
 
 ## Features
 

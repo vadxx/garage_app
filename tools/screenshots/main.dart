@@ -29,6 +29,14 @@ class DeviceProfile {
   final String outputDir;
   final bool supportsFraming;
 
+  /// Promo-frame canvas size.
+  final double framedCanvasWidth;
+  final double framedCanvasHeight;
+
+  /// Lowers the device for top promo text.
+  final double framedTopMargin;
+  final String framedOutputDir;
+
   const DeviceProfile({
     required this.name,
     required this.width,
@@ -36,6 +44,10 @@ class DeviceProfile {
     required this.pixelRatio,
     required this.outputDir,
     this.supportsFraming = false,
+    this.framedCanvasWidth = 0,
+    this.framedCanvasHeight = 0,
+    this.framedTopMargin = 0,
+    this.framedOutputDir = '',
   });
 
   double get physicalWidth => width * pixelRatio;
@@ -50,6 +62,10 @@ const phoneProfile = DeviceProfile(
   pixelRatio: 3.0,
   outputDir: 'screenshots',
   supportsFraming: true,
+  framedCanvasWidth: 1200,
+  framedCanvasHeight: 2400,
+  framedTopMargin: 450,
+  framedOutputDir: 'screenshots/framed',
 );
 
 /// 7-inch tablet profile: 1200x1920.
@@ -59,6 +75,11 @@ const tablet7Profile = DeviceProfile(
   height: 960,
   pixelRatio: 2.0,
   outputDir: 'screenshots/tablet_7inch',
+  supportsFraming: true,
+  framedCanvasWidth: 1400,
+  framedCanvasHeight: 2400,
+  framedTopMargin: 450,
+  framedOutputDir: 'screenshots/tablet_7inch/framed',
 );
 
 /// 10-inch tablet profile: 1600x2560.
@@ -68,6 +89,11 @@ const tablet10Profile = DeviceProfile(
   height: 1280,
   pixelRatio: 2.0,
   outputDir: 'screenshots/tablet_10inch',
+  supportsFraming: true,
+  framedCanvasWidth: 1800,
+  framedCanvasHeight: 3040,
+  framedTopMargin: 450,
+  framedOutputDir: 'screenshots/tablet_10inch/framed',
 );
 
 const _deviceProfiles = <String, DeviceProfile>{
@@ -76,13 +102,8 @@ const _deviceProfiles = <String, DeviceProfile>{
   'tablet_10': tablet10Profile,
 };
 
-/// Promo-frame canvas size.
-const double framedCanvasWidth = 1200;
-const double framedCanvasHeight = 2400;
-
 /// Pixel-style frame geometry.
 const double frameBezel = 12;
-const double frameTopMargin = 450; // lowers the phone for top promo text
 const double bodyCornerRadius = 42;
 const double screenCornerRadius = 30;
 
@@ -295,9 +316,11 @@ class _ScreenshotAppState extends ConsumerState<ScreenshotApp> {
       );
       final framedBytes = framedByteData!.buffer.asUint8List();
 
-      final framedDir = Directory('screenshots/framed');
+      final framedDir = Directory(widget.profile.framedOutputDir);
       if (!framedDir.existsSync()) framedDir.createSync(recursive: true);
-      await File('screenshots/framed/$name.png').writeAsBytes(framedBytes);
+      await File(
+        '${widget.profile.framedOutputDir}/$name.png',
+      ).writeAsBytes(framedBytes);
     }
   }
 
@@ -316,11 +339,18 @@ class _ScreenshotAppState extends ConsumerState<ScreenshotApp> {
       ),
     );
 
+    // OverflowBox lets the capture target keep its full profile size even
+    // when it is larger than the host window; RepaintBoundary.toImage
+    // captures the whole layer, including the offscreen parts.
     return Center(
-      child: SizedBox(
-        width: widget.profile.width,
-        height: widget.profile.height,
-        child: RepaintBoundary(key: _boundaryKey, child: app),
+      child: OverflowBox(
+        maxWidth: widget.profile.width,
+        maxHeight: widget.profile.height,
+        child: SizedBox(
+          width: widget.profile.width,
+          height: widget.profile.height,
+          child: RepaintBoundary(key: _boundaryKey, child: app),
+        ),
       ),
     );
   }
@@ -363,8 +393,8 @@ ui.Paragraph _buildParagraph(
   return paragraph;
 }
 
-/// Composes a 1200x2400 promo screenshot by drawing [rawImage] inside a
-/// Pixel-style phone frame on a vertically expanded gradient background that
+/// Composes a promo screenshot by drawing [rawImage] inside a
+/// Pixel-style device frame on a vertically expanded gradient background that
 /// matches [themeColor], with per-screen promo text at the top.
 Future<ui.Image> _composeFramedImage(
   ui.Image rawImage,
@@ -372,10 +402,14 @@ Future<ui.Image> _composeFramedImage(
   String name,
   DeviceProfile profile,
 ) async {
+  final canvasWidth = profile.framedCanvasWidth;
+  final canvasHeight = profile.framedCanvasHeight;
+  final topMargin = profile.framedTopMargin;
+
   final recorder = ui.PictureRecorder();
   final canvas = ui.Canvas(
     recorder,
-    ui.Rect.fromLTWH(0, 0, framedCanvasWidth, framedCanvasHeight),
+    ui.Rect.fromLTWH(0, 0, canvasWidth, canvasHeight),
   );
 
   // Expanded vertical gradient: saturated theme color at the top (where the
@@ -384,19 +418,19 @@ Future<ui.Image> _composeFramedImage(
   final gradientEnd = Color.lerp(themeColor, Colors.white, 0.75)!;
   final backgroundPaint = ui.Paint()
     ..shader = ui.Gradient.linear(
-      ui.Offset(framedCanvasWidth / 2, 0),
-      ui.Offset(framedCanvasWidth / 2, framedCanvasHeight),
+      ui.Offset(canvasWidth / 2, 0),
+      ui.Offset(canvasWidth / 2, canvasHeight),
       [gradientStart, gradientEnd],
     );
   canvas.drawRect(
-    ui.Rect.fromLTWH(0, 0, framedCanvasWidth, framedCanvasHeight),
+    ui.Rect.fromLTWH(0, 0, canvasWidth, canvasHeight),
     backgroundPaint,
   );
 
   // Promo text.
   final promo = _promoTexts[name];
   if (promo != null) {
-    const textMaxWidth = 1150.0;
+    final textMaxWidth = canvasWidth - 50;
     const titleFontSize = 120.0;
     const subtitleFontSize = 44.0;
     const titleToSubtitleSpacing = 24.0;
@@ -414,13 +448,13 @@ Future<ui.Image> _composeFramedImage(
       textMaxWidth,
     );
 
-    // Center the text block vertically in the top margin above the phone.
+    // Center the text block vertically in the top margin above the device.
     final textBlockHeight =
         title.height + titleToSubtitleSpacing + subtitle.height;
-    final titleY = (frameTopMargin - textBlockHeight) / 2;
+    final titleY = (topMargin - textBlockHeight) / 2;
     final subtitleY = titleY + title.height + titleToSubtitleSpacing;
-    final titleX = (framedCanvasWidth - title.width) / 2;
-    final subtitleX = (framedCanvasWidth - subtitle.width) / 2;
+    final titleX = (canvasWidth - title.width) / 2;
+    final subtitleX = (canvasWidth - subtitle.width) / 2;
 
     canvas.drawParagraph(title, ui.Offset(titleX, titleY));
     canvas.drawParagraph(subtitle, ui.Offset(subtitleX, subtitleY));
@@ -430,8 +464,8 @@ Future<ui.Image> _composeFramedImage(
   final screenHeight = profile.physicalHeight;
   final bodyWidth = screenWidth + frameBezel * 2;
   final bodyHeight = screenHeight + frameBezel * 2;
-  final bodyLeft = (framedCanvasWidth - bodyWidth) / 2;
-  final bodyTop = frameTopMargin;
+  final bodyLeft = (canvasWidth - bodyWidth) / 2;
+  final bodyTop = topMargin;
   final bodyRight = bodyLeft + bodyWidth;
 
   final bodyRRect = ui.RRect.fromRectAndRadius(
@@ -445,7 +479,7 @@ Future<ui.Image> _composeFramedImage(
     ..maskFilter = const ui.MaskFilter.blur(ui.BlurStyle.normal, 30);
   canvas.drawRRect(bodyRRect, shadowPaint);
 
-  // Phone body.
+  // Device body.
   final bodyPaint = ui.Paint()..color = const ui.Color(0xFF1F1F1F);
   canvas.drawRRect(bodyRRect, bodyPaint);
 
@@ -497,11 +531,11 @@ Future<ui.Image> _composeFramedImage(
   // Front camera punch-hole.
   final cameraPaint = ui.Paint()..color = const ui.Color(0xFF000000);
   canvas.drawCircle(
-    ui.Offset(framedCanvasWidth / 2, bodyTop + frameBezel / 2),
+    ui.Offset(canvasWidth / 2, bodyTop + frameBezel / 2),
     5,
     cameraPaint,
   );
 
   final picture = recorder.endRecording();
-  return picture.toImage(framedCanvasWidth.toInt(), framedCanvasHeight.toInt());
+  return picture.toImage(canvasWidth.toInt(), canvasHeight.toInt());
 }
